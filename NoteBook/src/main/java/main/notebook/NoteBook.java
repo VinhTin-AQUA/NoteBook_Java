@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+
 
 package main.notebook;
 
-/**
- *
- * @author tinho
- */
+import Views.Home;
+
+
 public class NoteBook {
 
     public static void main(String[] args) {
+        Home home = new Home();
+        home.setVisible(true);
+        
         System.out.println("Hello World!");
     }
 }
