@@ -2,15 +2,14 @@
 
 package main.notebook;
 
-import Views.Home;
-
+import Views.tranh;
 
 
 public class NoteBook {
 
     public static void main(String[] args) {
-        Home home = new Home();
-        home.setVisible(true);
+        tranh a = new tranh();
+        a.setVisible(true);
     }
 
 }
