@@ -10,7 +10,5 @@ public class NoteBook {
     public static void main(String[] args) {
         Home home = new Home();
         home.setVisible(true);
-        
-        System.out.println("Hello World!");
     }
 }
