@@ -2,11 +2,15 @@
 
 package main.notebook;
 
+import Views.Home;
+
 
 
 public class NoteBook {
 
     public static void main(String[] args) {
-        System.out.println("hello Tranh");
+        Home home = new Home();
+        home.setVisible(true);
     }
+
 }
