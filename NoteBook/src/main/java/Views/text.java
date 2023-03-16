@@ -15,7 +15,7 @@ public class text extends javax.swing.JFrame {
      */
     public text() {
        
-        
+        this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
         initComponents();
     }
@@ -30,9 +30,12 @@ public class text extends javax.swing.JFrame {
     private void initComponents() {
 
         taskbar = new javax.swing.JPanel();
-        taskbarname = new javax.swing.JLabel();
         find = new javax.swing.JPanel();
         seach = new javax.swing.JTextField();
+        nametaskbar = new javax.swing.JPanel();
+        note = new javax.swing.JLabel();
+        ok = new javax.swing.JLabel();
+        bo = new javax.swing.JLabel();
         chuatoolbar = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
         save = new javax.swing.JButton();
@@ -54,10 +57,6 @@ public class text extends javax.swing.JFrame {
         taskbar.setBackground(new java.awt.Color(220, 211, 203));
         taskbar.setPreferredSize(new java.awt.Dimension(807, 80));
         taskbar.setLayout(new java.awt.BorderLayout());
-
-        taskbarname.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        taskbarname.setText("NOTEBOOK");
-        taskbar.add(taskbarname, java.awt.BorderLayout.LINE_START);
 
         find.setBackground(new java.awt.Color(220, 211, 203));
         find.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
@@ -95,6 +94,33 @@ public class text extends javax.swing.JFrame {
 
         taskbar.add(find, java.awt.BorderLayout.LINE_END);
 
+        nametaskbar.setBackground(new java.awt.Color(220, 211, 203));
+        nametaskbar.setPreferredSize(new java.awt.Dimension(130, 80));
+        nametaskbar.setLayout(new java.awt.BorderLayout());
+
+        note.setBackground(new java.awt.Color(220, 211, 203));
+        note.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        note.setText("NOTE");
+        note.setMinimumSize(new java.awt.Dimension(59, 26));
+        note.setName(""); // NOI18N
+        note.setOpaque(true);
+        note.setPreferredSize(new java.awt.Dimension(57, 26));
+        nametaskbar.add(note, java.awt.BorderLayout.LINE_START);
+        note.getAccessibleContext().setAccessibleParent(note);
+
+        ok.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        ok.setForeground(new java.awt.Color(148, 156, 159));
+        ok.setText("OK");
+        ok.setPreferredSize(new java.awt.Dimension(45, 26));
+        nametaskbar.add(ok, java.awt.BorderLayout.LINE_END);
+
+        bo.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        bo.setForeground(new java.awt.Color(97, 106, 107));
+        bo.setText("BO");
+        nametaskbar.add(bo, java.awt.BorderLayout.CENTER);
+
+        taskbar.add(nametaskbar, java.awt.BorderLayout.LINE_START);
+
         chuatoolbar.setBackground(new java.awt.Color(220, 211, 203));
         chuatoolbar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -130,7 +156,7 @@ public class text extends javax.swing.JFrame {
         checkbox.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(checkbox);
 
-        chuatoolbar.add(jToolBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 290, 40));
+        chuatoolbar.add(jToolBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 290, 40));
 
         taskbar.add(chuatoolbar, java.awt.BorderLayout.CENTER);
 
@@ -167,12 +193,13 @@ public class text extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(253, 253, 244));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
         jPanel1.setMinimumSize(new java.awt.Dimension(80, 100));
+        jPanel1.setPreferredSize(new java.awt.Dimension(80, 299));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 78, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,6 +301,7 @@ public class text extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bo;
     private javax.swing.JButton bold;
     private javax.swing.JButton checkbox;
     private javax.swing.JPanel chuatitle;
@@ -287,10 +315,12 @@ public class text extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPanel main;
+    private javax.swing.JPanel nametaskbar;
+    private javax.swing.JLabel note;
+    private javax.swing.JLabel ok;
     private javax.swing.JButton save;
     private javax.swing.JTextField seach;
     private javax.swing.JPanel taskbar;
-    private javax.swing.JLabel taskbarname;
     private javax.swing.JTextField title;
     // End of variables declaration//GEN-END:variables
 }
