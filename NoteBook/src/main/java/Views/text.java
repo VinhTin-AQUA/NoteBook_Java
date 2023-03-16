@@ -81,7 +81,7 @@ public class text extends javax.swing.JFrame {
             findLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(findLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(seach, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addComponent(seach, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addContainerGap())
         );
         findLayout.setVerticalGroup(
@@ -89,7 +89,7 @@ public class text extends javax.swing.JFrame {
             .addGroup(findLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(seach, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         taskbar.add(find, java.awt.BorderLayout.LINE_END);
@@ -136,7 +136,6 @@ public class text extends javax.swing.JFrame {
         save.getAccessibleContext().setAccessibleParent(save);
 
         image.setBackground(new java.awt.Color(220, 211, 203));
-        image.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Desktop\\NoteBook_Java\\NoteBook\\src\\main\\java\\icon\\icons8-image-30.png")); // NOI18N
         image.setFocusable(false);
         image.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         image.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -203,7 +202,7 @@ public class text extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         main.add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -220,7 +219,7 @@ public class text extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         main.add(jPanel2, java.awt.BorderLayout.LINE_END);
@@ -233,7 +232,7 @@ public class text extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
+            .addGap(0, 797, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
