@@ -15,5 +15,6 @@ public class NoteBook {
         text.setVisible(true);
         
         System.out.println("hello");
+        System.out.println("Nhu Tranh xinh dep");
     }
 }
