@@ -1,22 +1,11 @@
 
 package Views;
 
-<<<<<<< HEAD
-/**
- *
- * @author ASUS
- */
+
+
 public class Text extends javax.swing.JFrame {
 
-    /**
-     * Creates new form text
-     */
     public Text() {
-=======
-public class text extends javax.swing.JFrame {
-
-    public text() {
->>>>>>> da70e9ad9fc0b067be6598652e3ffd38e9ea6168
         initComponents();
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
@@ -53,8 +42,6 @@ public class text extends javax.swing.JFrame {
         taskbar.setPreferredSize(new java.awt.Dimension(807, 80));
         taskbar.setLayout(new java.awt.BorderLayout());
 
-<<<<<<< HEAD
-=======
         find.setBackground(new java.awt.Color(220, 211, 203));
         find.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         find.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -72,9 +59,8 @@ public class text extends javax.swing.JFrame {
                 seachActionPerformed(evt);
             }
         });
-<<<<<<< HEAD
+
         find.add(seach, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 17, 356, 45));
-=======
 
         javax.swing.GroupLayout findLayout = new javax.swing.GroupLayout(find);
         find.setLayout(findLayout);
@@ -92,11 +78,9 @@ public class text extends javax.swing.JFrame {
                 .addComponent(seach, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
->>>>>>> 11183ed820e4237ea2beccdf4032cbf49c10fee6
 
         taskbar.add(find, java.awt.BorderLayout.LINE_END);
 
->>>>>>> da70e9ad9fc0b067be6598652e3ffd38e9ea6168
         nametaskbar.setBackground(new java.awt.Color(220, 211, 203));
         nametaskbar.setPreferredSize(new java.awt.Dimension(130, 80));
         nametaskbar.setLayout(new java.awt.BorderLayout());
