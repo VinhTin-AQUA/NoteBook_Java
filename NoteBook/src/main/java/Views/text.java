@@ -14,10 +14,9 @@ public class text extends javax.swing.JFrame {
      * Creates new form text
      */
     public text() {
-       
+        initComponents();
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
-        initComponents();
     }
 
     /**
@@ -30,8 +29,6 @@ public class text extends javax.swing.JFrame {
     private void initComponents() {
 
         taskbar = new javax.swing.JPanel();
-        find = new javax.swing.JPanel();
-        seach = new javax.swing.JTextField();
         nametaskbar = new javax.swing.JPanel();
         note = new javax.swing.JLabel();
         ok = new javax.swing.JLabel();
@@ -57,42 +54,6 @@ public class text extends javax.swing.JFrame {
         taskbar.setBackground(new java.awt.Color(220, 211, 203));
         taskbar.setPreferredSize(new java.awt.Dimension(807, 80));
         taskbar.setLayout(new java.awt.BorderLayout());
-
-        find.setBackground(new java.awt.Color(220, 211, 203));
-        find.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        find.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        find.setOpaque(false);
-        find.setPreferredSize(new java.awt.Dimension(380, 80));
-
-        seach.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        seach.setText("  searching");
-        seach.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(153, 153, 153)));
-        seach.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        seach.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        seach.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seachActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout findLayout = new javax.swing.GroupLayout(find);
-        find.setLayout(findLayout);
-        findLayout.setHorizontalGroup(
-            findLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(findLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(seach, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        findLayout.setVerticalGroup(
-            findLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(findLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(seach, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        taskbar.add(find, java.awt.BorderLayout.LINE_END);
 
         nametaskbar.setBackground(new java.awt.Color(220, 211, 203));
         nametaskbar.setPreferredSize(new java.awt.Dimension(130, 80));
@@ -257,10 +218,6 @@ public class text extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void seachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seachActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_seachActionPerformed
-
     private void titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_titleActionPerformed
@@ -306,7 +263,6 @@ public class text extends javax.swing.JFrame {
     private javax.swing.JButton checkbox;
     private javax.swing.JPanel chuatitle;
     private javax.swing.JPanel chuatoolbar;
-    private javax.swing.JPanel find;
     private javax.swing.JButton image;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -319,7 +275,6 @@ public class text extends javax.swing.JFrame {
     private javax.swing.JLabel note;
     private javax.swing.JLabel ok;
     private javax.swing.JButton save;
-    private javax.swing.JTextField seach;
     private javax.swing.JPanel taskbar;
     private javax.swing.JTextField title;
     // End of variables declaration//GEN-END:variables
