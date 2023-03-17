@@ -59,7 +59,27 @@ public class text extends javax.swing.JFrame {
                 seachActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
         find.add(seach, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 17, 356, 45));
+=======
+
+        javax.swing.GroupLayout findLayout = new javax.swing.GroupLayout(find);
+        find.setLayout(findLayout);
+        findLayout.setHorizontalGroup(
+            findLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(findLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(seach, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        findLayout.setVerticalGroup(
+            findLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(findLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(seach, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+>>>>>>> 11183ed820e4237ea2beccdf4032cbf49c10fee6
 
         taskbar.add(find, java.awt.BorderLayout.LINE_END);
 
@@ -168,7 +188,7 @@ public class text extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         main.add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -185,7 +205,7 @@ public class text extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         main.add(jPanel2, java.awt.BorderLayout.LINE_END);
@@ -198,7 +218,7 @@ public class text extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
+            .addGap(0, 797, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
