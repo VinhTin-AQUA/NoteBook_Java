@@ -3,7 +3,7 @@
 package main.notebook;
 
 import Views.Home;
-import Views.text;
+import Views.Text;
 
 
 
@@ -15,7 +15,7 @@ public class NoteBook {
 //        Home a = new Home();
 //        a.setVisible(true);
 
-        text text = new text();
+        Text text = new Text();
         text.setVisible(true);
 //        System.out.println("hello");
     }
