@@ -4,17 +4,48 @@
  */
 package Views;
 
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author tinho
  */
 public class App extends javax.swing.JFrame {
-
-    /**
-     * Creates new form App
-     */
+    private String path = System.getProperty("user.dir");
     public App() {
         initComponents();
+        this.setSize(1200,700);
+        this.setTitle("NOTEBOOK");
+        this.setLocationRelativeTo(null);
+        icon(); 
+    }
+    
+    private void icon() {
+        path = path.replace("\\", "\\\\");
+          ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
+          jButton1.setIcon(icon);
+          
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\image.png");
+          jButton2.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\deleteimage.png");
+          jButton3.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
+          jButton4.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\deletecheck.png");
+          jButton5.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\pass.png");
+          jButton6.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\color.png");
+          jButton7.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\bold.png");
+          jButton8.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\italic.png");
+          jButton9.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
+          jButton10.setIcon(icon);
+          
+          
     }
 
     /**
@@ -26,17 +57,258 @@ public class App extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        Text = new javax.swing.JPanel();
+        Title = new javax.swing.JPanel();
+        NOTEBOOK = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        majorpage = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new java.awt.CardLayout());
+
+        Text.setLayout(new java.awt.BorderLayout());
+
+        Title.setBackground(new java.awt.Color(220, 211, 203));
+        Title.setPreferredSize(new java.awt.Dimension(855, 90));
+        Title.setLayout(new java.awt.BorderLayout());
+
+        NOTEBOOK.setBackground(new java.awt.Color(220, 211, 203));
+        NOTEBOOK.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        NOTEBOOK.setMinimumSize(new java.awt.Dimension(145, 33));
+        NOTEBOOK.setName(""); // NOI18N
+        NOTEBOOK.setPreferredSize(new java.awt.Dimension(145, 90));
+        NOTEBOOK.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setBackground(new java.awt.Color(220, 211, 203));
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel2.setText("NOTE");
+        jLabel2.setOpaque(true);
+        jLabel2.setPreferredSize(new java.awt.Dimension(71, 33));
+        NOTEBOOK.add(jLabel2, java.awt.BorderLayout.LINE_START);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(97, 106, 107));
+        jLabel1.setText("BO");
+        NOTEBOOK.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(148, 156, 159));
+        jLabel3.setText("OK");
+        NOTEBOOK.add(jLabel3, java.awt.BorderLayout.LINE_END);
+
+        Title.add(NOTEBOOK, java.awt.BorderLayout.LINE_START);
+
+        jPanel2.setBackground(new java.awt.Color(220, 211, 203));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jPanel8.setBackground(new java.awt.Color(220, 211, 203));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jToolBar1.setBackground(new java.awt.Color(220, 211, 203));
+        jToolBar1.setRollover(true);
+        jToolBar1.setMargin(new java.awt.Insets(0, 0, 0, 10));
+        jToolBar1.setPreferredSize(new java.awt.Dimension(300, 45));
+
+        jButton1.setBackground(new java.awt.Color(220, 211, 203));
+        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setIconTextGap(10);
+        jButton1.setMargin(new java.awt.Insets(2, 14, 3, 20));
+        jButton1.setPreferredSize(new java.awt.Dimension(10, 2));
+        jToolBar1.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(220, 211, 203));
+        jButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton2);
+
+        jButton3.setBackground(new java.awt.Color(220, 211, 203));
+        jButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton3);
+
+        jButton4.setBackground(new java.awt.Color(220, 211, 203));
+        jButton4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton4);
+
+        jButton5.setBackground(new java.awt.Color(220, 211, 203));
+        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton5);
+
+        jButton6.setBackground(new java.awt.Color(220, 211, 203));
+        jButton6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton6);
+
+        jButton7.setBackground(new java.awt.Color(220, 211, 203));
+        jButton7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton7);
+
+        jButton8.setBackground(new java.awt.Color(220, 211, 203));
+        jButton8.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton8);
+
+        jButton9.setBackground(new java.awt.Color(220, 211, 203));
+        jButton9.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton9.setFocusable(false);
+        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton9);
+
+        jButton10.setBackground(new java.awt.Color(220, 211, 203));
+        jButton10.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton10.setFocusable(false);
+        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton10);
+
+        jPanel8.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 570, -1));
+
+        jPanel2.add(jPanel8, java.awt.BorderLayout.PAGE_END);
+
+        Title.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        Text.add(Title, java.awt.BorderLayout.PAGE_START);
+
+        majorpage.setBackground(new java.awt.Color(253, 253, 244));
+        majorpage.setLayout(new java.awt.BorderLayout());
+
+        jTextField1.setBackground(new java.awt.Color(253, 253, 244));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("Title");
+        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(253, 253, 244)));
+        jTextField1.setPreferredSize(new java.awt.Dimension(64, 70));
+        jTextField1.setSelectionColor(new java.awt.Color(253, 253, 244));
+        majorpage.add(jTextField1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel4.setBackground(new java.awt.Color(253, 253, 244));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 354, Short.MAX_VALUE)
+        );
+
+        majorpage.add(jPanel4, java.awt.BorderLayout.LINE_END);
+
+        jPanel5.setBackground(new java.awt.Color(253, 253, 244));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 354, Short.MAX_VALUE)
+        );
+
+        majorpage.add(jPanel5, java.awt.BorderLayout.LINE_START);
+
+        jPanel6.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel6.setPreferredSize(new java.awt.Dimension(855, 80));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 855, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+
+        majorpage.add(jPanel6, java.awt.BorderLayout.PAGE_END);
+
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        jTextPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
+        jTextPane1.setPreferredSize(new java.awt.Dimension(400, 20));
+        jTextPane1.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(jTextPane1);
+
+        jPanel7.add(jScrollPane2, java.awt.BorderLayout.LINE_START);
+
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jTextArea2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
+        jTextArea2.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        jTextArea2.setSelectionColor(new java.awt.Color(253, 253, 244));
+        jScrollPane3.setViewportView(jTextArea2);
+
+        jPanel7.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        majorpage.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        Text.add(majorpage, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(Text, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -78,5 +350,35 @@ public class App extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel NOTEBOOK;
+    private javax.swing.JPanel Text;
+    private javax.swing.JPanel Title;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JPanel majorpage;
     // End of variables declaration//GEN-END:variables
 }
