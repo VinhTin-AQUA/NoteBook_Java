@@ -4,7 +4,11 @@
  */
 package Views;
 
-import java.awt.Dimension;
+
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,12 +17,16 @@ import javax.swing.ImageIcon;
  */
 public class App extends javax.swing.JFrame {
     private String path = System.getProperty("user.dir");
-    public App() {
+        
+    public App(){
+        
         initComponents();
         this.setSize(1200,700);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
+        jToolBar1.setLayout(new GridLayout(1, 10, 5, 5));
         icon(); 
+        
     }
     
     private void icon() {
@@ -45,6 +53,7 @@ public class App extends javax.swing.JFrame {
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
           jButton10.setIcon(icon);
           
+         
           
     }
 
@@ -381,4 +390,8 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel majorpage;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon(ImageIcon icon) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
