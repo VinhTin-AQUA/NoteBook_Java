@@ -71,28 +71,6 @@ public class App extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        home = new javax.swing.JPanel();
-        taskbar = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jPanel19 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
         Text = new javax.swing.JPanel();
         Title = new javax.swing.JPanel();
         NOTEBOOK = new javax.swing.JPanel();
@@ -122,6 +100,28 @@ public class App extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        home = new javax.swing.JPanel();
+        taskbar = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
 
         jButton12.setText("jButton12");
 
@@ -134,181 +134,6 @@ public class App extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.CardLayout());
-
-        home.setBackground(new java.awt.Color(255, 255, 255));
-        home.setLayout(new java.awt.BorderLayout());
-
-        taskbar.setBackground(new java.awt.Color(220, 211, 203));
-        taskbar.setPreferredSize(new java.awt.Dimension(90, 100));
-        taskbar.setLayout(new java.awt.BorderLayout());
-
-        jPanel10.setBackground(new java.awt.Color(220, 211, 203));
-        jPanel10.setPreferredSize(new java.awt.Dimension(168, 100));
-        jPanel10.setLayout(new java.awt.BorderLayout());
-
-        jLabel4.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 51));
-        jLabel4.setText("NOTE");
-        jLabel4.setPreferredSize(new java.awt.Dimension(85, 33));
-        jPanel10.add(jLabel4, java.awt.BorderLayout.LINE_START);
-
-        jLabel5.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel5.setText("BO");
-        jLabel5.setPreferredSize(new java.awt.Dimension(38, 33));
-        jPanel10.add(jLabel5, java.awt.BorderLayout.CENTER);
-
-        jLabel6.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel6.setText("OK");
-        jPanel10.add(jLabel6, java.awt.BorderLayout.LINE_END);
-
-        taskbar.add(jPanel10, java.awt.BorderLayout.LINE_START);
-
-        jPanel9.setBackground(new java.awt.Color(220, 211, 203));
-        jPanel9.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel9.setPreferredSize(new java.awt.Dimension(300, 100));
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Kristen ITC", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 102, 51));
-        jTextField2.setText("Search");
-        jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 42, 290, 40));
-
-        taskbar.add(jPanel9, java.awt.BorderLayout.LINE_END);
-
-        home.add(taskbar, java.awt.BorderLayout.PAGE_START);
-
-        jPanel3.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane1.setBackground(new java.awt.Color(255, 204, 204));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 100));
-
-        jPanel11.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel11.setPreferredSize(new java.awt.Dimension(600, 353));
-        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel11.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 160, 50));
-
-        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel11.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 160, 50));
-
-        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel11.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 160, 50));
-
-        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel11.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 160, 50));
-
-        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel11.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 160, 50));
-
-        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel11.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 160, 50));
-
-        jScrollPane1.setViewportView(jPanel11);
-
-        jPanel3.add(jScrollPane1, java.awt.BorderLayout.LINE_END);
-
-        jPanel19.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel19.setLayout(new java.awt.BorderLayout());
-
-        jPanel18.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton15.setBackground(new java.awt.Color(255, 255, 255));
-        jButton15.setFont(new java.awt.Font("Kristen ITC", 1, 14)); // NOI18N
-        jButton15.setText("NEW NOTE");
-        jPanel18.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 40));
-
-        jButton16.setBackground(new java.awt.Color(255, 255, 255));
-        jButton16.setFont(new java.awt.Font("Kristen ITC", 1, 14)); // NOI18N
-        jButton16.setText("NEW TYPE");
-        jPanel18.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 130, 40));
-
-        jPanel19.add(jPanel18, java.awt.BorderLayout.PAGE_START);
-
-        jScrollPane4.setViewportView(jPanel19);
-
-        jPanel3.add(jScrollPane4, java.awt.BorderLayout.CENTER);
-
-        home.add(jPanel3, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(home, "card3");
 
         Text.setLayout(new java.awt.BorderLayout());
 
@@ -517,6 +342,178 @@ public class App extends javax.swing.JFrame {
         Text.add(majorpage, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(Text, "card3");
+
+        home.setBackground(new java.awt.Color(255, 255, 255));
+        home.setLayout(new java.awt.BorderLayout());
+
+        taskbar.setBackground(new java.awt.Color(220, 211, 203));
+        taskbar.setPreferredSize(new java.awt.Dimension(90, 100));
+        taskbar.setLayout(new java.awt.BorderLayout());
+
+        jPanel10.setBackground(new java.awt.Color(220, 211, 203));
+        jPanel10.setPreferredSize(new java.awt.Dimension(168, 100));
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 102, 51));
+        jLabel4.setText("NOTE");
+        jLabel4.setPreferredSize(new java.awt.Dimension(85, 33));
+        jPanel10.add(jLabel4, java.awt.BorderLayout.LINE_START);
+
+        jLabel5.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel5.setText("BO");
+        jLabel5.setPreferredSize(new java.awt.Dimension(38, 33));
+        jPanel10.add(jLabel5, java.awt.BorderLayout.CENTER);
+
+        jLabel6.setFont(new java.awt.Font("Kristen ITC", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel6.setText("OK");
+        jPanel10.add(jLabel6, java.awt.BorderLayout.LINE_END);
+
+        taskbar.add(jPanel10, java.awt.BorderLayout.LINE_START);
+
+        jPanel9.setBackground(new java.awt.Color(220, 211, 203));
+        jPanel9.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel9.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField2.setFont(new java.awt.Font("Kristen ITC", 0, 12)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(0, 102, 51));
+        jTextField2.setText("Search");
+        jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 42, 290, 40));
+
+        taskbar.add(jPanel9, java.awt.BorderLayout.LINE_END);
+
+        home.add(taskbar, java.awt.BorderLayout.PAGE_START);
+
+        jPanel3.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 204, 204));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 100));
+
+        jPanel11.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel11.setPreferredSize(new java.awt.Dimension(600, 353));
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 160, 50));
+
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 160, 50));
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 160, 50));
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 160, 50));
+
+        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 160, 50));
+
+        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 160, 50));
+
+        jScrollPane1.setViewportView(jPanel11);
+
+        jPanel3.add(jScrollPane1, java.awt.BorderLayout.LINE_END);
+
+        jPanel19.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel19.setLayout(new java.awt.BorderLayout());
+
+        jPanel18.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton15.setFont(new java.awt.Font("Kristen ITC", 1, 14)); // NOI18N
+        jButton15.setText("NEW NOTE");
+        jPanel18.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 40));
+
+        jButton16.setFont(new java.awt.Font("Kristen ITC", 1, 14)); // NOI18N
+        jButton16.setText("NEW TYPE");
+        jPanel18.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 130, 40));
+
+        jPanel19.add(jPanel18, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane4.setViewportView(jPanel19);
+
+        jPanel3.add(jScrollPane4, java.awt.BorderLayout.CENTER);
+
+        home.add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(home, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
