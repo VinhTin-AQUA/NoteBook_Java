@@ -24,27 +24,33 @@ public class App extends javax.swing.JFrame {
         this.setSize(1200,700);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
-        jToolBar1.setLayout(new GridLayout(1, 10, 5, 5));
         icon(); 
         
     }
     
     private void icon() {
         path = path.replace("\\", "\\\\");
-          ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
-          jButton1.setIcon(icon);
+          ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\left.png");
+          left.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\rotate.png");
+          right.setIcon(icon);
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\right.png");
+          rotate.setIcon(icon);
           
+          jToolBar1.setLayout(new GridLayout(1,11,10,10));
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
+          jButton1.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\image.png");
           jButton2.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\deleteimage.png");
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\noimg.png");
           jButton3.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\tick.png");
           jButton4.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\deletecheck.png");
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\untick.png");
           jButton5.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\pass.png");
           jButton6.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\color.png");
+          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\fill.png");
           jButton7.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\bold.png");
           jButton8.setIcon(icon);
@@ -52,6 +58,8 @@ public class App extends javax.swing.JFrame {
           jButton9.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
           jButton10.setIcon(icon);
+          //icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
+          
           
          
           
@@ -77,6 +85,10 @@ public class App extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        task = new javax.swing.JPanel();
+        left = new javax.swing.JButton();
+        right = new javax.swing.JButton();
+        rotate = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -90,6 +102,7 @@ public class App extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         majorpage = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -158,6 +171,7 @@ public class App extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(97, 106, 107));
         jLabel1.setText("BO");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         NOTEBOOK.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
@@ -165,94 +179,122 @@ public class App extends javax.swing.JFrame {
         jLabel3.setText("OK");
         NOTEBOOK.add(jLabel3, java.awt.BorderLayout.LINE_END);
 
+        task.setPreferredSize(new java.awt.Dimension(150, 40));
+        task.setLayout(new java.awt.BorderLayout());
+
+        left.setBackground(new java.awt.Color(220, 211, 203));
+        left.setBorder(null);
+        left.setPreferredSize(new java.awt.Dimension(50, 23));
+        task.add(left, java.awt.BorderLayout.LINE_START);
+
+        right.setBackground(new java.awt.Color(220, 211, 203));
+        right.setBorder(null);
+        right.setPreferredSize(new java.awt.Dimension(50, 23));
+        task.add(right, java.awt.BorderLayout.LINE_END);
+
+        rotate.setBackground(new java.awt.Color(220, 211, 203));
+        rotate.setBorder(null);
+        task.add(rotate, java.awt.BorderLayout.CENTER);
+
+        NOTEBOOK.add(task, java.awt.BorderLayout.PAGE_END);
+
         Title.add(NOTEBOOK, java.awt.BorderLayout.LINE_START);
 
         jPanel2.setBackground(new java.awt.Color(220, 211, 203));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setBackground(new java.awt.Color(220, 211, 203));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 673, -1));
 
         jToolBar1.setBackground(new java.awt.Color(220, 211, 203));
+        jToolBar1.setBorder(null);
         jToolBar1.setRollover(true);
-        jToolBar1.setMargin(new java.awt.Insets(0, 0, 0, 10));
-        jToolBar1.setPreferredSize(new java.awt.Dimension(300, 45));
 
-        jButton1.setBackground(new java.awt.Color(220, 211, 203));
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton1.setBackground(new java.awt.Color(220, 211, 207));
+        jButton1.setBorder(null);
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setIconTextGap(10);
-        jButton1.setMargin(new java.awt.Insets(2, 14, 3, 20));
-        jButton1.setPreferredSize(new java.awt.Dimension(10, 2));
+        jButton1.setPreferredSize(new java.awt.Dimension(65, 65));
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(220, 211, 203));
-        jButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton2.setBackground(new java.awt.Color(220, 211, 207));
+        jButton2.setBorder(null);
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        jButton3.setBackground(new java.awt.Color(220, 211, 203));
-        jButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton3.setBackground(new java.awt.Color(220, 211, 207));
+        jButton3.setBorder(null);
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
-        jButton4.setBackground(new java.awt.Color(220, 211, 203));
-        jButton4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton4.setBackground(new java.awt.Color(220, 211, 207));
+        jButton4.setBorder(null);
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton4);
 
-        jButton5.setBackground(new java.awt.Color(220, 211, 203));
-        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton5.setBackground(new java.awt.Color(220, 211, 207));
+        jButton5.setBorder(null);
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton5);
 
-        jButton6.setBackground(new java.awt.Color(220, 211, 203));
-        jButton6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton6.setBackground(new java.awt.Color(220, 211, 207));
+        jButton6.setBorder(null);
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton6);
 
-        jButton7.setBackground(new java.awt.Color(220, 211, 203));
-        jButton7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton7.setBackground(new java.awt.Color(220, 211, 207));
+        jButton7.setBorder(null);
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton7);
 
-        jButton8.setBackground(new java.awt.Color(220, 211, 203));
-        jButton8.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton8.setBackground(new java.awt.Color(220, 211, 207));
+        jButton8.setBorder(null);
         jButton8.setFocusable(false);
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton8);
 
-        jButton9.setBackground(new java.awt.Color(220, 211, 203));
-        jButton9.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton9.setBackground(new java.awt.Color(220, 211, 207));
+        jButton9.setBorder(null);
         jButton9.setFocusable(false);
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton9.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton9);
 
-        jButton10.setBackground(new java.awt.Color(220, 211, 203));
-        jButton10.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(220, 211, 203)));
+        jButton10.setBackground(new java.awt.Color(220, 211, 207));
+        jButton10.setBorder(null);
         jButton10.setFocusable(false);
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton10.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton10);
 
-        jPanel8.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 570, -1));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jToolBar1.add(jComboBox1);
 
-        jPanel2.add(jPanel8, java.awt.BorderLayout.PAGE_END);
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 620, 40));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -307,7 +349,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGap(0, 825, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,7 +561,7 @@ public class App extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,6 +627,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -619,7 +662,11 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JButton left;
     private javax.swing.JPanel majorpage;
+    private javax.swing.JButton right;
+    private javax.swing.JButton rotate;
+    private javax.swing.JPanel task;
     private javax.swing.JPanel taskbar;
     // End of variables declaration//GEN-END:variables
 
