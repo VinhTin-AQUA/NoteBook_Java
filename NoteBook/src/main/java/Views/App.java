@@ -41,21 +41,17 @@ public class App extends javax.swing.JFrame {
           ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\left.png");
           left.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\rotate.png");
-          right.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\right.png");
-          rotate.setIcon(icon);
+          
           
           jToolBar1.setLayout(new GridLayout(1,11,10,10));
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
           jButton1.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\image.png");
           jButton2.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\noimg.png");
-          jButton3.setIcon(icon);
+          
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\tick.png");
           jButton4.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\untick.png");
-          jButton5.setIcon(icon);
+          
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\pass.png");
           jButton6.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\fill.png");
@@ -107,16 +103,12 @@ public class App extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         task = new javax.swing.JPanel();
         left = new javax.swing.JButton();
-        right = new javax.swing.JButton();
-        rotate = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -300,6 +292,7 @@ public class App extends javax.swing.JFrame {
         jLabel3.setText("OK");
         NOTEBOOK.add(jLabel3, java.awt.BorderLayout.LINE_END);
 
+        task.setBackground(new java.awt.Color(220, 211, 203));
         task.setPreferredSize(new java.awt.Dimension(150, 40));
         task.setLayout(new java.awt.BorderLayout());
 
@@ -312,15 +305,6 @@ public class App extends javax.swing.JFrame {
             }
         });
         task.add(left, java.awt.BorderLayout.LINE_START);
-
-        right.setBackground(new java.awt.Color(220, 211, 203));
-        right.setBorder(null);
-        right.setPreferredSize(new java.awt.Dimension(50, 23));
-        task.add(right, java.awt.BorderLayout.LINE_END);
-
-        rotate.setBackground(new java.awt.Color(220, 211, 203));
-        rotate.setBorder(null);
-        task.add(rotate, java.awt.BorderLayout.CENTER);
 
         NOTEBOOK.add(task, java.awt.BorderLayout.PAGE_END);
 
@@ -353,14 +337,6 @@ public class App extends javax.swing.JFrame {
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        jButton3.setBackground(new java.awt.Color(220, 211, 207));
-        jButton3.setBorder(null);
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setPreferredSize(new java.awt.Dimension(65, 65));
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
-
         jButton4.setBackground(new java.awt.Color(220, 211, 207));
         jButton4.setBorder(null);
         jButton4.setFocusable(false);
@@ -368,14 +344,6 @@ public class App extends javax.swing.JFrame {
         jButton4.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton4);
-
-        jButton5.setBackground(new java.awt.Color(220, 211, 207));
-        jButton5.setBorder(null);
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setPreferredSize(new java.awt.Dimension(65, 65));
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
 
         jButton6.setBackground(new java.awt.Color(220, 211, 207));
         jButton6.setBorder(null);
@@ -436,12 +404,13 @@ public class App extends javax.swing.JFrame {
         majorpage.add(jTextField1, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel4.setPreferredSize(new java.awt.Dimension(115, 229));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addGap(0, 115, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,12 +420,13 @@ public class App extends javax.swing.JFrame {
         majorpage.add(jPanel4, java.awt.BorderLayout.LINE_END);
 
         jPanel5.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel5.setPreferredSize(new java.awt.Dimension(115, 229));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 115, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,7 +454,7 @@ public class App extends javax.swing.JFrame {
         jPanel7.setLayout(new java.awt.BorderLayout());
 
         jTextPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
-        jTextPane1.setPreferredSize(new java.awt.Dimension(400, 20));
+        jTextPane1.setPreferredSize(new java.awt.Dimension(300, 20));
         jTextPane1.setSelectionColor(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(jTextPane1);
 
@@ -578,9 +548,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -618,8 +586,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel majorpage;
     private javax.swing.JButton newnode;
     private javax.swing.JButton newtype;
-    private javax.swing.JButton right;
-    private javax.swing.JButton rotate;
     private javax.swing.JPanel task;
     private javax.swing.JPanel taskbar;
     // End of variables declaration//GEN-END:variables
