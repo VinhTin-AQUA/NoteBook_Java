@@ -40,7 +40,7 @@ public class App extends javax.swing.JFrame {
         path = path.replace("\\", "\\\\");
           ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\left.png");
           left.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\rotate.png");
+     
           
           
           jToolBar1.setLayout(new GridLayout(1,11,10,10));
@@ -48,9 +48,9 @@ public class App extends javax.swing.JFrame {
           jButton1.setIcon(icon);
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\image.png");
           jButton2.setIcon(icon);
-          
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\tick.png");
-          jButton4.setIcon(icon);
+          tick.setIcon(icon);
+          
           
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\pass.png");
           jButton6.setIcon(icon);
@@ -78,6 +78,8 @@ public class App extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel13 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jPanel1 = new javax.swing.JPanel();
         home = new javax.swing.JPanel();
         taskbar = new javax.swing.JPanel();
@@ -108,22 +110,25 @@ public class App extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tick = new javax.swing.JToggleButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         majorpage = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jTextPane2 = new javax.swing.JTextPane();
 
         jPanel13.setBackground(new java.awt.Color(253, 253, 244));
 
@@ -137,6 +142,10 @@ public class App extends javax.swing.JFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 490, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setViewportView(jTextPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -320,6 +329,7 @@ public class App extends javax.swing.JFrame {
         jToolBar1.setBackground(new java.awt.Color(220, 211, 203));
         jToolBar1.setBorder(null);
         jToolBar1.setRollover(true);
+        jToolBar1.setPreferredSize(new java.awt.Dimension(680, 65));
 
         jButton1.setBackground(new java.awt.Color(220, 211, 207));
         jButton1.setBorder(null);
@@ -327,6 +337,11 @@ public class App extends javax.swing.JFrame {
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton1);
 
         jButton2.setBackground(new java.awt.Color(220, 211, 207));
@@ -337,13 +352,12 @@ public class App extends javax.swing.JFrame {
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        jButton4.setBackground(new java.awt.Color(220, 211, 207));
-        jButton4.setBorder(null);
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setPreferredSize(new java.awt.Dimension(65, 65));
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton4);
+        tick.setBackground(new java.awt.Color(220, 211, 203));
+        tick.setBorder(null);
+        tick.setFocusable(false);
+        tick.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        tick.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(tick);
 
         jButton6.setBackground(new java.awt.Color(220, 211, 207));
         jButton6.setBorder(null);
@@ -385,7 +399,15 @@ public class App extends javax.swing.JFrame {
         jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton10);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 600, 50));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Tín ngu", "Tín ngáo", "Tín zịt", "Tín chicken", " " }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(153, 153, 153)));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(10, 22));
+        jComboBox1.setOpaque(true);
+        jComboBox1.setPreferredSize(new java.awt.Dimension(150, 22));
+        jToolBar1.add(jComboBox1);
+        jComboBox1.getAccessibleContext().setAccessibleParent(jComboBox1);
+
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 670, 50));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -414,7 +436,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
 
         majorpage.add(jPanel4, java.awt.BorderLayout.LINE_END);
@@ -430,7 +452,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
 
         majorpage.add(jPanel5, java.awt.BorderLayout.LINE_START);
@@ -442,7 +464,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGap(0, 818, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,28 +473,34 @@ public class App extends javax.swing.JFrame {
 
         majorpage.add(jPanel6, java.awt.BorderLayout.PAGE_END);
 
+        jPanel18.setPreferredSize(new java.awt.Dimension(595, 335));
+        jPanel18.setLayout(new java.awt.BorderLayout());
+
+        jPanel15.setLayout(new java.awt.BorderLayout());
+
+        jPanel7.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
+        jPanel7.setPreferredSize(new java.awt.Dimension(450, 335));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jTextPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
-        jTextPane1.setPreferredSize(new java.awt.Dimension(300, 20));
-        jTextPane1.setSelectionColor(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setViewportView(jTextPane1);
+        jLabel7.setText("jLabel7");
+        jLabel7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
+        jPanel7.add(jLabel7, java.awt.BorderLayout.CENTER);
 
-        jPanel7.add(jScrollPane2, java.awt.BorderLayout.LINE_START);
+        jPanel15.add(jPanel7, java.awt.BorderLayout.WEST);
 
-        jScrollPane3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
+        jPanel17.setLayout(new java.awt.BorderLayout());
+
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setViewportView(jTextPane2);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
-        jTextArea2.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        jTextArea2.setSelectionColor(new java.awt.Color(253, 253, 244));
-        jScrollPane3.setViewportView(jTextArea2);
+        jPanel17.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
-        jPanel7.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        jPanel15.add(jPanel17, java.awt.BorderLayout.CENTER);
 
-        majorpage.add(jPanel7, java.awt.BorderLayout.CENTER);
+        jPanel18.add(jPanel15, java.awt.BorderLayout.CENTER);
+
+        majorpage.add(jPanel18, java.awt.BorderLayout.CENTER);
 
         Text.add(majorpage, java.awt.BorderLayout.CENTER);
 
@@ -504,6 +532,10 @@ public class App extends javax.swing.JFrame {
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
         cardLayout.show(jPanel1, "home");
     }//GEN-LAST:event_leftActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -548,24 +580,28 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -577,10 +613,10 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton left;
     private javax.swing.JPanel majorpage;
@@ -588,6 +624,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton newtype;
     private javax.swing.JPanel task;
     private javax.swing.JPanel taskbar;
+    private javax.swing.JToggleButton tick;
     // End of variables declaration//GEN-END:variables
 
     private void setIcon(ImageIcon icon) {
