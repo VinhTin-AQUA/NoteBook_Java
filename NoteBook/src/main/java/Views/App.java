@@ -6,6 +6,7 @@ package Views;
 
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -23,13 +24,18 @@ public class App extends javax.swing.JFrame {
     public App(){
         
         initComponents();
+        path = path.replace("\\", "\\\\");
+        ImageIcon logo = new ImageIcon(path+"\\\\src\\\\main\\\\java\\\\icon\\\\notebook.png");
+                this.setIconImage(logo.getImage());
+        
         this.setSize(1200,700);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
         icon(); 
-        
-        
+        combo.setBackground(Color.WHITE);
+        combo.setOpaque(true);
         initComponents2();
+        
     }
     
     private void initComponents2() {
@@ -37,11 +43,10 @@ public class App extends javax.swing.JFrame {
     }
     
     private void icon() {
-        path = path.replace("\\", "\\\\");
+        //path = path.replace("\\", "\\\\");
           ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\left.png");
           left.setIcon(icon);
-     
-          
+    
           
           jToolBar1.setLayout(new GridLayout(1,11,10,10));
           icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
@@ -116,7 +121,7 @@ public class App extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo = new javax.swing.JComboBox<>();
         majorpage = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -329,7 +334,7 @@ public class App extends javax.swing.JFrame {
         jToolBar1.setBackground(new java.awt.Color(220, 211, 203));
         jToolBar1.setBorder(null);
         jToolBar1.setRollover(true);
-        jToolBar1.setPreferredSize(new java.awt.Dimension(680, 65));
+        jToolBar1.setPreferredSize(new java.awt.Dimension(1000, 65));
 
         jButton1.setBackground(new java.awt.Color(220, 211, 207));
         jButton1.setBorder(null);
@@ -399,15 +404,21 @@ public class App extends javax.swing.JFrame {
         jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton10);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Tín ngu", "Tín ngáo", "Tín zịt", "Tín chicken", " " }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(153, 153, 153)));
-        jComboBox1.setMinimumSize(new java.awt.Dimension(10, 22));
-        jComboBox1.setOpaque(true);
-        jComboBox1.setPreferredSize(new java.awt.Dimension(150, 22));
-        jToolBar1.add(jComboBox1);
-        jComboBox1.getAccessibleContext().setAccessibleParent(jComboBox1);
+        combo.setEditable(true);
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Tín ngu", "Tín ngáo", "Tín zịt", "Tín chicken", " " }));
+        combo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(220, 211, 203)));
+        combo.setMinimumSize(new java.awt.Dimension(10, 22));
+        combo.setOpaque(true);
+        combo.setPreferredSize(new java.awt.Dimension(200, 25));
+        combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(combo);
+        combo.getAccessibleContext().setAccessibleParent(combo);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 670, 50));
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 750, 50));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -436,7 +447,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 338, Short.MAX_VALUE)
         );
 
         majorpage.add(jPanel4, java.awt.BorderLayout.LINE_END);
@@ -452,7 +463,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 338, Short.MAX_VALUE)
         );
 
         majorpage.add(jPanel5, java.awt.BorderLayout.LINE_START);
@@ -464,7 +475,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 818, Short.MAX_VALUE)
+            .addGap(0, 910, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,7 +521,7 @@ public class App extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 825, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,6 +547,10 @@ public class App extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -576,6 +591,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel NOTEBOOK;
     private javax.swing.JPanel Text;
     private javax.swing.JPanel Title;
+    private javax.swing.JComboBox<String> combo;
     private javax.swing.JPanel home;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -584,7 +600,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
