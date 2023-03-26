@@ -1,82 +1,732 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Views;
 
-
+import Controllers.NoteController;
+import Controllers.NoteTypeController;
+import Models.Content;
+import Models.Note;
+import Models.NoteType;
+import Models.NoteTypeNote;
+import Models.Photo;
+import Models.TodoList;
+import _utility.WrapEditorKit;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
-/**
- *
- * @author tinho
- */
 public class App extends javax.swing.JFrame {
+
     private String path = System.getProperty("user.dir");
     private CardLayout cardLayout;
-        
-    public App(){
-        
+
+    private static int indexPhoto = -1; // điều khiền hiển thị hình ảnh qua lại khi soạn thảo
+    private static boolean checkClickToggleBtn = false; // nếu bấm nút chuyển văn bản sang todoList thì set True
+
+    private LinkedList<NoteTypeNote> noteTypeNotes; // danh sách noteType
+    private JPopupMenu contxtMenuNoteType; // menu chuột phải của mỗi notetype item
+    private JPopupMenu contxtMenuNote; // menu chuột phải của mỗi note
+    private JPopupMenu contxtMenuPhoto; // menu chuột phải của mỗi note
+    private JPopupMenu contxtMenuTodoItem; // menu chuột phải của mỗi note
+
+    private NoteType noteType; // biến tạm lưu thông tin noteType cần xóa
+    private JTextField textFieldTemp; // biến tạm để lưu đối tượng JTextField khi xử lý sự kiện chuột phải
+
+    private String fileName = ""; // đường dẫn tuyệt đối của hình ảnh tải lên
+    private String format = ""; // định dạng hình ảnh
+
+    private Note note; // chứa note cần chỉnh sửa hoặc lưu
+
+    // điều chỉnh hiển thị todoList và Content
+    private JScrollPane scrollPane;
+    private JTextPane textPane;
+    private JPanel pane;
+    private int todoItemSelect;
+// ========================================================================================= khởi tạo
+
+    public App() {
         initComponents();
-        path = path.replace("\\", "\\\\");
-        ImageIcon logo = new ImageIcon(path+"\\\\src\\\\main\\\\java\\\\icon\\\\notebook.png");
-                this.setIconImage(logo.getImage());
-        
-        this.setSize(1200,700);
+
+        ImageIcon logo = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\notebook.png");
+        this.setIconImage(logo.getImage());
+        this.setSize(1200, 700);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
-        icon(); 
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
         initComponents2();
-        
+        icon();
+        initPopupMenu();
     }
-    
+
     private void initComponents2() {
+        path = path.replace("\\", "\\\\");
         cardLayout = (CardLayout) jPanel1.getLayout();
+
+        note = new Note(-1, "", null, "", null, false, new Content(-1,
+                new byte[]{}), new LinkedList<TodoList>(), new LinkedList<Photo>());
+        loadNoteTypes(); // load noteType
+
+        jTextPane2.setEditorKit(new WrapEditorKit());
+        scrollPane = jScrollPane3;
+        textPane = jTextPane2;
+        pane = new JPanel();
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+        pane.setSize(427, 427);
+        pane.setBackground(Color.decode("#CCFFCC"));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
-    
+
     private void icon() {
         //path = path.replace("\\", "\\\\");
-          ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\left.png");
-          left.setIcon(icon);
-    
-          
-          jToolBar1.setLayout(new GridLayout(1,11,10,10));
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
-          jButton1.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\image.png");
-          jButton2.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\tick.png");
-          tick.setIcon(icon);
-          
-          
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\pass.png");
-          jButton6.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\fill.png");
-          jButton7.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\bold.png");
-          jButton8.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\italic.png");
-          jButton9.setIcon(icon);
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
-          jButton10.setIcon(icon);
-          
-          icon = new ImageIcon(path +"\\\\src\\\\main\\\\java\\\\icon\\\\add.png");
-          newnode.setIcon(icon);
-          newtype.setIcon(icon);
-           
-          
-          
-         
-          
+        ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\left.png");
+        left.setIcon(icon);
+
+        jToolBar1.setLayout(new GridLayout(1, 11, 10, 10));
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\save.png");
+        jButton1.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\image.png");
+        jButton2.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\tick.png");
+        tick.setIcon(icon);
+
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\pass.png");
+        jButton6.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\fill.png");
+        jButton7.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\bold.png");
+        jButton8.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\italic.png");
+        jButton9.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
+        jButton10.setIcon(icon);
+
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\add.png");
+        newnode.setIcon(icon);
+        newtype.setIcon(icon);
+
     }
+
+    // khởi tạp menu chuột phải
+    private void initPopupMenu() {
+        contxtMenuNoteType = new JPopupMenu(); // menu cua note typr
+        contxtMenuNote = new JPopupMenu(); // menu cua note
+        contxtMenuPhoto = new JPopupMenu(); // menu khi chon anh
+        contxtMenuTodoItem = new JPopupMenu(); // menu khi lam viec voi todolist
+
+        // menu chuột phải của notetype item
+        JMenuItem reNameNoteType = new JMenuItem("Rename");
+        reNameNoteType.addActionListener((ActionEvent e) -> {// đổi tên noteType
+            textFieldTemp.setFocusable(true);
+            textFieldTemp.selectAll(); // bôi đen toàn bộ văn bản
+            textFieldTemp.requestFocusInWindow(); // con trỏ chuột tự động focus vào jtext field
+        });
+        JMenuItem deleteNoteType = new JMenuItem("Delete");// xóa noteType
+        deleteNoteType.addActionListener((ActionEvent e) -> {
+            boolean checkDelete = NoteTypeController.deleteNoteType(noteType);
+            loadNoteTypes();
+        });
+        contxtMenuNoteType.add(reNameNoteType);
+        contxtMenuNoteType.add(deleteNoteType);
+
+        // menu chuột phải của mỗi note
+        JMenuItem deleteNote = new JMenuItem("Delete"); // xóa note
+        deleteNote.addActionListener((ActionEvent e) -> {
+            NoteController.deleteNote(this.note);
+            loadNoteTypes();
+            resetNote();
+            jPanel5.repaint();
+            jPanel5.revalidate();
+        });
+        JMenuItem setPassword = new JMenuItem("Set Password"); // set passwod
+        setPassword.addActionListener((ActionEvent e) -> {
+            java.awt.event.ActionEvent c = null;
+            jButton8ActionPerformed(c);
+            loadNoteTypes();
+            resetNote();
+            jPanel5.repaint();
+            jPanel5.revalidate();
+        });
+
+        JMenuItem deletePassword = new JMenuItem("Reset Password"); // xóa mật khẩu Password
+        deletePassword.addActionListener((ActionEvent e) -> {
+            String pass = enterPassword();
+            if (pass.equals("")) {
+
+            } else if (pass.equals(this.note.getPassword()) == true) {
+                NoteController.resetPassword(note);
+                loadNoteTypes();
+                resetNote();
+                jPanel5.repaint();
+                jPanel5.revalidate();
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect Password", "Confirm Password", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        contxtMenuNote.add(deleteNote);
+        contxtMenuNote.add(setPassword);
+        contxtMenuNote.add(deletePassword);
+    }
+
+    // hàm kiểm tra chứa ký tụ unicode
+    private static boolean containsUnicode(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            int c = input.charAt(i);
+            if (c > 127) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+// ====================================================================================== thiết lập
+    // thiết lập của các item NoteType
+    private void initItemNoteType(JTextField textField) {
+        Font font = new Font("Dialog", Font.BOLD, 18);
+        textField.setFocusable(false);
+        // styles
+        textField.setFont(font);
+        textField.setSize(178, 60);
+        textField.setBackground(Color.decode("#CCCCFF"));
+        textField.setForeground(Color.decode("#333333"));
+        textField.setSelectionColor(Color.decode("#66FFCC"));
+        textField.setCursor(Cursor.getDefaultCursor());
+
+//        textField.setName("-1");
+        // đặt lích thước cố định
+        Dimension pre = new Dimension(178, 60);
+        textField.setPreferredSize(pre);
+        textField.setMinimumSize(pre);
+        textField.setMaximumSize(pre);
+
+        // sự kiện chuột
+        textField.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                jTextField1MouseClicked(evt);
+            }
+        });
+        // sự kiện focus
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent evt) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void focusLost(FocusEvent evt) {
+                unfocus(evt);
+            }
+        });
+        // sự kiện nhấn phím
+        textField.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+    }
+
+    // clear text
+    private void clearDetail() {
+        jTextField1.setText("Title");
+        jLabel7.setIcon(null);
+        if (this.note.getPhotos().isEmpty() == false) {
+            jLabel7.setText("");
+        } else {
+            jLabel7.setText("No Image");
+        }
+        indexPhoto = -1;
+        tick.setSelected(false);
+
+        textPane.setText("");
+        scrollPane.setViewportView(textPane);
+        jPanel17.removeAll();
+        jPanel17.add(scrollPane);
+        jPanel17.revalidate();
+        jPanel17.repaint();
+    }
+
+    // khởi tạo lại note sau mỗi lần lưu
+    private void resetNote() {
+        note.setNoteId(-1);
+        note.setTitle("");
+        note.setPassword("");
+        note.setType(null);
+        note.setPin(false);
+        note.deleteContent();
+        note.clearTodoList();
+        note.clearPhotos();
+    }
+
+    // chuyển văn bản sang mảng byte
+    public byte[] toByteArray(StyledDocument doc, String text) {
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ObjectOutputStream oos;
+            oos = new ObjectOutputStream(out);
+            oos.writeObject(doc);
+            byte[] data = out.toByteArray();
+//            SaveTextColor.saveTextColor(data);
+            return data;
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    // thiết lập hiển thị todoList
+    private void setTodoListView() {
+        scrollPane.setViewportView(pane);
+        jPanel17.removeAll();
+        jPanel17.add(scrollPane);
+        pane.repaint();
+        pane.revalidate();
+        jPanel17.revalidate();
+        jPanel17.repaint();
+    }
+
+    // thiets lập hiển thị văn bản
+    private void setContentView() {
+        scrollPane.setViewportView(textPane);
+        jPanel17.removeAll();
+        jPanel17.add(scrollPane);
+        jPanel17.revalidate();
+        jPanel17.repaint();
+    }
+
+    // hiển thị todoList ra view
+    private void showTodoList(LinkedList<TodoList> todos) {
+        pane.removeAll();
+        int i = 0;
+        for (TodoList item : todos) {
+            // lấy thông tin của từng todo gắn vào check box
+
+            JCheckBox box = new JCheckBox();
+            box.setText("<html><body style='width: " + (jTextPane2.getWidth() - 108) + "px;'><div style='overflow-wrap: break-word;'>" + item.getItem() + "</div></body></html>");
+
+            // style
+            box.setFont(new Font("Arial", Font.PLAIN, 18));
+            box.setBackground(Color.decode("#CCFFCC"));
+
+            // margin
+            box.setMargin(new Insets(7, 0, 7, 10));
+
+            // checked
+            box.setSelected(item.isCheck());
+            box.setName(Integer.toString(i));
+            i++;
+
+            // set icon khi selected và un-selected
+            ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\un_check.png");
+            box.setIcon(icon);
+            icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
+            // "C:\Users\tinho\Desktop\NoteBook_Java\NoteBook\src\main\java\icon\check.png"
+            box.setSelectedIcon(icon);
+
+            // tạo 1 item todo
+            // nếu item được tích thì check = true và ngược lại
+            box.addActionListener((ActionEvent e) -> {
+                if (box.isSelected()) {
+                    item.setCheck(true);
+                } else {
+                    item.setCheck(false);
+                }
+            });
+            // xóa 1 item todo
+            box.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                    todoItemMouseClicked(evt);
+                }
+            });
+            pane.add(box);
+        }
+        // ô nhập thêm 1 item của todolist
+        JTextField addTodo = new JTextField("Add");
+        Dimension pre = new Dimension(700, 40);
+        addTodo.setMaximumSize(pre);
+        addTodo.setMaximumSize(pre);
+        addTodo.setBorder(new EmptyBorder(10, 10, 10, 10));
+        addTodo.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        // sự kiện bấm enter để tạo thêm 1 item của todo
+        addTodo.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                addTodoKeyPressed(evt);
+            }
+        });
+        pane.add(addTodo);
+        setTodoListView();
+    }
+
+    // hiển thị hình ảnh ra view
+    private void showPhotos(Photo photo) {
+        ImageIcon icon = new ImageIcon(photo.getData());
+        Image imageTemp = icon.getImage();
+        int w = imageTemp.getWidth(null);
+        int h = imageTemp.getHeight(null);
+        ImageIcon scaledIcon = null;
+        if (w > h) {
+            Image scaledImage = imageTemp.getScaledInstance(380, 380 * h / w, Image.SCALE_SMOOTH);
+            scaledIcon = new ImageIcon(scaledImage);
+        } else if (w < h) {
+            Image scaledImage = imageTemp.getScaledInstance(380 * w / h, 380, Image.SCALE_SMOOTH);
+            scaledIcon = new ImageIcon(scaledImage);
+        } else {
+            Image scaledImage = imageTemp.getScaledInstance(380, 380, Image.SCALE_SMOOTH);
+            scaledIcon = new ImageIcon(scaledImage);
+        }
+        jLabel7.setIcon(scaledIcon);
+    }
+
+    // load văn bản từ mảng byte sang văn bản
+    private void loadText(byte[] data) {
+        try {
+            if (data != null) {
+                ByteArrayInputStream in = new ByteArrayInputStream(data);
+                ObjectInputStream ois = new ObjectInputStream(in);
+                StyledDocument doc = (StyledDocument) ois.readObject();
+                textPane.setStyledDocument(doc);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+// ====================================================================================== sự kiện
+    // unfocus textfield
+    private void unfocus(FocusEvent evt) {
+        JTextField textField = (JTextField) evt.getSource();
+        textField.setFocusable(false);
+        textField.setCaretPosition(0); // bỏ bôi đen văn bản
+    }
+
+    // sự kiện chuột vào mỗi noteType
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {
+        JTextField jtextField = (JTextField) evt.getSource();
+        textFieldTemp = jtextField;
+
+        if (evt.getButton() == MouseEvent.BUTTON3) { // click chuot phai
+            contxtMenuNoteType.show(evt.getComponent(), evt.getX(), evt.getY());
+            jtextField.setFocusable(true);
+            // trường hợp bấm nhiều lần new note mà không lưu vào database
+            try {
+                noteType = new NoteType(Integer.parseInt(jtextField.getName()), jtextField.getText());
+            } catch (Exception e) {
+                noteType = null;
+            }
+        }
+        if (evt.getButton() == MouseEvent.BUTTON1) { // đổi tên note type
+            jtextField.selectAll();
+            jtextField.requestFocusInWindow();
+            jtextField.setFocusable(true);
+        }
+    }
+
+    // sự kiện nhấn phím enter của notetype
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {
+        JTextField jtextField = (JTextField) evt.getSource();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String notice = NoteTypeController.createNoteType(jtextField.getName(), jtextField.getText());
+            loadNoteTypes();
+            JOptionPane.showMessageDialog(null, notice);
+            jtextField.setFocusable(false);
+        }
+    }
+
+    // sự kiện click chuột của ô nhập thêm 1 todoLít: để xóa todo không cần thiết
+    private void todoItemMouseClicked(java.awt.event.MouseEvent evt) {
+        JCheckBox item = (JCheckBox) evt.getSource();
+        if (evt.getButton() == MouseEvent.BUTTON3) { // click chuot phai
+            contxtMenuTodoItem.show(evt.getComponent(), evt.getX(), evt.getY());
+            todoItemSelect = Integer.parseInt(item.getName());
+        }
+    }
+
+    // sự kiện nhấn phím của ô nhập thêm 1 todolist : bấm enter để thêm 1 todo
+    private void addTodoKeyPressed(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+        JTextField addTodo = (JTextField) evt.getSource();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            TodoList todo = new TodoList(-1, addTodo.getText(), false);
+            this.note.addTodo(todo);
+//            checkClickToggleBtn = true;
+            textPane.setText(textPane.getText() + "\n" + addTodo.getText() + "\n");
+            showTodoList(this.note.getTodoList());
+        }
+    }
+
+    // sự kiện chuột của mỗi Note
+    private void noteEvent(Note note, java.awt.event.MouseEvent evt) {
+        this.note = new Note(note);
+        clearDetail();
+        // show note
+        if (evt.getButton() == MouseEvent.BUTTON1) { // click chuot trai để xem chi tiết
+            // nếu có mật khẩu thì phải nhập mật khẩu mới được xem
+            if (this.note.getPassword().equals("") == false) {
+                String pass = enterPassword();
+                if (pass.equals("")) {
+                    // không làm gì
+                } else if (this.note.getPassword().equals(pass) == true) { // nhập đúng mật khẩu
+                    cardLayout.show(jPanel2, "text"); // hiển thị trang text
+                    jTextField1.setText(note.getTitle()); // set title
+                    if (note.getPhotos().isEmpty() == false) { // nếu có hình ảnh thì hiển thị
+                        indexPhoto++;
+                        showPhotos(note.getPhotos().get(indexPhoto));
+                    }
+                    if (note.getTodoList().isEmpty() == false) { // nếu có todolist thì hiển thị
+                        tick.setSelected(true);
+                        showTodoList(note.getTodoList());
+                    } else if (note.getContent() != null) { // ngược lại hiển thị văn bản
+                        tick.setSelected(false);
+                        setContentView();
+                        loadText(note.getContent().getText()); // load văn bản
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect Password", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                cardLayout.show(jPanel1, "text"); // hiển thị trang text
+                jTextField1.setText(note.getTitle()); // set title
+                if (note.getPhotos().isEmpty() == false) { // nếu có hình ảnh thì hiển thị
+                    indexPhoto++;
+                    showPhotos(note.getPhotos().get(indexPhoto));
+                }
+                if (note.getTodoList().isEmpty() == false) { // nếu có todolist thì hiển thị
+                    tick.setSelected(true);
+                    showTodoList(note.getTodoList());
+                } else if (note.getContent() != null) { // ngược lại hiển thị văn bản
+                    tick.setSelected(false);
+                    setContentView();
+                    loadText(note.getContent().getText()); // load văn bản
+                }
+            }
+        }
+        if (evt.getButton() == MouseEvent.BUTTON3) { // click chuột phải để xem Popup
+            this.note = new Note(note);
+            contxtMenuNote.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+
+    // set new password
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {
+        String pass = "";
+        if (this.note.getPassword().equals("")) { // chưa có mk thì đặt mk mới
+            pass = setPassword();
+        } else { // có mk r thì phải nhập lại mk cũ
+            pass = changePassword();
+        }
+
+        if (pass.equals(this.note.getPassword())) {
+            // không làm gì cả
+        } else if (pass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Incorrect Password", "", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (containsUnicode(pass) == true) { // kiểm tra mật khẩu có chứa ký tự unicode không
+                JOptionPane.showMessageDialog(null, "Password can not contain unicode character", "Invalid password", JOptionPane.WARNING_MESSAGE);
+            } else {
+                NoteController.setPassword(note, pass);
+            }
+        }
+    }
+
+    // đặt mật khẩu đối với ghi chú chưa có mật khẩu
+    private String setPassword() {
+        JPasswordField newPassWord = new JPasswordField();
+        JPasswordField confirmPassWord = new JPasswordField();
+        Object[] message = {
+            "New Password:", newPassWord,
+            "Confirm Password", confirmPassWord
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Set Password", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String value1 = newPassWord.getText();
+            String value2 = confirmPassWord.getText();
+            if (value1.equals(value2) == true) {
+                return value2;
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect Password", "", JOptionPane.WARNING_MESSAGE);
+                return "";
+            }
+        }
+        return this.note.getPassword();
+    }
+
+    // thay đổi mật khẩu
+    private String changePassword() {
+        JPasswordField currentPassWord = new JPasswordField();
+        JPasswordField newPassWord = new JPasswordField();
+        JPasswordField confirmPassWord = new JPasswordField();
+        Object[] message = {
+            "Current Password", currentPassWord,
+            "New Password:", newPassWord,
+            "Confirm Password", confirmPassWord
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Change Password", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String value1 = currentPassWord.getText();
+            String value2 = newPassWord.getText();
+            String value3 = confirmPassWord.getText();
+            if (value2.equals(value3) == true) {
+                return value3;
+            } else {
+                JOptionPane.showMessageDialog(null, "COnfirm Password Failed", "", JOptionPane.WARNING_MESSAGE);
+                return "";
+            }
+        }
+        return this.note.getPassword();
+
+    }
+
+    // nhập mật khẩu để xem chi tiết
+    private String enterPassword() {
+        JPasswordField enterPassword = new JPasswordField();
+        Object[] message = {
+            "Enter Password:", enterPassword,};
+        int option = JOptionPane.showConfirmDialog(null, message, "Enter Password", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String value1 = enterPassword.getText();
+            return value1;
+        }
+        return "";
+    }
+
+// ======================================================================================  // action
+    // render nhiều note-type ra view
+    private void loadNoteTypes() {
+        noteTypeNotes = NoteTypeController.loadNoteTypes();
+        JTextField textField;
+
+        if (noteTypeNotes.size() >= 0) {
+            jPanel19.removeAll(); // box note type
+            jPanel3.removeAll(); // box ghi chu
+            for (var noteTypeNote : noteTypeNotes) {
+
+                // load noteType
+                loadNotes(noteTypeNote);
+                // TODO add your handling code here:
+                textField = new JTextField(noteTypeNote.getNoteType().getTypeName()); // tạo JTextField
+                initItemNoteType(textField);
+                textField.setName(Integer.toString(noteTypeNote.getNoteType().getId())); // setName là id
+                jPanel19.add(textField);
+            }
+            // load lại panel
+            jPanel19.repaint();
+            jPanel19.revalidate();
+        }
+    }
+
+    // load note
+    private void loadNotes(NoteTypeNote noteTypeNote) {
+        if (noteTypeNote != null) {
+            LinkedList<Note> notes = noteTypeNote.getNotes(); // danh sách notes để hiển thị ra view
+            for (Note _note : notes) {
+                DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
+
+                JTextPane textPane = new JTextPane();
+                Font font = new Font("Arial", Font.BOLD, 18);
+
+                // styles
+                textPane.setFont(font);
+                textPane.setBackground(Color.decode("#FFCCCC"));
+                textPane.setForeground(Color.decode("#333333"));
+                textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                textPane.setMargin(new Insets(10, 10, 10, 10));
+
+                // đặt kích thước cố định
+                Dimension pre = new Dimension(200, 100);
+                textPane.setSize(200, 100);
+
+                // văn bản tự động xuống hàng
+                textPane.setPreferredSize(pre);
+                textPane.setEditorKit(new WrapEditorKit());
+//                textPane.setWrapStyleWord(true);
+//                textPane.setLineWrap(true);
+                textPane.setFocusable(false);
+
+                // sự kiện click vào mỗi note để hiển thị nội dung
+                textPane.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                        noteEvent(_note, evt);
+                    }
+                });
+
+                // style từng đoạn văn bản
+                StyledDocument doc = textPane.getStyledDocument();
+                Style style = textPane.addStyle("mystyle", null);
+
+                try {
+                    // style title
+                    StyleConstants.setForeground(style, Color.BLACK);
+                    doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+
+                    // style date
+                    StyleConstants.setBold(style, false);
+                    StyleConstants.setFontSize(style, 12);
+                    doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
+
+                    // style NoteType
+                    StyleConstants.setForeground(style, Color.RED);
+                    StyleConstants.setBold(style, false);
+                    StyleConstants.setFontSize(style, 14);
+                    doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
+
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                jPanel3.add(textPane);
+            }
+            jPanel3.revalidate();
+        }
+    }
+// ======================================================================================  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,14 +744,14 @@ public class App extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         newnode = new javax.swing.JButton();
         newtype = new javax.swing.JButton();
-        jPanel14 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel19 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
         Text = new javax.swing.JPanel();
         Title = new javax.swing.JPanel();
         NOTEBOOK = new javax.swing.JPanel();
@@ -196,21 +846,11 @@ public class App extends javax.swing.JFrame {
         jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 2, new java.awt.Color(153, 153, 153)));
         jTextField2.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         jTextField2.setSelectionColor(new java.awt.Color(204, 255, 255));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
         jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 390, 50));
 
         taskbar.add(jPanel9, java.awt.BorderLayout.LINE_END);
 
         home.add(taskbar, java.awt.BorderLayout.PAGE_START);
-
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
-
-        jPanel11.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel11.setLayout(new java.awt.BorderLayout());
 
         jPanel12.setBackground(new java.awt.Color(253, 253, 244));
         jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 2, new java.awt.Color(220, 211, 203)));
@@ -237,41 +877,29 @@ public class App extends javax.swing.JFrame {
         newtype.setText("NEW CATEGORY");
         newtype.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(153, 153, 153)));
         newtype.setMargin(new java.awt.Insets(2, 8, 3, 8));
+        newtype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newtypeActionPerformed(evt);
+            }
+        });
         jPanel16.add(newtype, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 160, -1));
 
         jPanel12.add(jPanel16, java.awt.BorderLayout.PAGE_START);
 
-        jPanel11.add(jPanel12, java.awt.BorderLayout.LINE_START);
+        jPanel19.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane4.setViewportView(jPanel19);
 
-        jPanel14.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel12.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 723, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
-        );
+        home.add(jPanel12, java.awt.BorderLayout.WEST);
 
-        jPanel11.add(jPanel14, java.awt.BorderLayout.CENTER);
+        jPanel3.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel3.setPreferredSize(new java.awt.Dimension(882, 482));
+        jPanel3.setLayout(new java.awt.GridLayout(0, 3, 10, 10));
+        jScrollPane1.setViewportView(jPanel3);
 
-        jScrollPane1.setViewportView(jPanel11);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
-        );
-
-        home.add(jPanel3, java.awt.BorderLayout.CENTER);
+        home.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(home, "home");
 
@@ -355,6 +983,11 @@ public class App extends javax.swing.JFrame {
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setPreferredSize(new java.awt.Dimension(65, 65));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         tick.setBackground(new java.awt.Color(220, 211, 203));
@@ -362,6 +995,11 @@ public class App extends javax.swing.JFrame {
         tick.setFocusable(false);
         tick.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tick.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tickActionPerformed(evt);
+            }
+        });
         jToolBar1.add(tick);
 
         jButton6.setBackground(new java.awt.Color(220, 211, 207));
@@ -408,13 +1046,7 @@ public class App extends javax.swing.JFrame {
         combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Tín ngu", "Tín ngáo", "Tín zịt", "Tín chicken", " " }));
         combo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(220, 211, 203)));
         combo.setMinimumSize(new java.awt.Dimension(10, 22));
-        combo.setOpaque(true);
         combo.setPreferredSize(new java.awt.Dimension(200, 25));
-        combo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboActionPerformed(evt);
-            }
-        });
         jToolBar1.add(combo);
         combo.getAccessibleContext().setAccessibleParent(combo);
 
@@ -432,8 +1064,10 @@ public class App extends javax.swing.JFrame {
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Title");
         jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(253, 253, 244)));
+        jTextField1.setCaretColor(new java.awt.Color(153, 153, 153));
         jTextField1.setPreferredSize(new java.awt.Dimension(64, 70));
-        jTextField1.setSelectionColor(new java.awt.Color(253, 253, 244));
+        jTextField1.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        jTextField1.setSelectionColor(new java.awt.Color(0, 204, 204));
         majorpage.add(jTextField1, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setBackground(new java.awt.Color(253, 253, 244));
@@ -494,7 +1128,8 @@ public class App extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(450, 335));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jLabel7.setText("jLabel7");
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
         jPanel7.add(jLabel7, java.awt.BorderLayout.CENTER);
 
@@ -503,6 +1138,8 @@ public class App extends javax.swing.JFrame {
         jPanel17.setLayout(new java.awt.BorderLayout());
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jTextPane2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jScrollPane3.setViewportView(jTextPane2);
 
         jPanel17.add(jScrollPane3, java.awt.BorderLayout.CENTER);
@@ -531,30 +1168,183 @@ public class App extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    // chuyển sang màng hình text
-    private void newnodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newnodeActionPerformed
-        cardLayout.show(jPanel1, "text");
-    }//GEN-LAST:event_newnodeActionPerformed
-
+    // chuyển sang trang home
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
         cardLayout.show(jPanel1, "home");
+        loadNoteTypes();
+        clearDetail();
+        resetNote();
     }//GEN-LAST:event_leftActionPerformed
 
+    // chuyển sang trang text - bấm nút new Type
+    private void newnodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newnodeActionPerformed
+        cardLayout.show(jPanel1, "text");
+        clearDetail();
+        resetNote();
+    }//GEN-LAST:event_newnodeActionPerformed
+
+    // bấm nút new Type
+    private void newtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newtypeActionPerformed
+        JTextField textField = new JTextField("TypeName");
+        initItemNoteType(textField);
+        textField.setName("-1");
+        jPanel19.add(textField);
+        jPanel19.revalidate();
+    }//GEN-LAST:event_newtypeActionPerformed
+
+    // lưu note
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        note.setTitle(jTextField1.getText());
+        note.setType(null);
+        note.setPin(false);
+
+        if (tick.isSelected() == true) { // lưu todoList nếu tạo note mới
+            // lưu todoList
+//            String curString = jTextPane1.getText(); // lấy văn bản mới nhất trong ô văn bản
+//            String[] todoArray = curString.split("\n"); // chuyển sang mảng
+//
+//            // tạo todolist mới
+//            LinkedList<TodoList> curTodos = new LinkedList<>();
+//            for (String item : todoArray) {
+//                if ("".equals(item)) {
+//                    continue;
+//                }
+//                TodoList todo = new TodoList(-1, item.trim(), false);
+//                curTodos.add(todo);
+//            }
+//            // nếu có sự chỉnh sửa thì mới cập nhật
+//            if (checkClickToggleBtn == true) {
+//                // xóa todolist cũ
+//                this.note.clearTodoList();
+//                // cộng vào todolist có sẵn
+//                this.note.setTodoList(curTodos); // thêm vào cuối
+//                checkClickToggleBtn = false;
+//
+//            }
+//            // xóa Content
+//            this.note.deleteContent();
+
+        } else { // hoặc lưu văn bản lúc tạo mới
+            try {
+                StyledDocument doc = jTextPane2.getStyledDocument();
+                String text = doc.getText(0, doc.getLength());
+
+                Content content = new Content(-1, toByteArray(doc, text));
+                note.setContent(content);
+                // xóa todoList
+                this.note.clearTodoList();
+            } catch (BadLocationException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        // kiiểm tra là tạo note mới hay cập nhật
+        if (note.getNoteId() == -1) { // tạo note mới
+            NoteController.createNote(note);
+        } else if (note.getNoteId() >= 0) { // cập nhật note
+            NoteController.updateNote(note);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboActionPerformed
+    // chọn hình ảnh
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFileChooser jfile = new JFileChooser();
 
-    /**
-     * @param args the command line arguments
-     */
+        // đặt đường dẫn của file theo đường dẫn thư mục của dự án
+        // khi mở choose file window thì đường dẫn thư mục của dự án là đường dẫn mặc định
+        jfile.setCurrentDirectory(new File(path));
+
+        // loại file đươc chọn
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Image", "jpg", "png", "jpeg");
+        jfile.showOpenDialog(null); // show choose file window
+
+        // đối tượng file được chọn
+        File selectedFile = jfile.getSelectedFile();
+
+        if (selectedFile != null) {
+            fileName = selectedFile.getAbsolutePath();
+            format = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+            try {
+                BufferedImage imageBufer = ImageIO.read(new File(fileName));
+                byte[] imageInByte;
+                try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    ImageIO.write(imageBufer, format, baos);
+                    baos.flush();
+                    // lấy mảng byte[] của ảnh
+                    imageInByte = baos.toByteArray();
+                }
+                // tạo ra đối tượng ImageIcon, resize và hiển thị
+                ImageIcon icon = new ImageIcon(imageInByte);
+                Image imageTemp = icon.getImage();
+                int w = imageTemp.getWidth(null);
+                int h = imageTemp.getHeight(null);
+                if (w > h) {
+                    Image scaledImage = imageTemp.getScaledInstance(380, 380 * h / w, Image.SCALE_SMOOTH);
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                    jLabel7.setIcon(scaledIcon);
+                } else if (w < h) {
+                    Image scaledImage = imageTemp.getScaledInstance(380 * w / h, 380, Image.SCALE_SMOOTH);
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                    jLabel7.setIcon(scaledIcon);
+                } else {
+                    Image scaledImage = imageTemp.getScaledInstance(380, 380, Image.SCALE_SMOOTH);
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                    jLabel7.setIcon(scaledIcon);
+                }
+                jLabel7.setText("");
+
+                // tạo đối tượng photo để thêm vào danh sách photo của note
+                Photo photo = new Photo(-1, imageInByte);
+                this.note.addPhoto(photo);
+                indexPhoto++;
+            } catch (IOException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    // chuyển từ text sang todolist và ngược lại
+    private void tickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tickActionPerformed
+        if (tick.isSelected() == true) { // từ văn bản chuyển sang TodoList, mặc định lúc đầu là văn bản
+            String curString = textPane.getText(); // lấy văn bản mới nhất trong ô văn bản
+            String[] todoArray = curString.split("\n"); // chuyển sang mảng
+
+            // tạo todolist mới k
+            LinkedList<TodoList> curTodos = new LinkedList<>();
+            for (String item : todoArray) {
+                if (item.isEmpty()) {
+                    continue;
+                }
+                TodoList todo = new TodoList(-1, item.trim(), false);
+                curTodos.add(todo);
+            }
+
+            // xóa content
+            this.note.deleteContent();
+
+            // xóa todolist cũ
+            this.note.clearTodoList();
+
+            // cộng vào todolist có sẵn
+            this.note.setTodoList(curTodos); // 
+            showTodoList(this.note.getTodoList()); // hiển thị
+            checkClickToggleBtn = true;
+        } else { // đang ở todoList chuyển sang dạng văn bản
+
+//            textPane.setBackground(Color.decode("#CCFFCC"));
+            String todosString = this.note.getTodoList().stream().map(todo -> todo.getItem())
+                    .reduce("", (x1, x2) -> x1 + x2 + "\n"); // // tạo chuỗi từ todoList của Note
+            textPane.setText(todosString);
+            setContentView();
+            // đặt nội dung cho note
+            jTextPane2.setText(todosString);
+            // xóa todoList
+            this.note.clearTodoList();
+        }
+
+
+    }//GEN-LAST:event_tickActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -609,14 +1399,13 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -628,6 +1417,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
