@@ -644,8 +644,10 @@ public class App extends javax.swing.JFrame {
                 // load note vào comboBox
                 combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
-            // item mặc định
+            if(!noteTypeNotes.isEmpty()) {
+                // item mặc định
             combo.setSelectedItem(noteTypeNotes.get(0).getNoteType().getTypeName());
+            }
             // load lại panel
             jPanel19.repaint();
             jPanel19.revalidate();
