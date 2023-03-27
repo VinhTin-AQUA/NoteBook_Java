@@ -17,7 +17,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -30,10 +29,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +40,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -55,7 +53,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -73,6 +70,7 @@ public class App extends javax.swing.JFrame {
     private JPopupMenu contxtMenuNote; // menu chuột phải của mỗi note
     private JPopupMenu contxtMenuPhoto; // menu chuột phải của mỗi note
     private JPopupMenu contxtMenuTodoItem; // menu chuột phải của mỗi note
+    private JMenu chooseType; // sub menu của choose Type
 
     private NoteType noteType; // biến tạm lưu thông tin noteType cần xóa
     private JTextField textFieldTemp; // biến tạm để lưu đối tượng JTextField khi xử lý sự kiện chuột phải
@@ -120,7 +118,7 @@ public class App extends javax.swing.JFrame {
         pane.setSize(427, 427);
         pane.setBackground(Color.decode("#CCFFCC"));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        
+
         // không cho chỉnh sửa item
         combo.setEditable(false);
     }
@@ -157,9 +155,6 @@ public class App extends javax.swing.JFrame {
         jButton3.setIcon(icon);
         icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\next.png");
         jButton4.setIcon(icon);
-        // "C:\Users\tinho\Desktop\NoteBook_Java\NoteBook\src\main\java\icon\next.png"
-        // "C:\Users\tinho\Desktop\NoteBook_Java\NoteBook\src\main\java\icon\pre.png"
-
     }
 
     // khởi tạp menu chuột phải
@@ -218,9 +213,12 @@ public class App extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Incorrect Password", "Confirm Password", JOptionPane.WARNING_MESSAGE);
             }
         });
+        chooseType = new JMenu("Choose Type");
+        addChooseTypeItem();
         contxtMenuNote.add(deleteNote);
         contxtMenuNote.add(setPassword);
         contxtMenuNote.add(deletePassword);
+        contxtMenuNote.add(chooseType);
 
         // menu chuột phải của mỗi hình ảnh hiển thị trên label
         JMenuItem deletePhoto = new JMenuItem("Delete"); // xóa hình ảnh
@@ -252,6 +250,16 @@ public class App extends javax.swing.JFrame {
             showTodoList(this.note.getTodoList());
         });
         contxtMenuTodoItem.add(deleteTodoItem);
+    }
+    
+    // load các notetype vào submenu chooseType
+    private void addChooseTypeItem() {
+        if (noteTypeNotes.size() >= 0) {
+            for (var noteTypeNote : noteTypeNotes) {
+                JMenuItem item = new JMenuItem(noteTypeNote.getNoteType().getTypeName());
+                chooseType.add(item);
+            }
+        }
     }
 
     // hàm kiểm tra chứa ký tụ unicode
@@ -489,22 +497,18 @@ public class App extends javax.swing.JFrame {
 
         StyleConstants.setForeground(style, Color.BLACK); // màu chữ
         doc.setCharacterAttributes(0, doc.getLength(), style, false);
-        
+
         StyleConstants.setBackground(style, Color.WHITE); // hightlight
         doc.setCharacterAttributes(0, doc.getLength(), style, false);
 
         StyleConstants.setBold(style, false);// bold
         doc.setCharacterAttributes(0, doc.getLength(), style, false);
-        
+
         StyleConstants.setItalic(style, false);// in nghiêng
         doc.setCharacterAttributes(0, doc.getLength(), style, false);
-        
+
         StyleConstants.setUnderline(style, false);// gạch chân
         doc.setCharacterAttributes(0, doc.getLength(), style, false);
-        
- 
-        System.out.println("vao");
-
     }
 
 // ====================================================================================== sự kiện
@@ -640,13 +644,13 @@ public class App extends javax.swing.JFrame {
                 initItemNoteType(textField);
                 textField.setName(Integer.toString(noteTypeNote.getNoteType().getId())); // setName là id
                 jPanel19.add(textField);
-                
+
                 // load note vào comboBox
                 combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
-            if(!noteTypeNotes.isEmpty()) {
+            if (!noteTypeNotes.isEmpty()) {
                 // item mặc định
-            combo.setSelectedItem(noteTypeNotes.get(0).getNoteType().getTypeName());
+                combo.setSelectedItem(noteTypeNotes.get(0).getNoteType().getTypeName());
             }
             // load lại panel
             jPanel19.repaint();
@@ -1225,7 +1229,6 @@ public class App extends javax.swing.JFrame {
         loadNoteTypes();
         clearDetail();
         resetNote();
-        
     }//GEN-LAST:event_leftActionPerformed
 
     // chuyển sang trang text - bấm nút new Type
