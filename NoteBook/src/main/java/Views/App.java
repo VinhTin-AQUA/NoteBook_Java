@@ -55,6 +55,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -383,7 +384,6 @@ public class App extends javax.swing.JFrame {
         int i = 0;
         for (TodoList item : todos) {
             // lấy thông tin của từng todo gắn vào check box
-
             JCheckBox box = new JCheckBox();
             box.setText("<html><body style='width: " + (jTextPane2.getWidth() - 108) + "px;'><div style='overflow-wrap: break-word;'>" + item.getItem() + "</div></body></html>");
 
@@ -403,7 +403,6 @@ public class App extends javax.swing.JFrame {
             ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\un_check.png");
             box.setIcon(icon);
             icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
-            // "C:\Users\tinho\Desktop\NoteBook_Java\NoteBook\src\main\java\icon\check.png"
             box.setSelectedIcon(icon);
 
             // tạo 1 item todo
@@ -479,8 +478,34 @@ public class App extends javax.swing.JFrame {
         }
     }
 
+    // reset văn bản trong JTExtPaine
+    private void resetText() {
+
+        StyledDocument doc = textPane.getStyledDocument();
+        Style style = textPane.addStyle("My Style", null);
+
+        StyleConstants.setForeground(style, Color.BLACK); // màu chữ
+        doc.setCharacterAttributes(0, doc.getLength(), style, false);
+        
+        StyleConstants.setBackground(style, Color.WHITE); // hightlight
+        doc.setCharacterAttributes(0, doc.getLength(), style, false);
+
+        StyleConstants.setBold(style, false);// bold
+        doc.setCharacterAttributes(0, doc.getLength(), style, false);
+        
+        StyleConstants.setItalic(style, false);// in nghiêng
+        doc.setCharacterAttributes(0, doc.getLength(), style, false);
+        
+        StyleConstants.setUnderline(style, false);// gạch chân
+        doc.setCharacterAttributes(0, doc.getLength(), style, false);
+        
+ 
+        System.out.println("vao");
+
+    }
+
 // ====================================================================================== sự kiện
-    // unfocus textfield
+    // unfocus textfield của NoteType Item
     private void unfocus(FocusEvent evt) {
         JTextField textField = (JTextField) evt.getSource();
         textField.setFocusable(false);
@@ -1333,7 +1358,6 @@ public class App extends javax.swing.JFrame {
                 TodoList todo = new TodoList(-1, item.trim(), false);
                 curTodos.add(todo);
             }
-
             // xóa content
             this.note.deleteContent();
 
@@ -1345,14 +1369,11 @@ public class App extends javax.swing.JFrame {
             showTodoList(this.note.getTodoList()); // hiển thị
             checkClickToggleBtn = true;
         } else { // đang ở todoList chuyển sang dạng văn bản
-
-//            textPane.setBackground(Color.decode("#CCFFCC"));
             String todosString = this.note.getTodoList().stream().map(todo -> todo.getItem())
                     .reduce("", (x1, x2) -> x1 + x2 + "\n"); // // tạo chuỗi từ todoList của Note
             textPane.setText(todosString);
             setContentView();
-            // đặt nội dung cho note
-            jTextPane2.setText(todosString);
+            resetText(); // reset lại văn bản
             // xóa todoList
             this.note.clearTodoList();
         }
@@ -1416,7 +1437,6 @@ public class App extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // lấy màu 
         Color newColor = JColorChooser.showDialog(null, "Choose a color", Color.WHITE);
-
         if (newColor != null) {
             StyledDocument doc = textPane.getStyledDocument();
             int start = textPane.getSelectionStart();
@@ -1430,8 +1450,8 @@ public class App extends javax.swing.JFrame {
     // in đậm
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         StyledDocument doc = textPane.getStyledDocument();
-        int start = textPane.getSelectionStart();
-        int end = textPane.getSelectionEnd();
+        int start = textPane.getSelectionStart();   // vị trí index đầu tiên của chuỗi được chọn
+        int end = textPane.getSelectionEnd(); // vị trí index cuối cùng của chuỗi được chọn
         Style style = textPane.addStyle("My Style", null);
         boolean checkBold = false; // cờ hiệu kiểm tra văn bản được chọn có bold không
         // kiểm tra văn bản được chọn có ký tự được bôi đen không
@@ -1442,10 +1462,10 @@ public class App extends javax.swing.JFrame {
                 break;
             }
         }
-        if (checkBold == true) {
+        if (checkBold == true) { // nếu văn bản được chọn có ký tự bôi đen thì bỏ bôi đen toàn bộ chuỗi được chọn
             StyleConstants.setBold(style, false);
             doc.setCharacterAttributes(start, end - start, style, false);
-        } else {
+        } else { // ngược lại thì bôi đen
             StyleConstants.setBold(style, true);
             doc.setCharacterAttributes(start, end - start, style, false);
         }
@@ -1454,8 +1474,8 @@ public class App extends javax.swing.JFrame {
     // in nghiêng
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         StyledDocument doc = textPane.getStyledDocument();
-        int start = textPane.getSelectionStart();
-        int end = textPane.getSelectionEnd();
+        int start = textPane.getSelectionStart(); // vị trí index đầu tiên của chuỗi được chọn
+        int end = textPane.getSelectionEnd(); // vị trí index cuối cùng của chuỗi được chọn
         Style style = textPane.addStyle("My Style", null);
         boolean checkItalicized = false; // cờ hiệu kiểm tra văn bản được chọn có được in nghiêng không
         // kiểm tra văn bản được chọn có ksy tự được in nghiêng không
@@ -1466,10 +1486,10 @@ public class App extends javax.swing.JFrame {
                 break;
             }
         }
-        if (checkItalicized == true) {
+        if (checkItalicized == true) { // nếu chuỗi được chọn có in nghiêng thì bỏ nghiêng
             StyleConstants.setItalic(style, false);
             doc.setCharacterAttributes(start, end - start, style, false);
-        } else {
+        } else { // ngược lại thì in nghiêng
             StyleConstants.setItalic(style, true);
             doc.setCharacterAttributes(start, end - start, style, false);
         }
@@ -1478,8 +1498,8 @@ public class App extends javax.swing.JFrame {
     // gạch chân
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         StyledDocument doc = textPane.getStyledDocument();
-        int start = textPane.getSelectionStart();
-        int end = textPane.getSelectionEnd();
+        int start = textPane.getSelectionStart(); // vị trí index đầu tiên của chuỗi được chọn
+        int end = textPane.getSelectionEnd(); // vị trí index cuối cùng của chuỗi được chọn
         Style style = textPane.addStyle("My Style", null);
         boolean checkUnderline = false; // cờ hiệu kiểm tra văn bản được chọn có được gạch chân không
         // kiểm tra văn bản được chọn có ksy tự được gạch chân không
@@ -1490,14 +1510,38 @@ public class App extends javax.swing.JFrame {
                 break;
             }
         }
-        if (checkUnderline == true) {
+        if (checkUnderline == true) { // nếu trong chuỗi bôi đen đã có ký tự được gạch chân thì bỏ gạch chân 
             StyleConstants.setUnderline(style, false);
             doc.setCharacterAttributes(start, end - start, style, false);
-        } else {
+        } else { // ngược lại gạch chân
             StyleConstants.setUnderline(style, true);
             doc.setCharacterAttributes(start, end - start, style, false);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    // hight light
+    private void hightlight() {
+        StyledDocument doc = textPane.getStyledDocument();
+        int start = textPane.getSelectionStart();  // vị trí index đầu tiên của chuỗi được chọn
+        int end = textPane.getSelectionEnd();  // vị trí index cuối cùng của chuỗi được chọn
+        Style style = textPane.addStyle("My Style", null);
+        boolean checkHightlight = false; // cờ hiệu kiểm tra văn bản được chọn có được gạch chân không
+        // kiểm tra văn bản được chọn có ksy tự được hightlight không
+        for (int i = start; i <= end; i++) {
+            AttributeSet attr = doc.getCharacterElement(i).getAttributes();
+            if (StyleConstants.getBackground(attr) == Color.YELLOW) {
+                checkHightlight = true;
+                break;
+            }
+        }
+        if (checkHightlight == true) { // nếu chuỗi được chọn có hight thì un-hightlight
+            StyleConstants.setBackground(style, Color.WHITE);
+            doc.setCharacterAttributes(start, end - start, style, false);
+        } else { // ngược lại thì hightlight
+            StyleConstants.setBackground(style, Color.YELLOW);
+            doc.setCharacterAttributes(start, end - start, style, false);
+        }
+    }
 
     // đặt mật khẩu đối với ghi chú chưa có mật khẩu
     private String setPassword() {
