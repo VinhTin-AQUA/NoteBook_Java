@@ -120,6 +120,9 @@ public class App extends javax.swing.JFrame {
         pane.setSize(427, 427);
         pane.setBackground(Color.decode("#CCFFCC"));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        // không cho chỉnh sửa item
+        combo.setEditable(false);
     }
 
     private void icon() {
@@ -620,7 +623,7 @@ public class App extends javax.swing.JFrame {
     }
 
 // ======================================================================================  // action
-    // render nhiều note-type ra view
+    // render nhiều note-type ra view, load note vào comboBox
     private void loadNoteTypes() {
         noteTypeNotes = NoteTypeController.loadNoteTypes();
         JTextField textField;
@@ -637,7 +640,12 @@ public class App extends javax.swing.JFrame {
                 initItemNoteType(textField);
                 textField.setName(Integer.toString(noteTypeNote.getNoteType().getId())); // setName là id
                 jPanel19.add(textField);
+                
+                // load note vào comboBox
+                combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
+            // item mặc định
+            combo.setSelectedItem(noteTypeNotes.get(0).getNoteType().getTypeName());
             // load lại panel
             jPanel19.repaint();
             jPanel19.revalidate();
@@ -1053,9 +1061,9 @@ public class App extends javax.swing.JFrame {
         jToolBar1.add(jButton10);
 
         combo.setEditable(true);
-        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Tín ngu", "Tín ngáo", "Tín zịt", "Tín chicken", " " }));
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         combo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(220, 211, 203)));
-        combo.setMinimumSize(new java.awt.Dimension(10, 22));
+        combo.setMinimumSize(new java.awt.Dimension(100, 22));
         combo.setPreferredSize(new java.awt.Dimension(200, 25));
         jToolBar1.add(combo);
         combo.getAccessibleContext().setAccessibleParent(combo);
@@ -1211,9 +1219,11 @@ public class App extends javax.swing.JFrame {
     // chuyển sang trang home
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
         cardLayout.show(jPanel1, "home");
+        combo.removeAllItems();
         loadNoteTypes();
         clearDetail();
         resetNote();
+        
     }//GEN-LAST:event_leftActionPerformed
 
     // chuyển sang trang text - bấm nút new Type
