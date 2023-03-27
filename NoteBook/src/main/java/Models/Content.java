@@ -35,8 +35,6 @@ public class Content {
 
     // xóa mảng byte
     public void clearData() {
-        if(text != null) {
-            Arrays.fill(text, (byte) 0);
-        }
+        text = null; // bộ thu gom rác tự động giải phóng vùng nhớ
     }
 }
