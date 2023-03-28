@@ -4,7 +4,6 @@ import DataConnection.Data;
 import Models.Note;
 import Models.Photo;
 import Models.TodoList;
-import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -22,7 +21,9 @@ public class NoteController {
             query = "insert into Note(Title,DateCreate,`Password`, TypeId, pin) "
                     + "values(?, CURDATE(), ?,?,?);";
             PreparedStatement ps = Data.con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
             ps.setString(1, note.getTitle());
+            
             ps.setString(2, note.getPassword());
             ps.setInt(3, getTypeId(typeName));
             ps.setBoolean(4, note.isPin());

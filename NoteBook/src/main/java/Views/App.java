@@ -1255,7 +1255,12 @@ public class App extends javax.swing.JFrame {
 
     // lưu note
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        note.setTitle(jTextField1.getText());
+        if("".equals(jTextField1.getText())) {
+            note.setTitle("NO TITLE");
+        } else {
+            note.setTitle(jTextField1.getText());
+        }
+        
         note.setType(null);
         note.setPin(false);
 

@@ -25,6 +25,10 @@ public class NoteTypeController {
         if (id.equals("1") || typeName.equals("Other")) {
             return "Cannot change or create default NoteType";
         }
+        
+        if(typeName.equals("")) {
+            return "Type Name cannot NULL";
+        }
 
         String query = "";
         PreparedStatement ps = null;
