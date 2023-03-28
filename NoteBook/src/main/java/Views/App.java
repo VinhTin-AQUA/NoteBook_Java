@@ -53,6 +53,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.PlainDocument;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -175,6 +177,9 @@ public class App extends javax.swing.JFrame {
         deleteNoteType.addActionListener((ActionEvent e) -> {
             boolean checkDelete = NoteTypeController.deleteNoteType(noteType);
             loadNoteTypes();
+            // reload lại submenu sau khi thêm 1 note type
+            chooseType.removeAll();
+            addChooseTypeItem();
         });
         contxtMenuNoteType.add(reNameNoteType);
         contxtMenuNoteType.add(deleteNoteType);
@@ -251,12 +256,15 @@ public class App extends javax.swing.JFrame {
         });
         contxtMenuTodoItem.add(deleteTodoItem);
     }
-    
+
     // load các notetype vào submenu chooseType
     private void addChooseTypeItem() {
         if (noteTypeNotes.size() >= 0) {
             for (var noteTypeNote : noteTypeNotes) {
                 JMenuItem item = new JMenuItem(noteTypeNote.getNoteType().getTypeName());
+                item.addActionListener((ActionEvent e) -> {
+                    NoteController.setType(noteTypeNote.getNoteType().getId(), note.getNoteId());
+                });
                 chooseType.add(item);
             }
         }
@@ -332,13 +340,13 @@ public class App extends javax.swing.JFrame {
         }
         indexPhoto = -1;
         tick.setSelected(false);
-
         textPane.setText("");
         scrollPane.setViewportView(textPane);
         jPanel17.removeAll();
         jPanel17.add(scrollPane);
         jPanel17.revalidate();
         jPanel17.repaint();
+
     }
 
     // khởi tạo lại note sau mỗi lần lưu
@@ -491,24 +499,18 @@ public class App extends javax.swing.JFrame {
 
     // reset văn bản trong JTExtPaine
     private void resetText() {
-
         StyledDocument doc = textPane.getStyledDocument();
         Style style = textPane.addStyle("My Style", null);
-
         StyleConstants.setForeground(style, Color.BLACK); // màu chữ
-        doc.setCharacterAttributes(0, doc.getLength(), style, false);
-
         StyleConstants.setBackground(style, Color.WHITE); // hightlight
-        doc.setCharacterAttributes(0, doc.getLength(), style, false);
-
         StyleConstants.setBold(style, false);// bold
-        doc.setCharacterAttributes(0, doc.getLength(), style, false);
-
         StyleConstants.setItalic(style, false);// in nghiêng
-        doc.setCharacterAttributes(0, doc.getLength(), style, false);
-
         StyleConstants.setUnderline(style, false);// gạch chân
-        doc.setCharacterAttributes(0, doc.getLength(), style, false);
+        doc.setCharacterAttributes(-1, textPane.getText().length() + 1, style, false);
+        
+        //fix: tạo note mới thì textPaine reset lại định dạng
+        textPane.setText(" ");
+        textPane.setText("");
     }
 
 // ====================================================================================== sự kiện
@@ -524,7 +526,7 @@ public class App extends javax.swing.JFrame {
         JTextField jtextField = (JTextField) evt.getSource();
         textFieldTemp = jtextField;
 
-        if (evt.getButton() == MouseEvent.BUTTON3) { // click chuot phai
+        if (evt.getButton() == MouseEvent.BUTTON3) { // click chuot phai -> hiển thị popupMenu
             contxtMenuNoteType.show(evt.getComponent(), evt.getX(), evt.getY());
             jtextField.setFocusable(true);
             // trường hợp bấm nhiều lần new note mà không lưu vào database
@@ -549,6 +551,9 @@ public class App extends javax.swing.JFrame {
             loadNoteTypes();
             JOptionPane.showMessageDialog(null, notice);
             jtextField.setFocusable(false);
+            // reload lại submenu sau khi thêm 1 note type
+            chooseType.removeAll();
+            addChooseTypeItem();
         }
     }
 
@@ -645,7 +650,7 @@ public class App extends javax.swing.JFrame {
                 textField.setName(Integer.toString(noteTypeNote.getNoteType().getId())); // setName là id
                 jPanel19.add(textField);
 
-                // load note vào comboBox
+                // load Type vào comboBox
                 combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
             if (!noteTypeNotes.isEmpty()) {
@@ -1236,6 +1241,7 @@ public class App extends javax.swing.JFrame {
         cardLayout.show(jPanel1, "text");
         clearDetail();
         resetNote();
+        resetText();
     }//GEN-LAST:event_newnodeActionPerformed
 
     // bấm nút new Type
@@ -1253,6 +1259,8 @@ public class App extends javax.swing.JFrame {
         note.setType(null);
         note.setPin(false);
 
+//        System.out.println((String)combo.getSelectedItem());
+//        NoteController.getTypeId((String) combo.getSelectedItem());
         if (tick.isSelected() == true) { // lưu todoList nếu tạo note mới
             // lưu todoList
 //            String curString = jTextPane1.getText(); // lấy văn bản mới nhất trong ô văn bản
@@ -1295,9 +1303,10 @@ public class App extends javax.swing.JFrame {
 
         // kiiểm tra là tạo note mới hay cập nhật
         if (note.getNoteId() == -1) { // tạo note mới
-            NoteController.createNote(note);
+            int noteId = NoteController.createNote(note, (String) combo.getSelectedItem());
+            note.setNoteId(noteId); // khi chỉnh sửa chính note vừa tạo, sẽ cập nhật note đó chứ không tạo note mới
         } else if (note.getNoteId() >= 0) { // cập nhật note
-            NoteController.updateNote(note);
+            NoteController.updateNote(note, (String) combo.getSelectedItem());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
