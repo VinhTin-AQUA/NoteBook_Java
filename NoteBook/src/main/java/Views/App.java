@@ -543,10 +543,6 @@ public class App extends javax.swing.JFrame {
         StyleConstants.setItalic(style, false);// in nghiêng
         StyleConstants.setUnderline(style, false);// gạch chân
         doc.setCharacterAttributes(-1, textPane.getText().length() + 1, style, false);
-
-        //fix: tạo note mới thì textPaine reset lại định dạng
-        textPane.setText(" ");
-        textPane.setText("");
     }
 
 // ====================================================================================== sự kiện
@@ -1278,6 +1274,9 @@ public class App extends javax.swing.JFrame {
         clearDetail();
         resetNote();
         resetText();
+        //fix: tạo note mới thì textPaine reset lại định dạng
+        textPane.setText(" ");
+        textPane.setText("");
     }//GEN-LAST:event_newnodeActionPerformed
 
     // bấm nút new Type
@@ -1436,9 +1435,9 @@ public class App extends javax.swing.JFrame {
         } else { // đang ở todoList chuyển sang dạng văn bản
             String todosString = this.note.getTodoList().stream().map(todo -> todo.getItem())
                     .reduce("", (x1, x2) -> x1 + x2 + "\n"); // // tạo chuỗi từ todoList của Note
+            resetText(); // reset lại văn bản
             textPane.setText(todosString);
             setContentView();
-            resetText(); // reset lại văn bản
             // xóa todoList
             this.note.clearTodoList();
         }
