@@ -34,9 +34,11 @@ import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -109,6 +111,7 @@ public class App extends javax.swing.JFrame {
         path = path.replace("\\", "\\\\");
         cardLayout = (CardLayout) jPanel1.getLayout();
 
+        noteType = new NoteType(-1, "typename");
         note = new Note(-1, "", null, "", null, false, new Content(-1,
                 new byte[]{}), new LinkedList<TodoList>(), new LinkedList<Photo>());
         loadNoteTypes(); // load noteType
@@ -252,29 +255,29 @@ public class App extends javax.swing.JFrame {
             try {
                 String randomFileName = UUID.randomUUID().toString(); // tên file ngẫu nhiên
                 String downloadPath = System.getProperty("user.home") + "\\Downloads\\";// đường dẫn thư mục dowload
-                FileOutputStream fos = new FileOutputStream(downloadPath + randomFileName +".png");
+                FileOutputStream fos = new FileOutputStream(downloadPath + randomFileName + ".png");
                 fos.write(this.note.getPhotos().get(indexPhoto).getData());
                 fos.close();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
         });
         JMenuItem downLoadPhotos = new JMenuItem("Download All Photos"); // tải tất cả hình ảnh
         downLoadPhotos.addActionListener((ActionEvent e) -> {
-             try {
-                String downloadPath = System.getProperty("user.home") + "\\Downloads\\"; 
+            try {
+                String downloadPath = System.getProperty("user.home") + "\\Downloads\\";
                 FileOutputStream fos = null;
-                for(var photo : this.note.getPhotos()) {
+                for (var photo : this.note.getPhotos()) {
                     String randomFileName = UUID.randomUUID().toString(); // tên file ngẫu nhiên
-                    fos = new FileOutputStream(downloadPath + randomFileName +".png");
+                    fos = new FileOutputStream(downloadPath + randomFileName + ".png");
                     fos.write(photo.getData());
                     /*
                         nên để dòng lệnh này trong vòng lặp, sau khi lưu thì ta có thể xóa hình ảnh trong hệ thống
                         tránh lỗi: file is open in java.....
-                    */
-                    fos.close(); 
+                     */
+                    fos.close();
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -300,6 +303,7 @@ public class App extends javax.swing.JFrame {
                 JMenuItem item = new JMenuItem(noteTypeNote.getNoteType().getTypeName());
                 item.addActionListener((ActionEvent e) -> {
                     NoteController.setType(noteTypeNote.getNoteType().getId(), note.getNoteId());
+                    loadNoteTypes(); // load lại type hiển thị trên mỗi note
                 });
                 chooseType.add(item);
             }
@@ -556,8 +560,7 @@ public class App extends javax.swing.JFrame {
     // sự kiện chuột vào mỗi noteType
     private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {
         JTextField jtextField = (JTextField) evt.getSource();
-        textFieldTemp = jtextField;
-
+        this.textFieldTemp = jtextField;
         if (evt.getButton() == MouseEvent.BUTTON3) { // click chuot phai -> hiển thị popupMenu
             contxtMenuNoteType.show(evt.getComponent(), evt.getX(), evt.getY());
             jtextField.setFocusable(true);
@@ -568,20 +571,24 @@ public class App extends javax.swing.JFrame {
                 noteType = null;
             }
         }
-        if (evt.getButton() == MouseEvent.BUTTON1) { // đổi tên note type
-            jtextField.selectAll();
-            jtextField.requestFocusInWindow();
-            jtextField.setFocusable(true);
+        if (evt.getButton() == MouseEvent.BUTTON1) { // click chuot trai
+            NoteTypeNote type = noteTypeNotes.stream()
+                    .filter(nt -> nt.getNoteType().getId() == Integer.parseInt(jtextField.getName()))
+                    .findFirst().orElse(null);
+            if(noteType != null) {
+                jPanel3.removeAll();
+                loadNotes(type);
+            }
         }
     }
 
     // sự kiện nhấn phím enter của notetype
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {
         JTextField jtextField = (JTextField) evt.getSource();
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
             String notice = NoteTypeController.createNoteType(jtextField.getName(), jtextField.getText());
             loadNoteTypes();
-            JOptionPane.showMessageDialog(null, notice);
+            JOptionPane.showMessageDialog(null, notice, "", JOptionPane.INFORMATION_MESSAGE);
             jtextField.setFocusable(false);
             // reload lại submenu sau khi thêm 1 note type
             chooseType.removeAll();
@@ -665,23 +672,24 @@ public class App extends javax.swing.JFrame {
 
 // ======================================================================================  // action
     // render nhiều note-type ra view, load note vào comboBox
-    private void loadNoteTypes() {
+    private void loadNoteTypes(String... title) {
         noteTypeNotes = NoteTypeController.loadNoteTypes();
         JTextField textField;
-
         if (noteTypeNotes.size() >= 0) {
+            
             jPanel19.removeAll(); // box note type
-            jPanel3.removeAll(); // box ghi chu
+            jPanel3.removeAll();
+            combo.removeAllItems(); // xóa item củ của comboBox
             for (var noteTypeNote : noteTypeNotes) {
-
                 // load noteType
-                loadNotes(noteTypeNote);
+                loadNotes(noteTypeNote, title);
                 // TODO add your handling code here:
                 textField = new JTextField(noteTypeNote.getNoteType().getTypeName()); // tạo JTextField
                 initItemNoteType(textField);
                 textField.setName(Integer.toString(noteTypeNote.getNoteType().getId())); // setName là id
                 jPanel19.add(textField);
 
+                
                 // load Type vào comboBox
                 combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
@@ -696,66 +704,126 @@ public class App extends javax.swing.JFrame {
     }
 
     // load note
-    private void loadNotes(NoteTypeNote noteTypeNote) {
+    private void loadNotes(NoteTypeNote noteTypeNote, String... title) {
         if (noteTypeNote != null) {
             LinkedList<Note> notes = noteTypeNote.getNotes(); // danh sách notes để hiển thị ra view
-            for (Note _note : notes) {
-                DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
+            if (title.length == 0) {
+                for (Note _note : notes) {
+                    DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
 
-                JTextPane textPane = new JTextPane();
-                Font font = new Font("Arial", Font.BOLD, 18);
+                    JTextPane textPane = new JTextPane();
+                    Font font = new Font("Arial", Font.BOLD, 18);
 
-                // styles
-                textPane.setFont(font);
-                textPane.setBackground(Color.decode("#FFCCCC"));
-                textPane.setForeground(Color.decode("#333333"));
-                textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                textPane.setMargin(new Insets(10, 10, 10, 10));
+                    // styles
+                    textPane.setFont(font);
+                    textPane.setBackground(Color.decode("#FFCCCC"));
+                    textPane.setForeground(Color.decode("#333333"));
+                    textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    textPane.setMargin(new Insets(10, 10, 10, 10));
 
-                // đặt kích thước cố định
-                Dimension pre = new Dimension(200, 100);
-                textPane.setSize(200, 100);
+                    // đặt kích thước cố định
+                    Dimension pre = new Dimension(200, 100);
+                    textPane.setSize(200, 100);
 
-                // văn bản tự động xuống hàng
-                textPane.setPreferredSize(pre);
-                textPane.setEditorKit(new WrapEditorKit());
-//                textPane.setWrapStyleWord(true);
-//                textPane.setLineWrap(true);
-                textPane.setFocusable(false);
+                    // văn bản tự động xuống hàng
+                    textPane.setPreferredSize(pre);
+                    textPane.setEditorKit(new WrapEditorKit());
+                    textPane.setFocusable(false);
 
-                // sự kiện click vào mỗi note để hiển thị nội dung
-                textPane.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
-                        noteEvent(_note, evt);
+                    // sự kiện click vào mỗi note để hiển thị nội dung
+                    textPane.addMouseListener(new java.awt.event.MouseAdapter() {
+                        @Override
+                        public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                            noteEvent(_note, evt);
+                        }
+                    });
+
+                    // style từng đoạn văn bản
+                    StyledDocument doc = textPane.getStyledDocument();
+                    Style style = textPane.addStyle("mystyle", null);
+
+                    try {
+                        // style title
+                        StyleConstants.setForeground(style, Color.BLACK);
+                        doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+
+                        // style date
+                        StyleConstants.setBold(style, false);
+                        StyleConstants.setFontSize(style, 12);
+                        doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
+
+                        // style NoteType
+                        StyleConstants.setForeground(style, Color.RED);
+                        StyleConstants.setBold(style, false);
+                        StyleConstants.setFontSize(style, 14);
+                        doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
+
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                });
-
-                // style từng đoạn văn bản
-                StyledDocument doc = textPane.getStyledDocument();
-                Style style = textPane.addStyle("mystyle", null);
-
-                try {
-                    // style title
-                    StyleConstants.setForeground(style, Color.BLACK);
-                    doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
-
-                    // style date
-                    StyleConstants.setBold(style, false);
-                    StyleConstants.setFontSize(style, 12);
-                    doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
-
-                    // style NoteType
-                    StyleConstants.setForeground(style, Color.RED);
-                    StyleConstants.setBold(style, false);
-                    StyleConstants.setFontSize(style, 14);
-                    doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
-
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    jPanel3.add(textPane);
                 }
-                jPanel3.add(textPane);
+            } else {
+                for (Note _note : notes) {
+                    // nếu không chứa từ khóa cần tìm thì không thêm vào
+                    if (_note.getTitle().toLowerCase().contains(title[0].toLowerCase()) == false) {
+                        continue;
+                    }
+                    DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
+
+                    JTextPane textPane = new JTextPane();
+                    Font font = new Font("Arial", Font.BOLD, 18);
+
+                    // styles
+                    textPane.setFont(font);
+                    textPane.setBackground(Color.decode("#FFCCCC"));
+                    textPane.setForeground(Color.decode("#333333"));
+                    textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    textPane.setMargin(new Insets(10, 10, 10, 10));
+
+                    // đặt kích thước cố định
+                    Dimension pre = new Dimension(200, 100);
+                    textPane.setSize(200, 100);
+
+                    // văn bản tự động xuống hàng
+                    textPane.setPreferredSize(pre);
+                    textPane.setEditorKit(new WrapEditorKit());
+                    textPane.setFocusable(false);
+
+                    // sự kiện click vào mỗi note để hiển thị nội dung
+                    textPane.addMouseListener(new java.awt.event.MouseAdapter() {
+                        @Override
+                        public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                            noteEvent(_note, evt);
+                        }
+                    });
+
+                    // style từng đoạn văn bản
+                    StyledDocument doc = textPane.getStyledDocument();
+                    Style style = textPane.addStyle("mystyle", null);
+
+                    try {
+                        // style title
+                        StyleConstants.setForeground(style, Color.BLACK);
+                        doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+
+                        // style date
+                        StyleConstants.setBold(style, false);
+                        StyleConstants.setFontSize(style, 12);
+                        doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
+
+                        // style NoteType
+                        StyleConstants.setForeground(style, Color.RED);
+                        StyleConstants.setBold(style, false);
+                        StyleConstants.setFontSize(style, 14);
+                        doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    jPanel3.add(textPane);
+                }
             }
+            jPanel3.repaint();
             jPanel3.revalidate();
         }
     }
@@ -880,8 +948,13 @@ public class App extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField2.setText("search");
         jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 2, new java.awt.Color(153, 153, 153)));
-        jTextField2.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        jTextField2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField2.setSelectionColor(new java.awt.Color(204, 255, 255));
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
         jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 390, 50));
 
         taskbar.add(jPanel9, java.awt.BorderLayout.LINE_END);
@@ -932,7 +1005,7 @@ public class App extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(253, 253, 244));
         jPanel3.setPreferredSize(new java.awt.Dimension(882, 482));
-        jPanel3.setLayout(new java.awt.GridLayout(0, 3, 10, 10));
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jScrollPane1.setViewportView(jPanel3);
 
         home.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -1127,7 +1200,6 @@ public class App extends javax.swing.JFrame {
         jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(253, 253, 244)));
         jTextField1.setCaretColor(new java.awt.Color(153, 153, 153));
         jTextField1.setPreferredSize(new java.awt.Dimension(64, 70));
-        jTextField1.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         jTextField1.setSelectionColor(new java.awt.Color(0, 204, 204));
         majorpage.add(jTextField1, java.awt.BorderLayout.PAGE_START);
 
@@ -1582,6 +1654,13 @@ public class App extends javax.swing.JFrame {
             doc.setCharacterAttributes(start, end - start, style, false);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    // tìm kiếm note theo title
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
+            loadNoteTypes(jTextField2.getText());
+        }
+    }//GEN-LAST:event_jTextField2KeyPressed
 
     // hight light
     private void hightlight() {
