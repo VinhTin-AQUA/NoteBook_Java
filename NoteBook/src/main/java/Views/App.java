@@ -26,12 +26,15 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -53,8 +56,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.PlainDocument;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -246,7 +247,42 @@ public class App extends javax.swing.JFrame {
                 showPhotos(photo);
             }
         });
+        JMenuItem downloadPhoto = new JMenuItem("Download"); // tải 1 hình ảnh
+        downloadPhoto.addActionListener((ActionEvent e) -> {
+            try {
+                String randomFileName = UUID.randomUUID().toString(); // tên file ngẫu nhiên
+                String downloadPath = System.getProperty("user.home") + "\\Downloads\\";// đường dẫn thư mục dowload
+                FileOutputStream fos = new FileOutputStream(downloadPath + randomFileName +".png");
+                fos.write(this.note.getPhotos().get(indexPhoto).getData());
+                fos.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        });
+        JMenuItem downLoadPhotos = new JMenuItem("Download All Photos"); // tải tất cả hình ảnh
+        downLoadPhotos.addActionListener((ActionEvent e) -> {
+             try {
+                String downloadPath = System.getProperty("user.home") + "\\Downloads\\"; 
+                FileOutputStream fos = null;
+                for(var photo : this.note.getPhotos()) {
+                    String randomFileName = UUID.randomUUID().toString(); // tên file ngẫu nhiên
+                    fos = new FileOutputStream(downloadPath + randomFileName +".png");
+                    fos.write(photo.getData());
+                    /*
+                        nên để dòng lệnh này trong vòng lặp, sau khi lưu thì ta có thể xóa hình ảnh trong hệ thống
+                        tránh lỗi: file is open in java.....
+                    */
+                    fos.close(); 
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         contxtMenuPhoto.add(deletePhoto);
+        contxtMenuPhoto.add(downloadPhoto);
+        contxtMenuPhoto.add(downLoadPhotos);
 
         // menu chuột phải của mỗi Todo Item
         JMenuItem deleteTodoItem = new JMenuItem("Delete"); // xóa TodoItem
@@ -507,7 +543,7 @@ public class App extends javax.swing.JFrame {
         StyleConstants.setItalic(style, false);// in nghiêng
         StyleConstants.setUnderline(style, false);// gạch chân
         doc.setCharacterAttributes(-1, textPane.getText().length() + 1, style, false);
-        
+
         //fix: tạo note mới thì textPaine reset lại định dạng
         textPane.setText(" ");
         textPane.setText("");
@@ -1255,12 +1291,12 @@ public class App extends javax.swing.JFrame {
 
     // lưu note
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if("".equals(jTextField1.getText())) {
+        if ("".equals(jTextField1.getText())) {
             note.setTitle("NO TITLE");
         } else {
             note.setTitle(jTextField1.getText());
         }
-        
+
         note.setType(null);
         note.setPin(false);
 
