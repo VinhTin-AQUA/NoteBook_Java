@@ -18,6 +18,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -34,11 +36,9 @@ import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -97,7 +97,9 @@ public class App extends javax.swing.JFrame {
 
         ImageIcon logo = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\notebook.png");
         this.setIconImage(logo.getImage());
-        this.setSize(1200, 700);
+        jPanel3.setPreferredSize(new Dimension(400, 500));
+        this.setMinimumSize(new Dimension(1070,800)); // kích thước tối thiểu của ứng dụng
+        this.setSize(1260, 700);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
         combo.setBackground(Color.WHITE);
@@ -127,6 +129,15 @@ public class App extends javax.swing.JFrame {
 
         // không cho chỉnh sửa item
         combo.setEditable(false);
+//        jPanel3.setLayout(new WrapLayout());
+
+        // sự kiện thay đôi kích thước màng hình ứng dụng
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent evt) {
+                reloadPanel3();
+            }
+        });
     }
 
     private void icon() {
@@ -196,6 +207,7 @@ public class App extends javax.swing.JFrame {
             resetNote();
             jPanel5.repaint();
             jPanel5.revalidate();
+            reloadPanel3();
         });
         JMenuItem setPassword = new JMenuItem("Set Password"); // set passwod
         setPassword.addActionListener((ActionEvent e) -> {
@@ -319,6 +331,30 @@ public class App extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+
+    // tăng giảm kích thước khung chứa note
+    private void reloadPanel3() {
+        int itemsColumn = jPanel3.getWidth() / 200;
+        long noteCount = 0;
+        for(var i : noteTypeNotes) {
+            noteCount += i.getNotes().size();
+        }
+        int itemsWith = (int) (noteCount / itemsColumn + 1);
+
+        if (noteCount % itemsColumn == 0) {
+            itemsWith = (int) (noteCount / itemsColumn);
+        } else {
+            itemsWith = (int) (noteCount / itemsColumn + 1);
+        }
+
+        if (itemsWith * 100 > jPanel3.getHeight()) {
+            jPanel3.setPreferredSize(new Dimension(500, jPanel3.getHeight() + 100));
+            jPanel3.revalidate();
+        } else if (jPanel3.getHeight() - (itemsWith*100) > 100 ) {
+            jPanel3.setPreferredSize(new Dimension(500, jPanel3.getHeight() - 100));
+            jPanel3.revalidate();
+        }
     }
 
 // ====================================================================================== thiết lập
@@ -575,7 +611,7 @@ public class App extends javax.swing.JFrame {
             NoteTypeNote type = noteTypeNotes.stream()
                     .filter(nt -> nt.getNoteType().getId() == Integer.parseInt(jtextField.getName()))
                     .findFirst().orElse(null);
-            if(noteType != null) {
+            if (noteType != null) {
                 jPanel3.removeAll();
                 loadNotes(type);
             }
@@ -676,7 +712,7 @@ public class App extends javax.swing.JFrame {
         noteTypeNotes = NoteTypeController.loadNoteTypes();
         JTextField textField;
         if (noteTypeNotes.size() >= 0) {
-            
+
             jPanel19.removeAll(); // box note type
             jPanel3.removeAll();
             combo.removeAllItems(); // xóa item củ của comboBox
@@ -689,7 +725,6 @@ public class App extends javax.swing.JFrame {
                 textField.setName(Integer.toString(noteTypeNote.getNoteType().getId())); // setName là id
                 jPanel19.add(textField);
 
-                
                 // load Type vào comboBox
                 combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
@@ -825,6 +860,7 @@ public class App extends javax.swing.JFrame {
             }
             jPanel3.repaint();
             jPanel3.revalidate();
+            reloadPanel3();
         }
     }
 // ======================================================================================  
@@ -1003,8 +1039,10 @@ public class App extends javax.swing.JFrame {
 
         home.add(jPanel12, java.awt.BorderLayout.WEST);
 
-        jPanel3.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel3.setPreferredSize(new java.awt.Dimension(882, 482));
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setViewportView(jPanel3);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jScrollPane1.setViewportView(jPanel3);
 
@@ -1420,6 +1458,7 @@ public class App extends javax.swing.JFrame {
         } else if (note.getNoteId() >= 0) { // cập nhật note
             NoteController.updateNote(note, (String) combo.getSelectedItem());
         }
+        reloadPanel3();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // chọn hình ảnh
