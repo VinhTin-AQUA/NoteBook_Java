@@ -56,6 +56,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -104,6 +105,11 @@ public class App extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
+        jScrollPane3.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            @Override
+            protected void configureScrollBarColors() {
+            this.thumbColor = Color.LIGHT_GRAY;}
+        });
         initComponents2();
         icon();
         initPopupMenu();
@@ -1009,14 +1015,14 @@ public class App extends javax.swing.JFrame {
         newnode.setBackground(new java.awt.Color(253, 253, 244));
         newnode.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         newnode.setText("NEW NODE");
-        newnode.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(153, 153, 153)));
+        newnode.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 3, 3, 1, new java.awt.Color(153, 153, 153)));
         newnode.setMargin(new java.awt.Insets(2, 8, 3, 14));
         newnode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newnodeActionPerformed(evt);
             }
         });
-        jPanel16.add(newnode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, -1));
+        jPanel16.add(newnode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 170, 50));
 
         newtype.setBackground(new java.awt.Color(253, 253, 244));
         newtype.setText("NEW CATEGORY");
@@ -1027,7 +1033,7 @@ public class App extends javax.swing.JFrame {
                 newtypeActionPerformed(evt);
             }
         });
-        jPanel16.add(newtype, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 160, -1));
+        jPanel16.add(newtype, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 30));
 
         jPanel12.add(jPanel16, java.awt.BorderLayout.PAGE_START);
 
@@ -1042,7 +1048,7 @@ public class App extends javax.swing.JFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setViewportView(jPanel3);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(253, 253, 244));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
         jScrollPane1.setViewportView(jPanel3);
 
@@ -1299,6 +1305,7 @@ public class App extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(450, 335));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
