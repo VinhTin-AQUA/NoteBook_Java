@@ -25,8 +25,8 @@ public class NoteTypeController {
         if (id.equals("1") || typeName.equals("Other")) {
             return "Cannot change or create default NoteType";
         }
-        
-        if(typeName.equals("")) {
+
+        if (typeName.equals("")) {
             return "Type Name cannot NULL";
         }
 
@@ -227,17 +227,16 @@ public class NoteTypeController {
             ps = Data.con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                query = "delete from Note where TypeId = " + noteType.getId();
-                ps = Data.con.prepareStatement(query);
-                ps.executeUpdate();
+            while (rs.next()) {
+                int noteId = rs.getInt("NoteId");
+                NoteController.deleteNote(new Note(noteId, "", null, "", null, false,
+                        null, null, null));
             }
 
             query = "delete from NoteType where TypeId = " + noteType.getId();
 
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
-//            JOptionPane.showMessageDialog(null, "Xoa thanh cong");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
