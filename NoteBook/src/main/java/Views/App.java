@@ -527,7 +527,7 @@ public class App extends javax.swing.JFrame {
         // ô nhập thêm 1 item của todolist
         JTextField addTodo = new JTextField("Add");
         Dimension pre = new Dimension(900, 40);
-        addTodo.setMaximumSize(pre);
+        addTodo.setMinimumSize(pre);
         addTodo.setMaximumSize(pre);
         addTodo.setBorder(new EmptyBorder(10, 10, 10, 10));
         addTodo.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -1376,7 +1376,7 @@ public class App extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // chuyển sang trang home
+    // chuyển sang trang  
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
         cardLayout.show(jPanel1, "home");
         combo.removeAllItems();
