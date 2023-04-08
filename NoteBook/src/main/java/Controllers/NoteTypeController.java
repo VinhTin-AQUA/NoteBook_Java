@@ -36,7 +36,7 @@ public class NoteTypeController {
         // nếu id truền tới != "-1", có nghĩa id đã tồn tại => noteType đã tồn tại
         // => chỉ đổi tên
         if (id.equals("-1") == false) {
-            int typeId = Integer.parseInt(id);
+            int typeId = Integer.parseInt(id);// id mang kieu chuoi, truyen toi thi set lai kieu int, do id trong databases kieu int
 
             try {
                 query = "UPDATE NoteType SET TypeName = ? WHERE TypeId = ?";

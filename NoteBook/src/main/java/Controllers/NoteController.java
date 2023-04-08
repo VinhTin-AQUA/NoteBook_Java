@@ -164,7 +164,7 @@ public class NoteController {
             JOptionPane.showMessageDialog(null, "Delete Note Successfully");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();// neu co loi thi in ra thong bao
             JOptionPane.showMessageDialog(null, "Delete Note Failed");
         }
     }
