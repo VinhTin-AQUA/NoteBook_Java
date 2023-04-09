@@ -16,7 +16,7 @@ public class Data {
         try {
             con = DriverManager.getConnection(url, root, pass);
             if(con != null) {
-                JOptionPane.showMessageDialog(null,  "Database has been successfully connected");
+//                JOptionPane.showMessageDialog(null,  "Database has been successfully connected");
             }
             
         } catch (Exception e) {

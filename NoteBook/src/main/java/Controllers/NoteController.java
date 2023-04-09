@@ -65,7 +65,7 @@ public class NoteController {
                         ps.executeUpdate();
                     }
                 }
-                JOptionPane.showMessageDialog(null, "create note successfully");
+//                JOptionPane.showMessageDialog(null, "create note successfully");
                 return generatedId;
             }
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class NoteController {
                     ps.executeUpdate();
                 }
             }
-            JOptionPane.showMessageDialog(null, "update note successfully");
+//            JOptionPane.showMessageDialog(null, "update note successfully");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "update note failed");
@@ -161,7 +161,7 @@ public class NoteController {
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Delete Note Successfully");
+//            JOptionPane.showMessageDialog(null, "Delete Note Successfully");
 
         } catch (Exception e) {
             e.printStackTrace();// neu co loi thi in ra thong bao
@@ -177,7 +177,7 @@ public class NoteController {
             ps.setString(1, pass);
             ps.setInt(2, note.getNoteId());
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Set Password Successfully", "", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, "Set Password Successfully", "", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -191,7 +191,7 @@ public class NoteController {
             ps.setString(1, "");
             ps.setInt(2, note.getNoteId());
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Reset Password Successfully", "", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, "Reset Password Successfully", "", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -205,7 +205,7 @@ public class NoteController {
             ps.setInt(1, typeId);
             ps.setInt(2, noteId);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Change Type Successfully", "", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, "Change Type Successfully", "", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Change Type Failed", "", JOptionPane.INFORMATION_MESSAGE);

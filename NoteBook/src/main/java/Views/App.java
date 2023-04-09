@@ -35,6 +35,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -91,6 +93,9 @@ public class App extends javax.swing.JFrame {
     private JTextPane textPane;
     private JPanel pane;
     private int todoItemSelect;
+
+    // is sort A-Z
+    private boolean sort;
 // ========================================================================================= khởi tạo
 
     public App() {
@@ -99,16 +104,17 @@ public class App extends javax.swing.JFrame {
         ImageIcon logo = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\notebook.png");
         this.setIconImage(logo.getImage());
         jPanel3.setPreferredSize(new Dimension(400, 500));
-        this.setMinimumSize(new Dimension(1070,800)); // kích thước tối thiểu của ứng dụng
+        this.setMinimumSize(new Dimension(1070, 800)); // kích thước tối thiểu của ứng dụng
         this.setSize(1260, 700);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
         combo.setBackground(Color.WHITE);
         combo.setOpaque(true);
-        jScrollPane3.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+        jScrollPane3.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
-            this.thumbColor = Color.LIGHT_GRAY;}
+                this.thumbColor = Color.LIGHT_GRAY;
+            }
         });
         initComponents2();
         icon();
@@ -118,11 +124,12 @@ public class App extends javax.swing.JFrame {
     private void initComponents2() {
         path = path.replace("\\", "\\\\");
         cardLayout = (CardLayout) jPanel1.getLayout();
+        sort = true;
 
         noteType = new NoteType(-1, "typename");
         note = new Note(-1, "", null, "", null, false, new Content(-1,
                 new byte[]{}), new LinkedList<TodoList>(), new LinkedList<Photo>());
-        loadNoteTypes(); // load noteType
+        loadNoteTypes(sort); // load noteType
 
         jTextPane2.setEditorKit(new WrapEditorKit());
         scrollPane = jScrollPane3;
@@ -144,6 +151,11 @@ public class App extends javax.swing.JFrame {
                 reloadPanel3();
             }
         });
+        // set icon khi selected và un-selected
+        ImageIcon icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\un_check.png");
+        jCheckBox1.setIcon(icon);
+        icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
+        jCheckBox1.setSelectedIcon(icon);
     }
 
     private void icon() {
@@ -196,8 +208,8 @@ public class App extends javax.swing.JFrame {
         });
         JMenuItem deleteNoteType = new JMenuItem("Delete");// xóa noteType
         deleteNoteType.addActionListener((ActionEvent e) -> {
-            boolean checkDelete = NoteTypeController.deleteNoteType(noteType);
-            loadNoteTypes();
+            NoteTypeController.deleteNoteType(noteType);
+            loadNoteTypes(sort);
             // reload lại submenu sau khi thêm 1 note type
             chooseType.removeAll();
             addChooseTypeItem();
@@ -209,7 +221,7 @@ public class App extends javax.swing.JFrame {
         JMenuItem deleteNote = new JMenuItem("Delete"); // xóa note
         deleteNote.addActionListener((ActionEvent e) -> {
             NoteController.deleteNote(this.note);
-            loadNoteTypes();
+            loadNoteTypes(sort);
             resetNote();
             jPanel5.repaint();
             jPanel5.revalidate();
@@ -219,7 +231,7 @@ public class App extends javax.swing.JFrame {
         setPassword.addActionListener((ActionEvent e) -> {
             java.awt.event.ActionEvent c = null;
             jButton6ActionPerformed(c);
-            loadNoteTypes();
+            loadNoteTypes(sort);
             resetNote();
             jPanel5.repaint();
             jPanel5.revalidate();
@@ -232,7 +244,7 @@ public class App extends javax.swing.JFrame {
 
             } else if (pass.equals(this.note.getPassword()) == true) {
                 NoteController.resetPassword(note);
-                loadNoteTypes();
+                loadNoteTypes(sort);
                 resetNote();
                 jPanel5.repaint();
                 jPanel5.revalidate();
@@ -321,7 +333,7 @@ public class App extends javax.swing.JFrame {
                 JMenuItem item = new JMenuItem(noteTypeNote.getNoteType().getTypeName());
                 item.addActionListener((ActionEvent e) -> {
                     NoteController.setType(noteTypeNote.getNoteType().getId(), note.getNoteId());
-                    loadNoteTypes(); // load lại type hiển thị trên mỗi note
+                    loadNoteTypes(sort); // load lại type hiển thị trên mỗi note
                 });
                 chooseType.add(item);
             }
@@ -343,7 +355,7 @@ public class App extends javax.swing.JFrame {
     private void reloadPanel3() {
         int itemsColumn = jPanel3.getWidth() / 200;
         long noteCount = 0;
-        for(var i : noteTypeNotes) {
+        for (var i : noteTypeNotes) {
             noteCount += i.getNotes().size();
         }
         int itemsWith = (int) (noteCount / itemsColumn + 1);
@@ -357,7 +369,7 @@ public class App extends javax.swing.JFrame {
         if (itemsWith * 100 > jPanel3.getHeight()) {
             jPanel3.setPreferredSize(new Dimension(500, jPanel3.getHeight() + 100));
             jPanel3.revalidate();
-        } else if (jPanel3.getHeight() - (itemsWith*100) > 100 ) {
+        } else if (jPanel3.getHeight() - (itemsWith * 100) > 100) {
             jPanel3.setPreferredSize(new Dimension(500, jPanel3.getHeight() - 100));
             jPanel3.revalidate();
         }
@@ -493,7 +505,7 @@ public class App extends javax.swing.JFrame {
             box.setBackground(Color.decode("#CCFFCC"));
 
             // margin
-            box.setMargin(new Insets(7, 0, 7, 10));
+            box.setMargin(new Insets(7, 10, 7, 0));
 
             // checked
             box.setSelected(item.isCheck());
@@ -527,7 +539,6 @@ public class App extends javax.swing.JFrame {
         // ô nhập thêm 1 item của todolist
         JTextField addTodo = new JTextField("Add");
         Dimension pre = new Dimension(900, 40);
-        addTodo.setMinimumSize(pre);
         addTodo.setMaximumSize(pre);
         addTodo.setBorder(new EmptyBorder(10, 10, 10, 10));
         addTodo.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -619,7 +630,7 @@ public class App extends javax.swing.JFrame {
                     .findFirst().orElse(null);
             if (noteType != null) {
                 jPanel3.removeAll();
-                loadNotes(type);
+                loadNotes(type,sort);
             }
         }
     }
@@ -629,8 +640,8 @@ public class App extends javax.swing.JFrame {
         JTextField jtextField = (JTextField) evt.getSource();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
             String notice = NoteTypeController.createNoteType(jtextField.getName(), jtextField.getText());
-            loadNoteTypes();
-            JOptionPane.showMessageDialog(null, notice, "", JOptionPane.INFORMATION_MESSAGE);
+            loadNoteTypes(sort);
+//            JOptionPane.showMessageDialog(null, notice, "", JOptionPane.INFORMATION_MESSAGE);
             jtextField.setFocusable(false);
             // reload lại submenu sau khi thêm 1 note type
             chooseType.removeAll();
@@ -714,8 +725,10 @@ public class App extends javax.swing.JFrame {
 
 // ======================================================================================  // action
     // render nhiều note-type ra view, load note vào comboBox
-    private void loadNoteTypes(String... title) {
+    private void loadNoteTypes(boolean sort, String... title) {
+//        title để thực hiện chức năng tìm kiếm
         noteTypeNotes = NoteTypeController.loadNoteTypes();
+
         JTextField textField;
         if (noteTypeNotes.size() >= 0) {
 
@@ -724,7 +737,7 @@ public class App extends javax.swing.JFrame {
             combo.removeAllItems(); // xóa item củ của comboBox
             for (var noteTypeNote : noteTypeNotes) {
                 // load noteType
-                loadNotes(noteTypeNote, title);
+                loadNotes(noteTypeNote, sort, title);
                 // TODO add your handling code here:
                 textField = new JTextField(noteTypeNote.getNoteType().getTypeName()); // tạo JTextField
                 initItemNoteType(textField);
@@ -734,10 +747,6 @@ public class App extends javax.swing.JFrame {
                 // load Type vào comboBox
                 combo.addItem(noteTypeNote.getNoteType().getTypeName()); // name
             }
-            if (!noteTypeNotes.isEmpty()) {
-                // item mặc định
-                combo.setSelectedItem(noteTypeNotes.get(0).getNoteType().getTypeName());
-            }
             // load lại panel
             jPanel19.repaint();
             jPanel19.revalidate();
@@ -745,11 +754,30 @@ public class App extends javax.swing.JFrame {
     }
 
     // load note
-    private void loadNotes(NoteTypeNote noteTypeNote, String... title) {
+    private void loadNotes(NoteTypeNote noteTypeNote, boolean sort, String... title) {
+        // sort = true: sort A-Z
+        // sort = false: sort Z-A
         if (noteTypeNote != null) {
             LinkedList<Note> notes = noteTypeNote.getNotes(); // danh sách notes để hiển thị ra view
+
+            // sắp xếp theo title
+            Comparator<Note> c = null;
+            if (sort == true) {
+                c = (n1, n2) -> {
+                    return n1.getTitle().compareToIgnoreCase(n2.getTitle());
+                };
+            } else {
+                c = (n1, n2) -> {
+                    return -n1.getTitle().compareToIgnoreCase(n2.getTitle());
+                };
+            }
+
+            Collections.sort(notes, c);
+
             if (title.length == 0) {
                 for (Note _note : notes) {
+
+                    // định dạng hiển thị ngày tháng
                     DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
 
                     JTextPane textPane = new JTextPane();
@@ -775,7 +803,9 @@ public class App extends javax.swing.JFrame {
                     textPane.addMouseListener(new java.awt.event.MouseAdapter() {
                         @Override
                         public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                            combo.setSelectedItem(noteTypeNote.getNoteType().getTypeName());
                             noteEvent(_note, evt);
+
                         }
                     });
 
@@ -895,6 +925,13 @@ public class App extends javax.swing.JFrame {
         jPanel19 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         Text = new javax.swing.JPanel();
         Title = new javax.swing.JPanel();
         NOTEBOOK = new javax.swing.JPanel();
@@ -997,7 +1034,7 @@ public class App extends javax.swing.JFrame {
                 jTextField2KeyPressed(evt);
             }
         });
-        jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 390, 50));
+        jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 330, 40));
 
         taskbar.add(jPanel9, java.awt.BorderLayout.LINE_END);
 
@@ -1053,6 +1090,64 @@ public class App extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jPanel3);
 
         home.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel14.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel14.setPreferredSize(new java.awt.Dimension(180, 485));
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Setting");
+        jPanel14.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 156, 30));
+
+        jCheckBox1.setText("Dark Mode");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 160, 30));
+
+        jToggleButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jToggleButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jToggleButton1.setText("Sort");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 160, 30));
+
+        jPanel20.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Z-A");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+        jPanel20.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 40));
+
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("A-Z");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jPanel20.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 40));
+
+        jPanel14.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 160, 100));
+
+        home.add(jPanel14, java.awt.BorderLayout.LINE_END);
 
         jPanel1.add(home, "home");
 
@@ -1376,11 +1471,11 @@ public class App extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // chuyển sang trang  
+    // chuyển sang trang home
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
         cardLayout.show(jPanel1, "home");
         combo.removeAllItems();
-        loadNoteTypes();
+        loadNoteTypes(sort);
         clearDetail();
         resetNote();
     }//GEN-LAST:event_leftActionPerformed
@@ -1531,7 +1626,7 @@ public class App extends javax.swing.JFrame {
             String curString = textPane.getText(); // lấy văn bản mới nhất trong ô văn bản
             String[] todoArray = curString.split("\n"); // chuyển sang mảng
 
-            // tạo todolist mới k
+            // tạo todolist mới
             LinkedList<TodoList> curTodos = new LinkedList<>();
             for (String item : todoArray) {
                 if (item.isEmpty()) {
@@ -1704,9 +1799,65 @@ public class App extends javax.swing.JFrame {
     // tìm kiếm note theo title
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
-            loadNoteTypes(jTextField2.getText());
+            loadNoteTypes(sort,jTextField2.getText());
         }
     }//GEN-LAST:event_jTextField2KeyPressed
+
+    // dark mode
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+//        System.out.println("sss");
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    // sort menu
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        if (jToggleButton1.isSelected() == true) {
+
+            jPanel20.setSize(160, 100);
+            Thread th = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        for (int i = 100; i >= 0; i--) {
+                            Thread.sleep(1);
+                            jPanel20.setSize(160, i);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            th.start();
+        } else {
+            jPanel20.setVisible(true);
+            jPanel20.setSize(160, 100);
+            Thread th = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        for (int i = 0; i <= 100; i++) {
+                            Thread.sleep(1);
+                            jPanel20.setSize(160, i);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            th.start();
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    // sort A-Z
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        sort =true;
+        loadNoteTypes(sort);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    // sort Z-A
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        sort = false;
+        loadNoteTypes(sort);
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     // hight light
     private void hightlight() {
@@ -1840,24 +1991,30 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1873,6 +2030,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane2;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton left;
     private javax.swing.JPanel majorpage;
