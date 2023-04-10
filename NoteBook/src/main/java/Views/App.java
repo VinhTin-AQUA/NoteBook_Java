@@ -1091,7 +1091,7 @@ public class App extends javax.swing.JFrame {
 
         home.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jPanel14.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel14.setBackground(new java.awt.Color(253, 253, 244));
         jPanel14.setPreferredSize(new java.awt.Dimension(180, 485));
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1806,6 +1806,32 @@ public class App extends javax.swing.JFrame {
     // dark mode
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
 //        System.out.println("sss");
+        if(jCheckBox1.isSelected() == true) {
+            taskbar.setBackground(Color.decode("#120e16"));
+            jPanel10.setBackground(Color.decode("#120e16"));
+            jPanel9.setBackground(Color.decode("#120e16"));
+            
+            jPanel16.setBackground(Color.decode("#171430"));
+            jPanel19.setBackground(Color.decode("#171430"));
+            
+            jPanel14.setBackground(Color.decode("#171430"));
+            jLabel8.setForeground(Color.decode("#ffffff"));
+            
+            jPanel3.setBackground(Color.decode("#171430"));
+        } else {
+            taskbar.setBackground(Color.decode("#DCD3CB"));
+            jPanel10.setBackground(Color.decode("#DCD3CB"));
+            jPanel9.setBackground(Color.decode("#DCD3CB"));
+            
+            jPanel16.setBackground(Color.decode("#FDFDF4"));
+            jPanel19.setBackground(Color.decode("#FDFDF4"));
+            
+            jPanel14.setBackground(Color.decode("#FDFDF4"));
+            jLabel8.setForeground(Color.decode("#171430"));
+            
+            jPanel3.setBackground(Color.decode("#FDFDF4"));
+        }
+//        taskbar.repaint();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     // sort menu
