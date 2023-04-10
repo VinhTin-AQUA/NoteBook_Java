@@ -1,7 +1,6 @@
 package Views;
 
-import Controllers.NoteController;
-import Controllers.NoteTypeController;
+import Controllers.*;
 import Models.Content;
 import Models.Note;
 import Models.NoteType;
@@ -158,6 +157,10 @@ public class App extends javax.swing.JFrame {
         jCheckBox1.setIcon(icon);
         icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
         jCheckBox1.setSelectedIcon(icon);
+        
+        // theme
+        jCheckBox1.setSelected(ThemeController.getThemMode());
+        jCheckBox1ActionPerformed(null);
     }
 
     private void icon() {
@@ -851,10 +854,11 @@ public class App extends javax.swing.JFrame {
 
                     // styles
                     textPane.setFont(font);
-                    textPane.setBackground(Color.decode("#FFCCCC"));
+                    textPane.setBackground(Color.decode("#ffffff"));
                     textPane.setForeground(Color.decode("#333333"));
                     textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     textPane.setMargin(new Insets(10, 10, 10, 10));
+                    textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
 
                     // đặt kích thước cố định
                     Dimension pre = new Dimension(200, 100);
@@ -1327,7 +1331,7 @@ public class App extends javax.swing.JFrame {
         jToolBar1.add(combo);
         combo.getAccessibleContext().setAccessibleParent(combo);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 710, 50));
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 850, 50));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -1385,7 +1389,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 905, Short.MAX_VALUE)
+            .addGap(0, 1115, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1809,7 +1813,7 @@ public class App extends javax.swing.JFrame {
 
     // theme
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-//        System.out.println("sss");
+        ThemeController.saveThemMode(jCheckBox1.isSelected());
         if (jCheckBox1.isSelected() == true) { // DARKMODE ON
             // header - home
             taskbar.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
@@ -1877,7 +1881,6 @@ public class App extends javax.swing.JFrame {
             jPanel5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
             jTextField1.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         }
-//        taskbar.repaint();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     // sort menu
