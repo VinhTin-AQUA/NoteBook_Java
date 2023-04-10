@@ -8,6 +8,7 @@ import Models.NoteType;
 import Models.NoteTypeNote;
 import Models.Photo;
 import Models.TodoList;
+import ThemeColor.*;
 import _utility.WrapEditorKit;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -630,7 +631,7 @@ public class App extends javax.swing.JFrame {
                     .findFirst().orElse(null);
             if (noteType != null) {
                 jPanel3.removeAll();
-                loadNotes(type,sort);
+                loadNotes(type, sort);
             }
         }
     }
@@ -996,7 +997,7 @@ public class App extends javax.swing.JFrame {
         taskbar.setPreferredSize(new java.awt.Dimension(90, 90));
         taskbar.setLayout(new java.awt.BorderLayout());
 
-        jPanel10.setBackground(new java.awt.Color(220, 211, 203));
+        jPanel10.setBackground(taskbar.getBackground());
         jPanel10.setPreferredSize(new java.awt.Dimension(150, 100));
         jPanel10.setLayout(new java.awt.BorderLayout());
 
@@ -1019,7 +1020,7 @@ public class App extends javax.swing.JFrame {
 
         taskbar.add(jPanel10, java.awt.BorderLayout.LINE_START);
 
-        jPanel9.setBackground(new java.awt.Color(220, 211, 203));
+        jPanel9.setBackground(taskbar.getBackground());
         jPanel9.setForeground(new java.awt.Color(255, 255, 255));
         jPanel9.setPreferredSize(new java.awt.Dimension(400, 100));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1045,7 +1046,7 @@ public class App extends javax.swing.JFrame {
         jPanel12.setPreferredSize(new java.awt.Dimension(200, 413));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jPanel16.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel16.setBackground(jPanel12.getBackground());
         jPanel16.setPreferredSize(new java.awt.Dimension(150, 120));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1074,7 +1075,7 @@ public class App extends javax.swing.JFrame {
 
         jPanel12.add(jPanel16, java.awt.BorderLayout.PAGE_START);
 
-        jPanel19.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel19.setBackground(jPanel12.getBackground());
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane4.setViewportView(jPanel19);
 
@@ -1164,7 +1165,7 @@ public class App extends javax.swing.JFrame {
         NOTEBOOK.setPreferredSize(new java.awt.Dimension(145, 90));
         NOTEBOOK.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setBackground(new java.awt.Color(220, 211, 203));
+        jLabel2.setBackground(NOTEBOOK.getBackground());
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel2.setText("NOTE");
         jLabel2.setOpaque(true);
@@ -1182,11 +1183,11 @@ public class App extends javax.swing.JFrame {
         jLabel3.setText("OK");
         NOTEBOOK.add(jLabel3, java.awt.BorderLayout.LINE_END);
 
-        task.setBackground(new java.awt.Color(220, 211, 203));
+        task.setBackground(NOTEBOOK.getBackground());
         task.setPreferredSize(new java.awt.Dimension(150, 40));
         task.setLayout(new java.awt.BorderLayout());
 
-        left.setBackground(new java.awt.Color(220, 211, 203));
+        left.setBackground(task.getBackground());
         left.setBorder(null);
         left.setPreferredSize(new java.awt.Dimension(50, 23));
         left.addActionListener(new java.awt.event.ActionListener() {
@@ -1198,7 +1199,7 @@ public class App extends javax.swing.JFrame {
 
         NOTEBOOK.add(task, java.awt.BorderLayout.PAGE_END);
 
-        Title.add(NOTEBOOK, java.awt.BorderLayout.LINE_START);
+        Title.add(NOTEBOOK, java.awt.BorderLayout.WEST);
 
         jPanel2.setBackground(new java.awt.Color(220, 211, 203));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1207,12 +1208,12 @@ public class App extends javax.swing.JFrame {
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 673, -1));
 
-        jToolBar1.setBackground(new java.awt.Color(220, 211, 203));
+        jToolBar1.setBackground(jPanel2.getBackground());
         jToolBar1.setBorder(null);
         jToolBar1.setRollover(true);
         jToolBar1.setPreferredSize(new java.awt.Dimension(1000, 65));
 
-        jButton1.setBackground(new java.awt.Color(220, 211, 207));
+        jButton1.setBackground(jToolBar1.getBackground());
         jButton1.setBorder(null);
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1225,7 +1226,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(220, 211, 207));
+        jButton2.setBackground(jToolBar1.getBackground());
         jButton2.setBorder(null);
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1238,7 +1239,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton2);
 
-        tick.setBackground(new java.awt.Color(220, 211, 203));
+        tick.setBackground(jToolBar1.getBackground());
         tick.setBorder(null);
         tick.setFocusable(false);
         tick.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1250,7 +1251,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(tick);
 
-        jButton6.setBackground(new java.awt.Color(220, 211, 207));
+        jButton6.setBackground(jToolBar1.getBackground());
         jButton6.setBorder(null);
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1263,7 +1264,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton6);
 
-        jButton7.setBackground(new java.awt.Color(220, 211, 207));
+        jButton7.setBackground(jToolBar1.getBackground());
         jButton7.setBorder(null);
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1276,7 +1277,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton7);
 
-        jButton8.setBackground(new java.awt.Color(220, 211, 207));
+        jButton8.setBackground(jToolBar1.getBackground());
         jButton8.setBorder(null);
         jButton8.setFocusable(false);
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1289,7 +1290,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton8);
 
-        jButton9.setBackground(new java.awt.Color(220, 211, 207));
+        jButton9.setBackground(jToolBar1.getBackground());
         jButton9.setBorder(null);
         jButton9.setFocusable(false);
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1302,7 +1303,7 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton9);
 
-        jButton10.setBackground(new java.awt.Color(220, 211, 207));
+        jButton10.setBackground(jToolBar1.getBackground());
         jButton10.setBorder(null);
         jButton10.setFocusable(false);
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1323,7 +1324,7 @@ public class App extends javax.swing.JFrame {
         jToolBar1.add(combo);
         combo.getAccessibleContext().setAccessibleParent(combo);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 750, 50));
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 710, 50));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -1799,37 +1800,79 @@ public class App extends javax.swing.JFrame {
     // tìm kiếm note theo title
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
-            loadNoteTypes(sort,jTextField2.getText());
+            loadNoteTypes(sort, jTextField2.getText());
         }
     }//GEN-LAST:event_jTextField2KeyPressed
 
-    // dark mode
+    // theme
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
 //        System.out.println("sss");
-        if(jCheckBox1.isSelected() == true) {
-            taskbar.setBackground(Color.decode("#120e16"));
-            jPanel10.setBackground(Color.decode("#120e16"));
-            jPanel9.setBackground(Color.decode("#120e16"));
-            
-            jPanel16.setBackground(Color.decode("#171430"));
-            jPanel19.setBackground(Color.decode("#171430"));
-            
-            jPanel14.setBackground(Color.decode("#171430"));
-            jLabel8.setForeground(Color.decode("#ffffff"));
-            
-            jPanel3.setBackground(Color.decode("#171430"));
-        } else {
-            taskbar.setBackground(Color.decode("#DCD3CB"));
-            jPanel10.setBackground(Color.decode("#DCD3CB"));
-            jPanel9.setBackground(Color.decode("#DCD3CB"));
-            
-            jPanel16.setBackground(Color.decode("#FDFDF4"));
-            jPanel19.setBackground(Color.decode("#FDFDF4"));
-            
-            jPanel14.setBackground(Color.decode("#FDFDF4"));
-            jLabel8.setForeground(Color.decode("#171430"));
-            
-            jPanel3.setBackground(Color.decode("#FDFDF4"));
+        if (jCheckBox1.isSelected() == true) { // DARKMODE ON
+            // header - home
+            taskbar.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jPanel10.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jPanel9.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+
+            // body - home
+            jPanel3.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jPanel14.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jPanel16.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jPanel19.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+
+            // header - text
+            NOTEBOOK.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            task.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            left.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jLabel2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jPanel2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jToolBar1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton6.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton7.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton8.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton9.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            jButton10.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+            tick.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+
+            // body - text
+            jPanel4.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jPanel6.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jPanel5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jTextField1.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        } else { // DARKMODE OFF 
+            // header
+            taskbar.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jPanel10.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jPanel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+
+            // body - home
+            jPanel3.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jPanel14.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jPanel16.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jPanel19.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+
+            // header - text
+            NOTEBOOK.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            left.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jLabel2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jPanel2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jToolBar1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton6.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton7.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton8.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            jButton10.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+            tick.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+
+            // body - text
+            jPanel4.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jPanel6.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jPanel5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jTextField1.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         }
 //        taskbar.repaint();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
@@ -1875,7 +1918,7 @@ public class App extends javax.swing.JFrame {
 
     // sort A-Z
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        sort =true;
+        sort = true;
         loadNoteTypes(sort);
     }//GEN-LAST:event_jLabel10MouseClicked
 
