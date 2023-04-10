@@ -43,6 +43,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -384,9 +385,9 @@ public class App extends javax.swing.JFrame {
         // styles
         textField.setFont(font);
         textField.setSize(178, 60);
-        textField.setBackground(Color.decode("#CCCCFF"));
+        textField.setBackground(Color.decode("#FFFFFF"));
         textField.setForeground(Color.decode("#333333"));
-        textField.setSelectionColor(Color.decode("#66FFCC"));
+        textField.setSelectionColor(Color.decode("#DCD3CB"));
         textField.setCursor(Cursor.getDefaultCursor());
 
 //        textField.setName("-1");
@@ -785,11 +786,13 @@ public class App extends javax.swing.JFrame {
                     Font font = new Font("Arial", Font.BOLD, 18);
 
                     // styles
+                    
                     textPane.setFont(font);
-                    textPane.setBackground(Color.decode("#FFCCCC"));
+                    textPane.setBackground(Color.decode("#FFFFFF"));
                     textPane.setForeground(Color.decode("#333333"));
                     textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     textPane.setMargin(new Insets(10, 10, 10, 10));
+                    textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
 
                     // đặt kích thước cố định
                     Dimension pre = new Dimension(200, 100);
@@ -1046,8 +1049,8 @@ public class App extends javax.swing.JFrame {
         jPanel12.setPreferredSize(new java.awt.Dimension(200, 413));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jPanel16.setBackground(jPanel12.getBackground());
-        jPanel16.setPreferredSize(new java.awt.Dimension(150, 120));
+        jPanel16.setBackground(new java.awt.Color(253, 253, 244));
+        jPanel16.setPreferredSize(new java.awt.Dimension(150, 150));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newnode.setBackground(new java.awt.Color(253, 253, 244));
@@ -1060,9 +1063,10 @@ public class App extends javax.swing.JFrame {
                 newnodeActionPerformed(evt);
             }
         });
-        jPanel16.add(newnode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 170, 50));
+        jPanel16.add(newnode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 170, 50));
 
         newtype.setBackground(new java.awt.Color(253, 253, 244));
+        newtype.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         newtype.setText("NEW CATEGORY");
         newtype.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(153, 153, 153)));
         newtype.setMargin(new java.awt.Insets(2, 8, 3, 8));
@@ -1071,11 +1075,11 @@ public class App extends javax.swing.JFrame {
                 newtypeActionPerformed(evt);
             }
         });
-        jPanel16.add(newtype, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 30));
+        jPanel16.add(newtype, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 40));
 
         jPanel12.add(jPanel16, java.awt.BorderLayout.PAGE_START);
 
-        jPanel19.setBackground(jPanel12.getBackground());
+        jPanel19.setBackground(new java.awt.Color(253, 253, 244));
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane4.setViewportView(jPanel19);
 
@@ -1087,7 +1091,7 @@ public class App extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jPanel3);
 
         jPanel3.setBackground(new java.awt.Color(253, 253, 244));
-        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
         jScrollPane1.setViewportView(jPanel3);
 
         home.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -1096,12 +1100,12 @@ public class App extends javax.swing.JFrame {
         jPanel14.setPreferredSize(new java.awt.Dimension(180, 485));
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Setting");
+        jLabel8.setText("SETTING");
         jPanel14.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 156, 30));
 
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jCheckBox1.setText("Dark Mode");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1110,9 +1114,8 @@ public class App extends javax.swing.JFrame {
         });
         jPanel14.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 160, 30));
 
-        jToggleButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setBackground(new java.awt.Color(242, 242, 242));
         jToggleButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jToggleButton1.setForeground(new java.awt.Color(0, 0, 0));
         jToggleButton1.setText("Sort");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1121,11 +1124,11 @@ public class App extends javax.swing.JFrame {
         });
         jPanel14.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 160, 30));
 
-        jPanel20.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel20.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Z-A");
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1135,8 +1138,8 @@ public class App extends javax.swing.JFrame {
         });
         jPanel20.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 40));
 
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("A-Z");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
