@@ -4,7 +4,7 @@ public enum DarkMode {
     HEADER_cOLOR("#222222"),
     BODY_cOLOR("#222137"),
     SETTING_COLOR("#252525"), 
-    BUTTON("#");
+    TEXT_COLOR("#FFFFFF");
 
     private final String rgb;
 

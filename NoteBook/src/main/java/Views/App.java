@@ -91,9 +91,9 @@ public class App extends javax.swing.JFrame {
 
     // điều chỉnh hiển thị todoList và Content
     private JScrollPane scrollPane;
-    private JTextPane textPane;
-    private JPanel pane;
-    private int todoItemSelect;
+    private JTextPane textPane; // vùng chứ văn bản
+    private JPanel pane; // vùng chứ todolist
+    private int todoItemSelect; // lưu id của item todolist cần xóa
 
     // is sort A-Z
     private boolean sort;
@@ -101,12 +101,11 @@ public class App extends javax.swing.JFrame {
 
     public App() {
         initComponents();
-
         ImageIcon logo = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\notebook.png");
         this.setIconImage(logo.getImage());
         jPanel3.setPreferredSize(new Dimension(400, 500));
-        this.setMinimumSize(new Dimension(1070, 800)); // kích thước tối thiểu của ứng dụng
-        this.setSize(1260, 700);
+        this.setMinimumSize(new Dimension(1090, 800)); // kích thước tối thiểu của ứng dụng
+        this.setSize(1330, 550);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
         combo.setBackground(Color.WHITE);
@@ -138,7 +137,7 @@ public class App extends javax.swing.JFrame {
         pane = new JPanel();
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         pane.setSize(427, 427);
-        pane.setBackground(Color.decode("#CCFFCC"));
+        pane.setBackground(Color.decode("#FFFFFF"));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         // không cho chỉnh sửa item
@@ -157,7 +156,7 @@ public class App extends javax.swing.JFrame {
         jCheckBox1.setIcon(icon);
         icon = new ImageIcon(path + "\\\\src\\\\main\\\\java\\\\icon\\\\check.png");
         jCheckBox1.setSelectedIcon(icon);
-        
+
         // theme
         jCheckBox1.setSelected(ThemeController.getThemMode());
         jCheckBox1ActionPerformed(null);
@@ -358,26 +357,21 @@ public class App extends javax.swing.JFrame {
 
     // tăng giảm kích thước khung chứa note
     private void reloadPanel3() {
-        int itemsColumn = jPanel3.getWidth() / 200;
+        int itemsColumn = jPanel3.getWidth() / 218;
         long noteCount = 0;
         for (var i : noteTypeNotes) {
             noteCount += i.getNotes().size();
         }
-        int itemsWith = (int) (noteCount / itemsColumn + 1);
+        int itemsWith = 0;
 
         if (noteCount % itemsColumn == 0) {
-            itemsWith = (int) (noteCount / itemsColumn);
-        } else {
             itemsWith = (int) (noteCount / itemsColumn + 1);
+        } else {
+            itemsWith = (int) (noteCount / itemsColumn + 2);
         }
 
-        if (itemsWith * 100 > jPanel3.getHeight()) {
-            jPanel3.setPreferredSize(new Dimension(500, jPanel3.getHeight() + 100));
-            jPanel3.revalidate();
-        } else if (jPanel3.getHeight() - (itemsWith * 100) > 100) {
-            jPanel3.setPreferredSize(new Dimension(500, jPanel3.getHeight() - 100));
-            jPanel3.revalidate();
-        }
+        jPanel3.setPreferredSize(new Dimension(600, itemsWith * 100));
+        jPanel3.revalidate();
     }
 
 // ====================================================================================== thiết lập
@@ -507,10 +501,12 @@ public class App extends javax.swing.JFrame {
 
             // style
             box.setFont(new Font("Arial", Font.PLAIN, 18));
-            box.setBackground(Color.decode("#CCFFCC"));
+            box.setBackground(Color.decode("#FFFFFF"));
 
             // margin
-            box.setMargin(new Insets(7, 10, 7, 0));
+//            box.setMargin(new Insets(7, 10, 7, 10));
+//            box.setBorder(BorderFactory.createEmptyBorder());
+            box.setBorderPainted(true);
 
             // checked
             box.setSelected(item.isCheck());
@@ -543,7 +539,7 @@ public class App extends javax.swing.JFrame {
         }
         // ô nhập thêm 1 item của todolist
         JTextField addTodo = new JTextField("Add");
-        Dimension pre = new Dimension(900, 40);
+        Dimension pre = new Dimension(2000, 40);
         addTodo.setMaximumSize(pre);
         addTodo.setBorder(new EmptyBorder(10, 10, 10, 10));
         addTodo.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -768,28 +764,24 @@ public class App extends javax.swing.JFrame {
             // sắp xếp theo title
             Comparator<Note> c = null;
             if (sort == true) {
-                c = (n1, n2) -> {
+                Collections.sort(notes, c = (n1, n2) -> {
                     return n1.getTitle().compareToIgnoreCase(n2.getTitle());
-                };
+                });
             } else {
-                c = (n1, n2) -> {
+                Collections.sort(notes, c = (n1, n2) -> {
                     return -n1.getTitle().compareToIgnoreCase(n2.getTitle());
-                };
+                });
             }
-
-            Collections.sort(notes, c);
-
+            // định dạng hiển thị ngày tháng
+            DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
+            Font font = new Font("Arial", Font.BOLD, 18);
+            // đặt kích thước cố định
+            Dimension pre = new Dimension(218, 100);
             if (title.length == 0) {
                 for (Note _note : notes) {
-
-                    // định dạng hiển thị ngày tháng
-                    DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
-
                     JTextPane textPane = new JTextPane();
-                    Font font = new Font("Arial", Font.BOLD, 18);
 
                     // styles
-                    
                     textPane.setFont(font);
                     textPane.setBackground(Color.decode("#FFFFFF"));
                     textPane.setForeground(Color.decode("#333333"));
@@ -797,8 +789,6 @@ public class App extends javax.swing.JFrame {
                     textPane.setMargin(new Insets(10, 10, 10, 10));
                     textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
 
-                    // đặt kích thước cố định
-                    Dimension pre = new Dimension(200, 100);
                     textPane.setSize(200, 100);
 
                     // văn bản tự động xuống hàng
@@ -847,10 +837,8 @@ public class App extends javax.swing.JFrame {
                     if (_note.getTitle().toLowerCase().contains(title[0].toLowerCase()) == false) {
                         continue;
                     }
-                    DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
 
                     JTextPane textPane = new JTextPane();
-                    Font font = new Font("Arial", Font.BOLD, 18);
 
                     // styles
                     textPane.setFont(font);
@@ -861,7 +849,6 @@ public class App extends javax.swing.JFrame {
                     textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
 
                     // đặt kích thước cố định
-                    Dimension pre = new Dimension(200, 100);
                     textPane.setSize(200, 100);
 
                     // văn bản tự động xuống hàng
@@ -1061,6 +1048,7 @@ public class App extends javax.swing.JFrame {
         newnode.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         newnode.setText("NEW NODE");
         newnode.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 3, 3, 1, new java.awt.Color(153, 153, 153)));
+        newnode.setFocusPainted(false);
         newnode.setMargin(new java.awt.Insets(2, 8, 3, 14));
         newnode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1073,6 +1061,7 @@ public class App extends javax.swing.JFrame {
         newtype.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         newtype.setText("NEW CATEGORY");
         newtype.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(153, 153, 153)));
+        newtype.setFocusPainted(false);
         newtype.setMargin(new java.awt.Insets(2, 8, 3, 8));
         newtype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1342,6 +1331,7 @@ public class App extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(253, 253, 244));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(51, 51, 51));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Title");
         jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(253, 253, 244)));
@@ -1389,7 +1379,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1115, Short.MAX_VALUE)
+            .addGap(0, 855, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1649,7 +1639,7 @@ public class App extends javax.swing.JFrame {
             // xóa todolist cũ
             this.note.clearTodoList();
 
-            // cộng vào todolist có sẵn
+            // đặt lại toolist mới
             this.note.setTodoList(curTodos); // 
             showTodoList(this.note.getTodoList()); // hiển thị
             checkClickToggleBtn = true;
@@ -1825,6 +1815,7 @@ public class App extends javax.swing.JFrame {
             jPanel14.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
             jPanel16.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
             jPanel19.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jLabel8.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
 
             // header - text
             NOTEBOOK.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
@@ -1847,6 +1838,8 @@ public class App extends javax.swing.JFrame {
             jPanel6.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
             jPanel5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
             jTextField1.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+            jTextField1.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
+
         } else { // DARKMODE OFF 
             // header
             taskbar.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
@@ -1858,6 +1851,7 @@ public class App extends javax.swing.JFrame {
             jPanel14.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
             jPanel16.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
             jPanel19.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jLabel8.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
 
             // header - text
             NOTEBOOK.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
@@ -1880,6 +1874,7 @@ public class App extends javax.swing.JFrame {
             jPanel6.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
             jPanel5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
             jTextField1.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+            jTextField1.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
