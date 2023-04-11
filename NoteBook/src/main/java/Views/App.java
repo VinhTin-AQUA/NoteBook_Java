@@ -196,7 +196,7 @@ public class App extends javax.swing.JFrame {
         jButton4.setIcon(icon);
     }
 
-    // khởi tạp menu chuột phải
+    // khởi tạo menu chuột phải
     private void initPopupMenu() {
         contxtMenuNoteType = new JPopupMenu(); // menu cua note typr
         contxtMenuNote = new JPopupMenu(); // menu cua note
@@ -218,8 +218,15 @@ public class App extends javax.swing.JFrame {
             chooseType.removeAll();
             addChooseTypeItem();
         });
+        JMenuItem addNoteType = new JMenuItem("Add Note");// thêm noteType
+        addNoteType.addActionListener((ActionEvent e) -> {
+            newnodeActionPerformed(null);
+            combo.setSelectedItem(noteType.getTypeName());
+        });
+        contxtMenuNoteType.add(addNoteType);
         contxtMenuNoteType.add(reNameNoteType);
         contxtMenuNoteType.add(deleteNoteType);
+        
 
         // menu chuột phải của mỗi note
         JMenuItem deleteNote = new JMenuItem("Delete"); // xóa note
@@ -330,7 +337,7 @@ public class App extends javax.swing.JFrame {
         contxtMenuTodoItem.add(deleteTodoItem);
     }
 
-    // load các notetype vào submenu chooseType
+    // load tên notetype vào submenu chooseType ddeer chọn loại note khi tạo note
     private void addChooseTypeItem() {
         if (noteTypeNotes.size() >= 0) {
             for (var noteTypeNote : noteTypeNotes) {
@@ -503,9 +510,6 @@ public class App extends javax.swing.JFrame {
             box.setFont(new Font("Arial", Font.PLAIN, 18));
             box.setBackground(Color.decode("#FFFFFF"));
 
-            // margin
-//            box.setMargin(new Insets(7, 10, 7, 10));
-//            box.setBorder(BorderFactory.createEmptyBorder());
             box.setBorderPainted(true);
 
             // checked
@@ -603,7 +607,7 @@ public class App extends javax.swing.JFrame {
         doc.setCharacterAttributes(-1, textPane.getText().length() + 1, style, false);
     }
 
-// ====================================================================================== sự kiện
+// ======================================================================================
     // unfocus textfield của NoteType Item
     private void unfocus(FocusEvent evt) {
         JTextField textField = (JTextField) evt.getSource();
@@ -625,7 +629,7 @@ public class App extends javax.swing.JFrame {
                 noteType = null;
             }
         }
-        if (evt.getButton() == MouseEvent.BUTTON1) { // click chuot trai
+        if (evt.getButton() == MouseEvent.BUTTON1) { // click chuot trai để hiển thị các note của notetype này
             NoteTypeNote type = noteTypeNotes.stream()
                     .filter(nt -> nt.getNoteType().getId() == Integer.parseInt(jtextField.getName()))
                     .findFirst().orElse(null);
@@ -724,7 +728,7 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-// ======================================================================================  // action
+// ====================================================================================== 
     // render nhiều note-type ra view, load note vào comboBox
     private void loadNoteTypes(boolean sort, String... title) {
 //        title để thực hiện chức năng tìm kiếm
@@ -813,8 +817,13 @@ public class App extends javax.swing.JFrame {
                     try {
                         // style title
                         StyleConstants.setForeground(style, Color.BLACK);
-                        doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
-
+                        
+                        // hiển thị title tối đa 20 ký tự trên mỗi item note
+                        if(_note.getTitle().length() > 20) {
+                            doc.insertString(doc.getLength(), _note.getTitle().substring(0, 20) + "...\n", style);
+                        } else {
+                            doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+                        }
                         // style date
                         StyleConstants.setBold(style, false);
                         StyleConstants.setFontSize(style, 12);
@@ -825,7 +834,6 @@ public class App extends javax.swing.JFrame {
                         StyleConstants.setBold(style, false);
                         StyleConstants.setFontSize(style, 14);
                         doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
-
                     } catch (BadLocationException ex) {
                         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -871,7 +879,13 @@ public class App extends javax.swing.JFrame {
                     try {
                         // style title
                         StyleConstants.setForeground(style, Color.BLACK);
-                        doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+                        
+                        // hiển thị title tối đa 20 ký tự trên mỗi item note
+                        if(_note.getTitle().length() > 20) {
+                            doc.insertString(doc.getLength(), _note.getTitle().substring(0, 20) + "...\n", style);
+                        } else {
+                            doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+                        }
 
                         // style date
                         StyleConstants.setBold(style, false);
