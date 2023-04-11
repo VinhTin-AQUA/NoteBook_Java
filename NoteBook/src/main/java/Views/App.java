@@ -948,10 +948,10 @@ public class App extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         task = new javax.swing.JPanel();
-        left = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        left = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         tick = new javax.swing.JToggleButton();
@@ -1196,17 +1196,6 @@ public class App extends javax.swing.JFrame {
         task.setBackground(NOTEBOOK.getBackground());
         task.setPreferredSize(new java.awt.Dimension(150, 40));
         task.setLayout(new java.awt.BorderLayout());
-
-        left.setBackground(task.getBackground());
-        left.setBorder(null);
-        left.setPreferredSize(new java.awt.Dimension(50, 23));
-        left.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leftActionPerformed(evt);
-            }
-        });
-        task.add(left, java.awt.BorderLayout.LINE_START);
-
         NOTEBOOK.add(task, java.awt.BorderLayout.PAGE_END);
 
         Title.add(NOTEBOOK, java.awt.BorderLayout.WEST);
@@ -1222,6 +1211,16 @@ public class App extends javax.swing.JFrame {
         jToolBar1.setBorder(null);
         jToolBar1.setRollover(true);
         jToolBar1.setPreferredSize(new java.awt.Dimension(1000, 65));
+
+        left.setBackground(task.getBackground());
+        left.setBorder(null);
+        left.setPreferredSize(new java.awt.Dimension(50, 23));
+        left.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leftActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(left);
 
         jButton1.setBackground(jToolBar1.getBackground());
         jButton1.setBorder(null);
@@ -1334,7 +1333,7 @@ public class App extends javax.swing.JFrame {
         jToolBar1.add(combo);
         combo.getAccessibleContext().setAccessibleParent(combo);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 850, 50));
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 770, 40));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -1365,7 +1364,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
+            .addGap(0, 244, Short.MAX_VALUE)
         );
 
         majorpage.add(jPanel4, java.awt.BorderLayout.LINE_END);
@@ -1381,7 +1380,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
+            .addGap(0, 244, Short.MAX_VALUE)
         );
 
         majorpage.add(jPanel5, java.awt.BorderLayout.LINE_START);
@@ -1393,7 +1392,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGap(0, 935, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1473,11 +1472,11 @@ public class App extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 825, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
         );
 
         pack();
