@@ -757,7 +757,7 @@ public class App extends javax.swing.JFrame {
             jPanel19.revalidate();
         }
     }
-
+    
     // load note
     private void loadNotes(NoteTypeNote noteTypeNote, boolean sort, String... title) {
         // sort = true: sort A-Z
