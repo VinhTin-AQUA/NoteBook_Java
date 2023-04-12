@@ -1051,7 +1051,7 @@ public class App extends javax.swing.JFrame {
 
         newnode.setBackground(new java.awt.Color(253, 253, 244));
         newnode.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        newnode.setText("NEW NODE");
+        newnode.setText("NEW NOTE");
         newnode.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 3, 3, 1, new java.awt.Color(153, 153, 153)));
         newnode.setFocusPainted(false);
         newnode.setMargin(new java.awt.Insets(2, 8, 3, 14));
