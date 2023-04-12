@@ -779,9 +779,9 @@ public class App extends javax.swing.JFrame {
         // styles
         textPane.setFont(font);
         if (_note.isPin() == true) {
-            textPane.setBackground(Color.decode("#99FF99"));
+            textPane.setBackground(Color.decode("#FDC3E9")); // màu của note được ghim
         } else {
-            textPane.setBackground(Color.decode("#FFFFFF"));
+            textPane.setBackground(Color.decode("#FFFFFF")); // màu của note chưa được ghim
         }
 
         textPane.setForeground(Color.decode("#333333"));
