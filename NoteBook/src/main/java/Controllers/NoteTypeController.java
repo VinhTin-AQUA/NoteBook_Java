@@ -17,17 +17,17 @@ import javax.swing.JOptionPane;
 public class NoteTypeController {
 
     // tạo note type hoặc cập nhật note type
-    static public String createNoteType(String id, String typeName) {
+    static public void createNoteType(String id, String typeName) {
         typeName = typeName.trim();
         id = id.trim();
 
         // không thể thao tác với Note Type mặc định có Id = 1
         if (id.equals("1") || typeName.equals("Other")) {
-            return "Cannot change or create default NoteType";
+            JOptionPane.showMessageDialog(null, "Cannot change or create default NoteType", "", JOptionPane.INFORMATION_MESSAGE);
         }
 
         if (typeName.equals("")) {
-            return "Type Name cannot NULL";
+            return;
         }
 
         String query = "";
@@ -47,11 +47,8 @@ public class NoteTypeController {
                 ps.executeUpdate();
 
             } catch (Exception e) {
-//                JOptionPane.showMessageDialog(null, "" + e);
-                return "Error" + e;
-
+                e.printStackTrace();
             }
-            return "Change TypeName Successful";
         }
 
         // nếu id truyền tới null => chưa tồn tại NoteType
@@ -62,7 +59,7 @@ public class NoteTypeController {
             ps = Data.con.prepareStatement(query);
             ResultSet rs = ps.executeQuery(query);
             if (rs.next()) {
-                return "Type Name already exist";
+                JOptionPane.showMessageDialog(null, "Type Name already exist", "", JOptionPane.INFORMATION_MESSAGE);
             }
 
             // nếu tên note type chưa tồn tại
@@ -74,9 +71,7 @@ public class NoteTypeController {
         } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, "" + e);
             e.printStackTrace();
-            return "Error" + e;
         }
-        return "Create Note Type successfull";
     }
 
     // load note-type, khi load thì load luôn các note của mỗi type

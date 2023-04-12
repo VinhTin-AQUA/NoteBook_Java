@@ -381,7 +381,7 @@ public class App extends javax.swing.JFrame {
         jPanel3.revalidate();
     }
 
-// ====================================================================================== thiết lập
+// =====================================================    ================================= thiết lập
     // thiết lập của các item NoteType
     private void initItemNoteType(JTextField textField) {
         Font font = new Font("Dialog", Font.BOLD, 18);
@@ -644,9 +644,9 @@ public class App extends javax.swing.JFrame {
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {
         JTextField jtextField = (JTextField) evt.getSource();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
-            String notice = NoteTypeController.createNoteType(jtextField.getName(), jtextField.getText());
+            NoteTypeController.createNoteType(jtextField.getName(), jtextField.getText());
             loadNoteTypes(sort);
-//            JOptionPane.showMessageDialog(null, notice, "", JOptionPane.INFORMATION_MESSAGE);
+//            
             jtextField.setFocusable(false);
             // reload lại submenu sau khi thêm 1 note type
             chooseType.removeAll();
@@ -733,7 +733,9 @@ public class App extends javax.swing.JFrame {
     private void loadNoteTypes(boolean sort, String... title) {
 //        title để thực hiện chức năng tìm kiếm
         noteTypeNotes = NoteTypeController.loadNoteTypes();
-
+        Collections.sort(noteTypeNotes, (c1,c2) -> {
+            return c1.getNoteType().getTypeName().compareToIgnoreCase(c2.getNoteType().getTypeName());
+        });
         JTextField textField;
         if (noteTypeNotes.size() >= 0) {
 
@@ -766,13 +768,12 @@ public class App extends javax.swing.JFrame {
             LinkedList<Note> notes = noteTypeNote.getNotes(); // danh sách notes để hiển thị ra view
 
             // sắp xếp theo title
-            Comparator<Note> c = null;
             if (sort == true) {
-                Collections.sort(notes, c = (n1, n2) -> {
+                Collections.sort(notes,(n1, n2) -> {
                     return n1.getTitle().compareToIgnoreCase(n2.getTitle());
                 });
             } else {
-                Collections.sort(notes, c = (n1, n2) -> {
+                Collections.sort(notes,(n1, n2) -> {
                     return -n1.getTitle().compareToIgnoreCase(n2.getTitle());
                 });
             }
