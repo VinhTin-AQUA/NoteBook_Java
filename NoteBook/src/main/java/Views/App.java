@@ -38,9 +38,11 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -226,7 +228,6 @@ public class App extends javax.swing.JFrame {
         contxtMenuNoteType.add(addNoteType);
         contxtMenuNoteType.add(reNameNoteType);
         contxtMenuNoteType.add(deleteNoteType);
-        
 
         // menu chuột phải của mỗi note
         JMenuItem deleteNote = new JMenuItem("Delete"); // xóa note
@@ -247,7 +248,11 @@ public class App extends javax.swing.JFrame {
             jPanel5.repaint();
             jPanel5.revalidate();
         });
-
+        JMenuItem pin = new JMenuItem("Pin"); // pin note
+        pin.addActionListener((e) -> {
+            NoteController.pinNote(note);
+            loadNoteTypes(sort);
+        });
         JMenuItem deletePassword = new JMenuItem("Reset Password"); // xóa mật khẩu Password
         deletePassword.addActionListener((ActionEvent e) -> {
             String pass = enterPassword();
@@ -265,6 +270,7 @@ public class App extends javax.swing.JFrame {
         });
         chooseType = new JMenu("Choose Type");
         addChooseTypeItem();
+        contxtMenuNote.add(pin);
         contxtMenuNote.add(deleteNote);
         contxtMenuNote.add(setPassword);
         contxtMenuNote.add(deletePassword);
@@ -733,7 +739,7 @@ public class App extends javax.swing.JFrame {
     private void loadNoteTypes(boolean sort, String... title) {
 //        title để thực hiện chức năng tìm kiếm
         noteTypeNotes = NoteTypeController.loadNoteTypes();
-        Collections.sort(noteTypeNotes, (c1,c2) -> {
+        Collections.sort(noteTypeNotes, (c1, c2) -> {
             return c1.getNoteType().getTypeName().compareToIgnoreCase(c2.getNoteType().getTypeName());
         });
         JTextField textField;
@@ -759,7 +765,78 @@ public class App extends javax.swing.JFrame {
             jPanel19.revalidate();
         }
     }
-    
+
+    // item note
+    private void noteItem(NoteTypeNote noteTypeNote, Note _note) {
+        // định dạng hiển thị ngày tháng
+        DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
+        Font font = new Font("Arial", Font.BOLD, 18);
+        // đặt kích thước cố định
+        Dimension pre = new Dimension(218, 100);
+
+        JTextPane textPane = new JTextPane();
+
+        // styles
+        textPane.setFont(font);
+        if (_note.isPin() == true) {
+            textPane.setBackground(Color.decode("#99FF99"));
+        } else {
+            textPane.setBackground(Color.decode("#FFFFFF"));
+        }
+
+        textPane.setForeground(Color.decode("#333333"));
+        textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        textPane.setMargin(new Insets(10, 10, 10, 10));
+        textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
+
+        textPane.setSize(200, 100);
+
+        // văn bản tự động xuống hàng
+        textPane.setPreferredSize(pre);
+        textPane.setEditorKit(new WrapEditorKit());
+        textPane.setFocusable(false);
+
+        // sự kiện click vào mỗi note để hiển thị nội dung
+        textPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
+                combo.setSelectedItem(noteTypeNote.getNoteType().getTypeName());
+                noteEvent(_note, evt);
+
+            }
+        });
+
+        // style từng đoạn văn bản
+        StyledDocument doc = textPane.getStyledDocument();
+        Style style = textPane.addStyle("mystyle", null);
+
+        try {
+            // style title
+            StyleConstants.setForeground(style, Color.BLACK);
+
+            // hiển thị title tối đa 20 ký tự trên mỗi item note
+            if (_note.getTitle().length() > 20) {
+                doc.insertString(doc.getLength(), _note.getTitle().substring(0, 20) + "...\n", style);
+            } else {
+                doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
+            }
+            // style date
+            StyleConstants.setBold(style, false);
+            StyleConstants.setFontSize(style, 12);
+            doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
+
+            // style NoteType
+            StyleConstants.setForeground(style, Color.RED);
+            StyleConstants.setBold(style, false);
+            StyleConstants.setFontSize(style, 14);
+            doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jPanel3.add(textPane);
+
+    }
+
     // load note
     private void loadNotes(NoteTypeNote noteTypeNote, boolean sort, String... title) {
         // sort = true: sort A-Z
@@ -769,139 +846,52 @@ public class App extends javax.swing.JFrame {
 
             // sắp xếp theo title
             if (sort == true) {
-                Collections.sort(notes,(n1, n2) -> {
+                Collections.sort(notes, (n1, n2) -> {
                     return n1.getTitle().compareToIgnoreCase(n2.getTitle());
                 });
             } else {
-                Collections.sort(notes,(n1, n2) -> {
+                Collections.sort(notes, (n1, n2) -> {
                     return -n1.getTitle().compareToIgnoreCase(n2.getTitle());
                 });
             }
-            // định dạng hiển thị ngày tháng
-            DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
-            Font font = new Font("Arial", Font.BOLD, 18);
-            // đặt kích thước cố định
-            Dimension pre = new Dimension(218, 100);
-            if (title.length == 0) {
-                for (Note _note : notes) {
-                    JTextPane textPane = new JTextPane();
 
-                    // styles
-                    textPane.setFont(font);
-                    textPane.setBackground(Color.decode("#FFFFFF"));
-                    textPane.setForeground(Color.decode("#333333"));
-                    textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    textPane.setMargin(new Insets(10, 10, 10, 10));
-                    textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
+            // danh sách notes được pin
+            LinkedList<Note> pinnedNote = notes.stream().filter(note -> note.isPin() == true)
+                    .collect(Collectors.toCollection(LinkedList::new));
 
-                    textPane.setSize(200, 100);
+            // danh sách notes chưa pin
+            LinkedList<Note> unpinNote = notes.stream().filter(note -> note.isPin() == false)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            
+            if (title.length == 0) { // length = 0: không có từ khóa cần tìm
 
-                    // văn bản tự động xuống hàng
-                    textPane.setPreferredSize(pre);
-                    textPane.setEditorKit(new WrapEditorKit());
-                    textPane.setFocusable(false);
-
-                    // sự kiện click vào mỗi note để hiển thị nội dung
-                    textPane.addMouseListener(new java.awt.event.MouseAdapter() {
-                        @Override
-                        public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
-                            combo.setSelectedItem(noteTypeNote.getNoteType().getTypeName());
-                            noteEvent(_note, evt);
-
-                        }
-                    });
-
-                    // style từng đoạn văn bản
-                    StyledDocument doc = textPane.getStyledDocument();
-                    Style style = textPane.addStyle("mystyle", null);
-
-                    try {
-                        // style title
-                        StyleConstants.setForeground(style, Color.BLACK);
-                        
-                        // hiển thị title tối đa 20 ký tự trên mỗi item note
-                        if(_note.getTitle().length() > 20) {
-                            doc.insertString(doc.getLength(), _note.getTitle().substring(0, 20) + "...\n", style);
-                        } else {
-                            doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
-                        }
-                        // style date
-                        StyleConstants.setBold(style, false);
-                        StyleConstants.setFontSize(style, 12);
-                        doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
-
-                        // style NoteType
-                        StyleConstants.setForeground(style, Color.RED);
-                        StyleConstants.setBold(style, false);
-                        StyleConstants.setFontSize(style, 14);
-                        doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    jPanel3.add(textPane);
+                // hiển thị các note được ghim trước
+                for (Note _note : pinnedNote) {
+                    noteItem(noteTypeNote, _note);
                 }
+                
+                // hiển thị các note không được ghim sau
+                for (Note _note : unpinNote) {
+                    noteItem(noteTypeNote, _note);
+                }
+
             } else {
-                for (Note _note : notes) {
-                    // nếu không chứa từ khóa cần tìm thì không thêm vào
+                // hiển thị các note được ghim trước
+                for (Note _note : pinnedNote) {
+                    // nếu không chứa từ khóa cần tìm thì không hiển thị
                     if (_note.getTitle().toLowerCase().contains(title[0].toLowerCase()) == false) {
                         continue;
                     }
-
-                    JTextPane textPane = new JTextPane();
-
-                    // styles
-                    textPane.setFont(font);
-                    textPane.setBackground(Color.decode("#ffffff"));
-                    textPane.setForeground(Color.decode("#333333"));
-                    textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    textPane.setMargin(new Insets(10, 10, 10, 10));
-                    textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
-
-                    // đặt kích thước cố định
-                    textPane.setSize(200, 100);
-
-                    // văn bản tự động xuống hàng
-                    textPane.setPreferredSize(pre);
-                    textPane.setEditorKit(new WrapEditorKit());
-                    textPane.setFocusable(false);
-
-                    // sự kiện click vào mỗi note để hiển thị nội dung
-                    textPane.addMouseListener(new java.awt.event.MouseAdapter() {
-                        @Override
-                        public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
-                            noteEvent(_note, evt);
-                        }
-                    });
-
-                    // style từng đoạn văn bản
-                    StyledDocument doc = textPane.getStyledDocument();
-                    Style style = textPane.addStyle("mystyle", null);
-
-                    try {
-                        // style title
-                        StyleConstants.setForeground(style, Color.BLACK);
-                        
-                        // hiển thị title tối đa 20 ký tự trên mỗi item note
-                        if(_note.getTitle().length() > 20) {
-                            doc.insertString(doc.getLength(), _note.getTitle().substring(0, 20) + "...\n", style);
-                        } else {
-                            doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
-                        }
-
-                        // style date
-                        StyleConstants.setBold(style, false);
-                        StyleConstants.setFontSize(style, 12);
-                        doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
-
-                        // style NoteType
-                        StyleConstants.setForeground(style, Color.RED);
-                        StyleConstants.setBold(style, false);
-                        StyleConstants.setFontSize(style, 14);
-                        doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    noteItem(noteTypeNote, _note);
+                }
+                
+                // hiển thị các note không được ghim sau
+                for (Note _note : unpinNote) {
+                    // nếu không chứa từ khóa cần tìm thì không hiển thị
+                    if (_note.getTitle().toLowerCase().contains(title[0].toLowerCase()) == false) {
+                        continue;
                     }
-                    jPanel3.add(textPane);
+                    noteItem(noteTypeNote, _note);
                 }
             }
             jPanel3.repaint();
@@ -1492,7 +1482,7 @@ public class App extends javax.swing.JFrame {
         resetNote();
     }//GEN-LAST:event_leftActionPerformed
 
-    // chuyển sang trang text - bấm nút new Type
+    // chuyển sang trang text - bấm nút new note
     private void newnodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newnodeActionPerformed
         cardLayout.show(jPanel1, "text");
         clearDetail();
@@ -1501,6 +1491,7 @@ public class App extends javax.swing.JFrame {
         //fix: tạo note mới thì textPaine reset lại định dạng
         textPane.setText(" ");
         textPane.setText("");
+        combo.setSelectedItem("DEFAULT");
     }//GEN-LAST:event_newnodeActionPerformed
 
     // bấm nút new Type

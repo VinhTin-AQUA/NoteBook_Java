@@ -6,8 +6,11 @@ import Models.Photo;
 import Models.TodoList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class NoteController {
@@ -229,5 +232,18 @@ public class NoteController {
             e.printStackTrace();
         }
         return 1;
+    }
+    
+    // pin note
+    public static void pinNote(Note note) {
+        String query = "UPDATE note SET pin=? WHERE note.NoteId = ?;";
+        try {
+            PreparedStatement ps = Data.con.prepareStatement(query);
+            ps.setBoolean(1, !note.isPin());
+            ps.setInt(2, note.getNoteId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(NoteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
