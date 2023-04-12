@@ -58,7 +58,7 @@ public class NoteTypeController {
         // => tạo notetype mới
         try {
             // kiểm tra tên note type này đã tồn tại chưa
-            query = "select * from NoteType where TypeName='" + typeName + "';";
+            query = "SELECT * FROM NoteType WHERE TypeName='" + typeName + "';";
             ps = Data.con.prepareStatement(query);
             ResultSet rs = ps.executeQuery(query);
             if (rs.next()) {
@@ -66,7 +66,7 @@ public class NoteTypeController {
             }
 
             // nếu tên note type chưa tồn tại
-            query = "insert into NoteType(TypeId,TypeName) values(null,?);";
+            query = "INSERT INTO NoteType(TypeId,TypeName) VALUES(NULL,?);";
             ps = Data.con.prepareStatement(query);
             ps.setString(1, typeName);
 
@@ -83,9 +83,8 @@ public class NoteTypeController {
     static public LinkedList<NoteTypeNote> loadNoteTypes() {
         LinkedList<NoteTypeNote> listNoteTypeNote = new LinkedList<>();
         LinkedList<Note> notes = new LinkedList<>();
-        String query = "select NoteType.TypeId,"
-                + " NoteType.TypeName"
-                + " from NoteType;";
+        String query = "SELECT *"
+                + " FROM NoteType;";
 
         try {
             PreparedStatement ps = Data.con.prepareStatement(query);
@@ -134,7 +133,7 @@ public class NoteTypeController {
         boolean check;
 
         try {
-            String query = "select * from note where note.TypeId = " + noteType.getId();
+            String query = "SELECT * FROM note WHERE note.TypeId = " + noteType.getId();
             PreparedStatement ps = Data.con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
@@ -153,7 +152,7 @@ public class NoteTypeController {
 
             for (Note note : notes) {
                 // kiểm tra Note này có content không
-                query = "select * from Content where Content.NoteId = " + note.getNoteId();
+                query = "SELECT * FROM Content WHERE Content.NoteId = " + note.getNoteId();
                 ps = Data.con.prepareStatement(query);
                 rs = ps.executeQuery();
                 if (rs.next()) {
@@ -162,7 +161,7 @@ public class NoteTypeController {
                 }
 
                 // kiểm tra note có chứa hình ảnh không
-                query = "select * from Photo where Photo.NoteId = " + note.getNoteId();
+                query = "SELECT * FROM Photo WHERE Photo.NoteId = " + note.getNoteId();
                 ps = Data.con.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -173,7 +172,7 @@ public class NoteTypeController {
                 }
 
                 // kiểm tra có todolist không
-                query = "select * from TodoList where TodoList.NoteId = " + note.getNoteId();
+                query = "SELECT * FROM TodoList WHERE TodoList.NoteId = " + note.getNoteId();
                 ps = Data.con.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -218,8 +217,7 @@ public class NoteTypeController {
 
         String query = "select * "
                 + "from Note "
-                + "left outer join NoteType on NoteType.TypeId = Note.TypeId "
-                + "where NoteType.TypeId = " + noteType.getId();
+                + "where TypeId = " + noteType.getId();
 
         PreparedStatement ps;
         try {
@@ -233,7 +231,7 @@ public class NoteTypeController {
                         null, null, null));
             }
 
-            query = "delete from NoteType where TypeId = " + noteType.getId();
+            query = "DELETE FROM NoteType WHERE TypeId = " + noteType.getId();
 
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();

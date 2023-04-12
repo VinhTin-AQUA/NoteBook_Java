@@ -18,8 +18,8 @@ public class NoteController {
         int generatedId;
         try {
             // luu note
-            query = "insert into Note(Title,DateCreate,`Password`, TypeId, pin) "
-                    + "values(?, CURDATE(), ?,?,?);";
+            query = "INSERT INTO Note(Title,DateCreate,`Password`, TypeId, pin) "
+                    + "VALUES(?, CURDATE(), ?,?,?);";
             PreparedStatement ps = Data.con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, note.getTitle());
@@ -37,8 +37,8 @@ public class NoteController {
                     LinkedList<TodoList> countTodoList = note.getTodoList();
 
                     for (TodoList item : countTodoList) {
-                        query = "insert into TodoList(TodoList.Item,TodoList.`check`,TodoList.NoteId) "
-                                + "values (?,?,?);";
+                        query = "INSERT INTO TodoList(TodoList.Item,TodoList.`check`,TodoList.NoteId) "
+                                + "VALUES (?,?,?);";
                         ps = Data.con.prepareStatement(query);
                         ps.setString(1, item.getItem());
                         ps.setBoolean(2, item.isCheck());
@@ -47,7 +47,7 @@ public class NoteController {
                     }
                 } // kiểm tra có nội dung kèm theo thì lưu nội dung
                 else if (note.getContent().getText().equals("") == false) {
-                    query = "insert into Content(`Text`,NoteId) values (?, ?);";
+                    query = "INSERT INTO Content(`Text`,NoteId) VALUES (?, ?);";
                     ps = Data.con.prepareStatement(query);
                     ps.setBytes(1, note.getContent().getText());
                     ps.setInt(2, generatedId);
@@ -58,7 +58,7 @@ public class NoteController {
                 if (note.getPhotos() != null) {
                     LinkedList<Photo> countPhotos = note.getPhotos();
                     for (Photo item : countPhotos) {
-                        query = "insert into Photo(`Data`,NoteId) values(?,?);";
+                        query = "INSERT INTO Photo(`Data`,NoteId) VALUES(?,?);";
                         ps = Data.con.prepareStatement(query);
                         ps.setBytes(1, item.getData());
                         ps.setInt(2, generatedId);
@@ -79,8 +79,8 @@ public class NoteController {
     public static void updateNote(Note note, String typeName) {
         try {
             // lưu note
-            String query = "Update Note set Title=?,DateCreate=curdate(),TypeId=?,pin=? "
-                    + "where NoteId=?";
+            String query = "UPDATE Note SET Title=?,DateCreate=curdate(),TypeId=?,pin=? "
+                    + "WHERE NoteId=?";
             PreparedStatement ps = Data.con.prepareStatement(query);
             ps.setString(1, note.getTitle());
             
@@ -91,19 +91,19 @@ public class NoteController {
             ps.executeUpdate();
 
             // xóa hết content, photos, todoList cũ
-            query = "delete from TodoList where NoteId = " + note.getNoteId() + ";";
+            query = "DELETE FROM TodoList WHERE NoteId = " + note.getNoteId() + ";";
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
-            query = "delete from Content where NoteId = " + note.getNoteId() + ";";
+            query = "DELETE FROM Content WHERE NoteId = " + note.getNoteId() + ";";
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
-            query = "delete from Photo where NoteId = " + note.getNoteId() + ";";
+            query = "DELETE FROM Photo WHERE NoteId = " + note.getNoteId() + ";";
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
 
             // kiểm tra có nội dung kèm theo thì lưu nội dung
             if (note.getContent().getText() != null) {
-                query = "insert into Content(`Text`,NoteId) values (?, ?);";
+                query = "INSERT INTO Content(`Text`,NoteId) VALUES (?, ?);";
                 ps = Data.con.prepareStatement(query);
                 ps.setBytes(1, note.getContent().getText());
                 ps.setInt(2, note.getNoteId());
@@ -112,8 +112,8 @@ public class NoteController {
             else if (note.getTodoList() != null) {
                 LinkedList<TodoList> countTodoList = note.getTodoList();
                 for (TodoList item : countTodoList) {
-                    query = "insert into TodoList(TodoList.Item,TodoList.`check`,TodoList.NoteId) "
-                            + "values (?,?,?);";
+                    query = "INSERT INTO TodoList(TodoList.Item,TodoList.`check`,TodoList.NoteId) "
+                            + "VALUES (?,?,?);";
                     ps = Data.con.prepareStatement(query);
                     ps.setString(1, item.getItem());
                     ps.setBoolean(2, item.isCheck());
@@ -125,7 +125,7 @@ public class NoteController {
             if (note.getPhotos() != null) {
                 LinkedList<Photo> countPhotos = note.getPhotos();
                 for (Photo item : countPhotos) {
-                    query = "insert into Photo(`Data`,NoteId) values(?,?);";
+                    query = "INSERT INTO Photo(`Data`,NoteId) VALUES(?,?);";
                     ps = Data.con.prepareStatement(query);
                     ps.setBytes(1, item.getData());
                     ps.setInt(2, note.getNoteId());
@@ -144,20 +144,20 @@ public class NoteController {
 
         try {
             // xóa Content, TodoList, Photo nếu có
-            String query = "delete from Photo where NoteId = " + note.getNoteId() + ";";
+            String query = "DELETE FROM Photo WHERE NoteId = " + note.getNoteId() + ";";
             PreparedStatement ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
 
-            query = "delete from TodoList where NoteId = " + note.getNoteId() + ";";
+            query = "DELETE FROM TodoList WHERE NoteId = " + note.getNoteId() + ";";
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
 
-            query = "delete from Content where NoteId = " + note.getNoteId() + ";";
+            query = "DELETE FROM Content WHERE NoteId = " + note.getNoteId() + ";";
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
 
             // xóa note
-            query = "delete from Note where Note.NoteId = " + note.getNoteId() + ";";
+            query = "DELETE FROM Note WHERE Note.NoteId = " + note.getNoteId() + ";";
             ps = Data.con.prepareStatement(query);
             ps.executeUpdate();
 
@@ -172,7 +172,7 @@ public class NoteController {
     // set password
     public static void setPassword(Note note, String pass) {
         try {
-            String query = "update Note set `Password` = ? where note.NoteId = ?;";
+            String query = "UPDATE Note SET `Password` = ? WHERE note.NoteId = ?;";
             PreparedStatement ps = Data.con.prepareStatement(query);
             ps.setString(1, pass);
             ps.setInt(2, note.getNoteId());
