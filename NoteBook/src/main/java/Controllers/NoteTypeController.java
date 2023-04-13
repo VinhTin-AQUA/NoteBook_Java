@@ -24,6 +24,7 @@ public class NoteTypeController {
         // không thể thao tác với Note Type mặc định có Id = 1
         if (id.equals("1") || typeName.equals("Other")) {
             JOptionPane.showMessageDialog(null, "Cannot change or create default NoteType", "", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
         if (typeName.equals("")) {
