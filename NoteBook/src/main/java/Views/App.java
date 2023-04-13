@@ -278,7 +278,7 @@ public class App extends javax.swing.JFrame {
         JMenuItem deletePhoto = new JMenuItem("Delete"); // xóa hình ảnh
         deletePhoto.addActionListener((ActionEvent e) -> {
             this.note.deletePhoto(indexPhoto);
-
+            
             if (this.note.getPhotos().isEmpty()) {
                 jLabel7.setIcon(null);
                 jLabel7.setText("No Image");
@@ -294,6 +294,7 @@ public class App extends javax.swing.JFrame {
                 Photo photo = this.note.getPhotos().get(indexPhoto);
                 showPhotos(photo);
             }
+            jLabel11.setText(indexPhoto + 1 + "/" + note.getPhotos().size()); // hiển hình ảnh trên tổng số hình ảnh
         });
         JMenuItem downloadPhoto = new JMenuItem("Download"); // tải 1 hình ảnh
         downloadPhoto.addActionListener((ActionEvent e) -> {
@@ -673,7 +674,8 @@ public class App extends javax.swing.JFrame {
                     cardLayout.show(jPanel1, "text"); // hiển thị trang text
                     jTextField1.setText(note.getTitle()); // set title
                     if (note.getPhotos().isEmpty() == false) { // nếu có hình ảnh thì hiển thị
-                        indexPhoto++;
+                        indexPhoto++; // nếu có hình ảnh thì tăng lên chỉ số 0
+                        
                         showPhotos(note.getPhotos().get(indexPhoto));
                     }
                     if (note.getTodoList().isEmpty() == false) { // nếu có todolist thì hiển thị
@@ -703,6 +705,7 @@ public class App extends javax.swing.JFrame {
                     loadText(note.getContent().getText()); // load văn bản
                 }
             }
+            jLabel11.setText(indexPhoto + 1 + "/" + note.getPhotos().size()); // hiển hình ảnh trên tổng số hình ảnh
         }
         if (evt.getButton() == MouseEvent.BUTTON3) { // click chuột phải để xem Popup
             this.note = new Note(note);
@@ -962,6 +965,7 @@ public class App extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
@@ -1439,6 +1443,11 @@ public class App extends javax.swing.JFrame {
         });
         jPanel11.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 7, 30, 30));
 
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("0/0");
+        jPanel11.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 90, 20));
+
         jPanel7.add(jPanel11, java.awt.BorderLayout.SOUTH);
 
         jPanel15.add(jPanel7, java.awt.BorderLayout.WEST);
@@ -1623,6 +1632,7 @@ public class App extends javax.swing.JFrame {
                 Photo photo = new Photo(-1, imageInByte);
                 this.note.addPhoto(photo);
                 indexPhoto++;
+                jLabel11.setText(indexPhoto + 1 + "/" + note.getPhotos().size()); // hiển hình ảnh trên tổng số hình ảnh
             } catch (IOException ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1673,6 +1683,7 @@ public class App extends javax.swing.JFrame {
                 indexPhoto = 0;
             }
             Photo photo = this.note.getPhotos().get(indexPhoto);
+            jLabel11.setText(indexPhoto + 1 + "/" + note.getPhotos().size());
             showPhotos(photo);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1685,6 +1696,7 @@ public class App extends javax.swing.JFrame {
                 indexPhoto = this.note.getPhotos().size() - 1;
             }
             Photo photo = this.note.getPhotos().get(indexPhoto);
+            jLabel11.setText(indexPhoto + 1 + "/" + note.getPhotos().size());
             showPhotos(photo);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -2080,6 +2092,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
