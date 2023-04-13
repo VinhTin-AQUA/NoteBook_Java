@@ -36,9 +36,7 @@ import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -200,7 +198,7 @@ public class App extends javax.swing.JFrame {
 
     // khởi tạo menu chuột phải
     private void initPopupMenu() {
-        contxtMenuNoteType = new JPopupMenu(); // menu cua note typr
+        contxtMenuNoteType = new JPopupMenu(); // menu cua note type
         contxtMenuNote = new JPopupMenu(); // menu cua note
         contxtMenuPhoto = new JPopupMenu(); // menu khi chon anh
         contxtMenuTodoItem = new JPopupMenu(); // menu khi lam viec voi todolist
@@ -862,14 +860,14 @@ public class App extends javax.swing.JFrame {
             // danh sách notes chưa pin
             LinkedList<Note> unpinNote = notes.stream().filter(note -> note.isPin() == false)
                     .collect(Collectors.toCollection(LinkedList::new));
-            
+
             if (title.length == 0) { // length = 0: không có từ khóa cần tìm
 
                 // hiển thị các note được ghim trước
                 for (Note _note : pinnedNote) {
                     noteItem(noteTypeNote, _note);
                 }
-                
+
                 // hiển thị các note không được ghim sau
                 for (Note _note : unpinNote) {
                     noteItem(noteTypeNote, _note);
@@ -884,7 +882,7 @@ public class App extends javax.swing.JFrame {
                     }
                     noteItem(noteTypeNote, _note);
                 }
-                
+
                 // hiển thị các note không được ghim sau
                 for (Note _note : unpinNote) {
                     // nếu không chứa từ khóa cần tìm thì không hiển thị
@@ -1324,7 +1322,7 @@ public class App extends javax.swing.JFrame {
         jToolBar1.add(combo);
         combo.getAccessibleContext().setAccessibleParent(combo);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 770, 40));
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 900, 40));
 
         Title.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -1342,6 +1340,11 @@ public class App extends javax.swing.JFrame {
         jTextField1.setCaretColor(new java.awt.Color(153, 153, 153));
         jTextField1.setPreferredSize(new java.awt.Dimension(64, 70));
         jTextField1.setSelectionColor(new java.awt.Color(0, 204, 204));
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+        });
         majorpage.add(jTextField1, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setBackground(new java.awt.Color(253, 253, 244));
@@ -1383,7 +1386,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 935, Short.MAX_VALUE)
+            .addGap(0, 1135, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1463,7 +1466,7 @@ public class App extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1568,16 +1571,18 @@ public class App extends javax.swing.JFrame {
 
     // chọn hình ảnh
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
         JFileChooser jfile = new JFileChooser();
 
         // đặt đường dẫn của file theo đường dẫn thư mục của dự án
-        // khi mở choose file window thì đường dẫn thư mục của dự án là đường dẫn mặc định
-        jfile.setCurrentDirectory(new File(path));
+        // khi bấm nút chọn hình ảnh thì sẽ mở thư mục download
+        jfile.setCurrentDirectory(new File(System.getProperty("user.home") + "\\Downloads\\"));
 
         // loại file đươc chọn
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Image", "jpg", "png", "jpeg");
+        jfile.setFileFilter(filter); // chỉ hiển thị hình ảnh có phần mở rộng được định nghĩa ở trên
         jfile.showOpenDialog(null); // show choose file window
-
+        
         // đối tượng file được chọn
         File selectedFile = jfile.getSelectedFile();
 
@@ -1586,6 +1591,7 @@ public class App extends javax.swing.JFrame {
             format = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
             try {
                 BufferedImage imageBufer = ImageIO.read(new File(fileName));
+            
                 byte[] imageInByte;
                 try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     ImageIO.write(imageBufer, format, baos);
@@ -1683,7 +1689,7 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    // sự kiện chuột của label hiển thị hình ảnh
+    // sự kiện chuột phải của label hiển thị hình ảnh
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
             if (jLabel7.getIcon() != null) {
@@ -1933,6 +1939,11 @@ public class App extends javax.swing.JFrame {
         sort = false;
         loadNoteTypes(sort);
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    // tự động bôi đen title khi focus
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        jTextField1.selectAll(); // bôi đen toàn bộ văn bản
+    }//GEN-LAST:event_jTextField1FocusGained
 
     // hight light
     private void hightlight() {
