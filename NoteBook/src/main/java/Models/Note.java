@@ -1,9 +1,8 @@
 
 package Models;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Note {
     private int noteId;
@@ -155,4 +154,56 @@ public class Note {
     public void clearPhotos() {
         this.photos.clear();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Note other = (Note) obj;
+        if (this.noteId != other.noteId) {
+            return false;
+        }
+        if (this.pin != other.pin) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateCreate, other.dateCreate)) {
+            return false;
+        }
+        if (!Objects.equals(this.noteType, other.noteType)) {
+            return false;
+        }
+        if (!Objects.equals(this.content, other.content)) {
+            return false;
+        }
+        if (!Objects.equals(this.todoList, other.todoList)) {
+            return false;
+        }
+        return Objects.equals(this.photos, other.photos);
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" + "noteId=" + noteId + ", title=" + title + ", dateCreate=" + dateCreate + ", password=" + password + ", noteType=" + noteType + ", pin=" + pin + ", content=" + content + ", todoList=" + todoList + ", photos=" + photos + '}';
+    }
+    
+    
 }

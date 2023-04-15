@@ -37,4 +37,30 @@ public class Content {
     public void clearData() {
         text = null; // bộ thu gom rác tự động giải phóng vùng nhớ
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Content other = (Content) obj;
+        if (this.contentId != other.contentId) {
+            return false;
+        }
+        return Arrays.equals(this.text, other.text);
+    }
+    
+    
 }

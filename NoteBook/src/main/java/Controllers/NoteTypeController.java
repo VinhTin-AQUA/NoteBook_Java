@@ -1,13 +1,8 @@
 package Controllers;
 
 import DataConnection.Data;
-import Models.Content;
 import Models.Note;
 import Models.NoteType;
-import Models.NoteTypeNote;
-import Models.Photo;
-import Models.TodoList;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,6 +45,7 @@ public class NoteTypeController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            return;
         }
 
         // nếu id truyền tới null => chưa tồn tại NoteType
@@ -59,8 +55,9 @@ public class NoteTypeController {
             query = "SELECT * FROM NoteType WHERE TypeName='" + typeName + "';";
             ps = Data.con.prepareStatement(query);
             ResultSet rs = ps.executeQuery(query);
-            if (rs.next()) {
+            if (rs.next() == true) {
                 JOptionPane.showMessageDialog(null, "Type Name already exist", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
 
             // nếu tên note type chưa tồn tại
@@ -70,15 +67,14 @@ public class NoteTypeController {
 
             ps.executeUpdate();
         } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "" + e);
             e.printStackTrace();
         }
     }
 
-    // load note-type, khi load thì load luôn các note của mỗi type
-    static public LinkedList<NoteTypeNote> loadNoteTypes() {
-        LinkedList<NoteTypeNote> listNoteTypeNote = new LinkedList<>();
-        LinkedList<Note> notes = new LinkedList<>();
+    // load note-type
+    static public LinkedList<NoteType> loadNoteTypes() {
+        LinkedList<NoteType> noteTypes = new LinkedList<>();
+        
         String query = "SELECT *"
                 + " FROM NoteType;";
 
@@ -95,108 +91,12 @@ public class NoteTypeController {
                 typeIdNoteType = rs.getInt("TypeId");
                 typeName = rs.getString("TypeName");
                 type = new NoteType(typeIdNoteType, typeName);
-                notes = loadNote(type);
-                NoteTypeNote noteTypeNote = new NoteTypeNote(type, notes);
-                listNoteTypeNote.add(noteTypeNote);
+                noteTypes.add(type);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Load Faiilure");
         }
-        return listNoteTypeNote;
-    }
-
-    // load danh sách notes của 1 NoteType
-    private static LinkedList<Note> loadNote(NoteType noteType) {
-        LinkedList<Note> notes = new LinkedList<>();
-        Content content = new Content(-1, null);
-        LinkedList<Photo> photos = new LinkedList<>();
-        LinkedList<TodoList> todoList = new LinkedList<>();
-
-        // note
-        int noteId;
-        String title;
-        Date dateCreate;
-        String password;
-        boolean pin;
-
-        // Photo
-        int photoId;
-        byte[] data;
-
-        // todoList
-        int todoListId;
-        String item;
-        boolean check;
-
-        try {
-            String query = "SELECT * FROM note WHERE note.TypeId = " + noteType.getId();
-            PreparedStatement ps = Data.con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-
-                // giá trị thuộc tính của mỗi note
-                noteId = rs.getInt("NoteId");
-                title = rs.getString("Title");
-                dateCreate = rs.getDate("DateCreate");
-                password = rs.getString("Password");
-                pin = rs.getBoolean("pin");
-                Note note = new Note(noteId, title, dateCreate, password, noteType, pin, null, null, null);
-
-                notes.add(note);
-            }
-
-            for (Note note : notes) {
-                // kiểm tra Note này có content không
-                query = "SELECT * FROM Content WHERE Content.NoteId = " + note.getNoteId();
-                ps = Data.con.prepareStatement(query);
-                rs = ps.executeQuery();
-                if (rs.next()) {
-                    content.setContentId(rs.getInt("ContentId"));
-                    content.setText(rs.getBytes("Text"));
-                }
-
-                // kiểm tra note có chứa hình ảnh không
-                query = "SELECT * FROM Photo WHERE Photo.NoteId = " + note.getNoteId();
-                ps = Data.con.prepareStatement(query);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    photoId = rs.getInt("PhotoId");
-                    data = rs.getBytes("Data");
-                    Photo photo = new Photo(photoId, data);
-                    photos.add(photo);
-                }
-
-                // kiểm tra có todolist không
-                query = "SELECT * FROM TodoList WHERE TodoList.NoteId = " + note.getNoteId();
-                ps = Data.con.prepareStatement(query);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    todoListId = rs.getInt("TodoListId");
-                    item = rs.getString("Item");
-                    check = rs.getBoolean("Check");
-                    TodoList todo = new TodoList(todoListId, item, check);
-                    todoList.add(todo);
-                }
-                note.setContent(new Content(content));
-
-                // tạo ra vùng nhớ mới để lưu danh sách todoList và Photos 
-                // để khi xóa danh sách cũ thì giá trị trong note không bị biến mất
-                LinkedList<Photo> tempPhotos = new LinkedList<>(photos);
-                note.setPhotos(tempPhotos);
-                LinkedList<TodoList> tempTodoList = new LinkedList<>(todoList);
-                note.setTodoList(tempTodoList);
-
-                // xóa danh sách cũ để thêm danh sách mới vào
-                photos.clear();
-                todoList.clear();
-                content = new Content(-1, null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return notes;
+        return noteTypes;
     }
 
     // xóa notetype

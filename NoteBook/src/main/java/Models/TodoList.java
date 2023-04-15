@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.Objects;
+
 public class TodoList {
 
     private int todoListId;
@@ -41,4 +43,32 @@ public class TodoList {
     public void setCheck(boolean check) {
         this.check = check;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TodoList other = (TodoList) obj;
+        if (this.todoListId != other.todoListId) {
+            return false;
+        }
+        if (this.check != other.check) {
+            return false;
+        }
+        return Objects.equals(this.item, other.item);
+    }
+    
 }

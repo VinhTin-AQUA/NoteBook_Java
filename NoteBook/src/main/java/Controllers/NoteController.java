@@ -1,9 +1,8 @@
 package Controllers;
 
 import DataConnection.Data;
-import Models.Note;
-import Models.Photo;
-import Models.TodoList;
+import Models.*;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,103 @@ import javax.swing.JOptionPane;
 
 public class NoteController {
 
-    // tạo note
+    // load danh sách notes
+    public static LinkedList<Note> loadNotes(LinkedList<NoteType> noteTypes) {
+        LinkedList<Note> notes = new LinkedList<>();
+        Content content = new Content(-1, null);
+        LinkedList<Photo> photos = new LinkedList<>();
+        LinkedList<TodoList> todoList = new LinkedList<>();
+
+        // note
+        int noteId;
+        String title;
+        Date dateCreate;
+        String password;
+        boolean pin;
+
+        // Photo
+        int photoId;
+        byte[] data;
+
+        // todoList
+        int todoListId;
+        String item;
+        boolean check;
+
+        try {
+            for (NoteType noteType : noteTypes) {
+                String query = "SELECT * FROM note WHERE note.TypeId = " + noteType.getId();
+                PreparedStatement ps = Data.con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    // giá trị thuộc tính của mỗi note
+                    noteId = rs.getInt("NoteId");
+                    title = rs.getString("Title");
+                    dateCreate = rs.getDate("DateCreate");
+                    password = rs.getString("Password");
+                    pin = rs.getBoolean("pin");
+                    Note note = new Note(noteId, title, dateCreate, password, noteType, pin, null, null, null);
+
+                    notes.add(note);
+                }
+            }
+            
+            for (Note note : notes) {
+                    // kiểm tra Note này có content không
+                    String query = "SELECT * FROM Content WHERE Content.NoteId = " + note.getNoteId();
+                    PreparedStatement ps = Data.con.prepareStatement(query);
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        content.setContentId(rs.getInt("ContentId"));
+                        content.setText(rs.getBytes("Text"));
+                    }
+
+                    // kiểm tra note có chứa hình ảnh không
+                    query = "SELECT * FROM Photo WHERE Photo.NoteId = " + note.getNoteId();
+                    ps = Data.con.prepareStatement(query);
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        photoId = rs.getInt("PhotoId");
+                        data = rs.getBytes("Data");
+                        Photo photo = new Photo(photoId, data);
+                        photos.add(photo);
+                    }
+
+                    // kiểm tra có todolist không
+                    query = "SELECT * FROM TodoList WHERE TodoList.NoteId = " + note.getNoteId();
+                    ps = Data.con.prepareStatement(query);
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        todoListId = rs.getInt("TodoListId");
+                        item = rs.getString("Item");
+                        check = rs.getBoolean("Check");
+                        TodoList todo = new TodoList(todoListId, item, check);
+                        todoList.add(todo);
+                    }
+                    note.setContent(new Content(content));
+
+                    // tạo ra vùng nhớ mới để lưu danh sách todoList và Photos 
+                    // để khi xóa danh sách cũ thì giá trị trong note không bị biến mất
+                    LinkedList<Photo> tempPhotos = new LinkedList<>(photos);
+                    note.setPhotos(tempPhotos);
+                    LinkedList<TodoList> tempTodoList = new LinkedList<>(todoList);
+                    note.setTodoList(tempTodoList);
+
+                    // xóa danh sách cũ để thêm danh sách mới vào
+                    photos.clear();
+                    todoList.clear();
+                    content = new Content(-1, null);
+                }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return notes;
+    }
+
+    // tạo note                                                                                                                                                     
     public static int createNote(Note note, String typeName) {
         String query;
         int generatedId;
@@ -24,9 +119,9 @@ public class NoteController {
             query = "INSERT INTO Note(Title,DateCreate,`Password`, TypeId, pin) "
                     + "VALUES(?, CURDATE(), ?,?,?);";
             PreparedStatement ps = Data.con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, note.getTitle());
-            
+
             ps.setString(2, note.getPassword());
             ps.setInt(3, getTypeId(typeName));
             ps.setBoolean(4, note.isPin());
@@ -82,15 +177,12 @@ public class NoteController {
     public static void updateNote(Note note, String typeName) {
         try {
             // lưu note
-            String query = "UPDATE Note SET Title=?,DateCreate=curdate(),TypeId=?,pin=? "
+            String query = "UPDATE Note SET Title=?,DateCreate=curdate(),TypeId=?                                                                     "
                     + "WHERE NoteId=?";
             PreparedStatement ps = Data.con.prepareStatement(query);
             ps.setString(1, note.getTitle());
-            
             ps.setInt(2, getTypeId(typeName));
-           
-            ps.setBoolean(3, note.isPin());
-            ps.setInt(4, note.getNoteId());
+            ps.setInt(3, note.getNoteId());
             ps.executeUpdate();
 
             // xóa hết content, photos, todoList cũ
@@ -165,7 +257,6 @@ public class NoteController {
             ps.executeUpdate();
 
 //            JOptionPane.showMessageDialog(null, "Delete Note Successfully");
-
         } catch (Exception e) {
             e.printStackTrace();// neu co loi thi in ra thong bao
             JOptionPane.showMessageDialog(null, "Delete Note Failed");
@@ -214,26 +305,26 @@ public class NoteController {
             JOptionPane.showMessageDialog(null, "Change Type Failed", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     // get TypeId
     private static int getTypeId(String name) {
         String query = "SELECT TypeId FROM NoteType WHERE TypeName=?;";
         try {
             PreparedStatement ps = Data.con.prepareStatement(query);
             ps.setString(1, name);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 return rs.getInt("TypeId");
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return 1;
     }
-    
+
     // pin note
     public static void pinNote(Note note) {
         String query = "UPDATE note SET pin=? WHERE note.NoteId = ?;";
