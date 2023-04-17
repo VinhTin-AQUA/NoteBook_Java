@@ -1177,7 +1177,7 @@ public class App extends javax.swing.JFrame {
                 jToggleButton2ActionPerformed(evt);
             }
         });
-        jPanel21.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 60, -1));
+        jPanel21.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 70, -1));
 
         jToggleButton3.setBackground(new java.awt.Color(204, 255, 255));
         jToggleButton3.setForeground(new java.awt.Color(0, 0, 0));
