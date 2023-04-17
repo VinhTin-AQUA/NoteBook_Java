@@ -136,7 +136,6 @@ public class App extends javax.swing.JFrame {
     }
 
     private void initComponents2() {
-
         cardLayout = (CardLayout) jPanel1.getLayout();
         sortNote = true;
         todoIndex = 1;
