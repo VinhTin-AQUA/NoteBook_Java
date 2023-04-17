@@ -1,6 +1,8 @@
 package Views;
 
 import Components.Dialog;
+import Components.NoteItem;
+import Components.NoteTypeItem;
 import Components.TodoItem;
 import Controllers.*;
 import Models.*;
@@ -678,33 +680,17 @@ public class App extends javax.swing.JFrame {
 
 // ====================================================================================== 
     // thiết lập của các item NoteType
-    private void initItemNoteType(JTextField textField) {
-        Font font = new Font("Dialog", Font.BOLD, 18);
-        textField.setFocusable(false);
-        // styles
-        textField.setFont(font);
-        textField.setSize(178, 60);
-        textField.setBackground(Color.decode("#FFFFFF"));
-        textField.setForeground(Color.decode("#333333"));
-        textField.setSelectionColor(Color.decode("#DCD3CB"));
-        textField.setCursor(Cursor.getDefaultCursor());
-
-        textField.setName("-1");
-        // đặt lích thước cố định
-        Dimension pre = new Dimension(178, 60);
-        textField.setPreferredSize(pre);
-        textField.setMinimumSize(pre);
-        textField.setMaximumSize(pre);
-
-        // sự kiện chuột
-        textField.addMouseListener(new java.awt.event.MouseAdapter() {
+    private void initItemNoteType(NoteTypeItem noteTypeItem) {
+        noteTypeItem.setName("-1");
+       // sự kiện chuột
+        noteTypeItem.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
                 mouseNoteTypeEvent(evt);
             }
         });
         // sự kiện focus
-        textField.addFocusListener(new FocusListener() {
+        noteTypeItem.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent evt) {
                 // TODO Auto-generated method stub
@@ -716,7 +702,7 @@ public class App extends javax.swing.JFrame {
             }
         });
         // sự kiện nhấn phím
-        textField.addKeyListener(new java.awt.event.KeyAdapter() {
+        noteTypeItem.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -727,17 +713,19 @@ public class App extends javax.swing.JFrame {
     // render nhiều note-type ra view
     private void loadNoteTypes(LinkedList<NoteType> _noteTypes) {
 //        title để thực hiện chức năng tìm kiếm
-        JTextField textField;
+//        JTextField textField;
         if (_noteTypes.size() >= 0) {
 
             jPanel19.removeAll(); // box note type
             combo.removeAllItems(); // xóa item củ của comboBox
             combo1.removeAllItems(); // xóa item củ của comboBox
             for (var noteType : _noteTypes) {
-                textField = new JTextField(noteType.getTypeName()); // tạo JTextField
-                initItemNoteType(textField);
-                textField.setName(Integer.toString(noteType.getId())); // setName là id
-                jPanel19.add(textField);
+//                textField = new JTextField(noteType.getTypeName()); // tạo JTextField
+//                initItemNoteType(textField);
+                NoteTypeItem noteTypeItem = new NoteTypeItem(noteType.getTypeName());
+                initItemNoteType(noteTypeItem);
+                noteTypeItem.setName(Integer.toString(noteType.getId())); // setName là id
+                jPanel19.add(noteTypeItem);
                 // load Type vào comboBox
                 combo.addItem(noteType.getTypeName()); // 
                 combo1.addItem(noteType.getTypeName());
@@ -750,69 +738,17 @@ public class App extends javax.swing.JFrame {
 
     // item note
     private void noteItem(Note _note) {
-        // định dạng hiển thị ngày tháng
-        DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
-        Font font = new Font("Arial", Font.BOLD, 18);
-        // đặt kích thước cố định
-        Dimension pre = new Dimension(218, 100);
-
-        JTextPane textPane = new JTextPane();
-
-        // styles
-        textPane.setFont(font);
-        if (_note.isPin() == true) {
-            textPane.setBackground(Color.decode("#FDC3E9")); // màu của note được ghim
-        } else {
-            textPane.setBackground(Color.decode("#FFFFFF")); // màu của note chưa được ghim
-        }
-        textPane.setForeground(Color.decode("#333333"));
-        textPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        textPane.setMargin(new Insets(10, 10, 10, 10));
-        textPane.setBorder(BorderFactory.createLineBorder(Color.decode("#DCD3CB"), 2));
-        textPane.setSize(200, 100);
-
-        // văn bản tự động xuống hàng
-        textPane.setPreferredSize(pre);
-        textPane.setEditorKit(new WrapEditorKit());
-        textPane.setFocusable(false);
+        NoteItem noteItem = new NoteItem(_note);
 
         // sự kiện click vào mỗi note để hiển thị nội dung
-        textPane.addMouseListener(new java.awt.event.MouseAdapter() {
+        noteItem.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
                 combo.setSelectedItem(_note.getType().getTypeName());
                 noteEvent(_note, evt);
             }
         });
-
-        // style từng đoạn văn bản
-        StyledDocument doc = textPane.getStyledDocument();
-        Style style = textPane.addStyle("mystyle", null);
-
-        try {
-            // style title
-            StyleConstants.setForeground(style, Color.BLACK);
-
-            // hiển thị title tối đa 20 ký tự trên mỗi item note
-            if (_note.getTitle().length() > 20) {
-                doc.insertString(doc.getLength(), _note.getTitle().substring(0, 20) + "...\n", style);
-            } else {
-                doc.insertString(doc.getLength(), _note.getTitle() + "\n", style);
-            }
-            // style date
-            StyleConstants.setBold(style, false);
-            StyleConstants.setFontSize(style, 12);
-            doc.insertString(doc.getLength(), dateF.format(_note.getDateCreate()) + "\n", style);
-
-            // style NoteType
-            StyleConstants.setForeground(style, Color.RED);
-            StyleConstants.setBold(style, false);
-            StyleConstants.setFontSize(style, 14);
-            doc.insertString(doc.getLength(), _note.getType().getTypeName(), style);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        jPanel3.add(textPane);
+        jPanel3.add(noteItem);
     }
 
     // load note
@@ -887,7 +823,6 @@ public class App extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel20 = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
@@ -897,6 +832,7 @@ public class App extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
+        jLabel15 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         Text = new javax.swing.JPanel();
@@ -1129,16 +1065,6 @@ public class App extends javax.swing.JFrame {
         jPanel21.setPreferredSize(new java.awt.Dimension(170, 300));
         jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jToggleButton1.setBackground(new java.awt.Color(242, 242, 242));
-        jToggleButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jToggleButton1.setText("Sort");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 160, 30));
-
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel21.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
@@ -1189,6 +1115,12 @@ public class App extends javax.swing.JFrame {
             }
         });
         jPanel21.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 60, -1));
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Sort");
+        jPanel21.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 225, 140, 30));
 
         jPanel14.add(jPanel21, java.awt.BorderLayout.CENTER);
 
@@ -1742,10 +1674,9 @@ public class App extends javax.swing.JFrame {
 
     // bấm nút new Type
     private void newtypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newtypeActionPerformed
-        JTextField textField = new JTextField("Type Name");
-        initItemNoteType(textField);
-        textField.setName("-1");
-        jPanel19.add(textField);
+        NoteTypeItem noteTypeItem = new NoteTypeItem("Type Name");
+        initItemNoteType(noteTypeItem);
+        jPanel19.add(noteTypeItem);
         jPanel19.revalidate();
     }//GEN-LAST:event_newtypeActionPerformed
 
@@ -1994,45 +1925,6 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField2KeyPressed
 
-    // sort menu
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-//        if (jToggleButton1.isSelected() == true) {
-//
-//            jPanel20.setSize(160, 100);
-//            Thread th = new Thread() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        for (int i = 100; i >= 0; i--) {
-//                            Thread.sleep(1);
-//                            jPanel20.setSize(160, i);
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            };
-//            th.start();
-//        } else {
-//            jPanel20.setVisible(true);
-//            jPanel20.setSize(160, 100);
-//            Thread th = new Thread() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        for (int i = 0; i <= 100; i++) {
-//                            Thread.sleep(1);
-//                            jPanel20.setSize(160, i);
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            };
-//            th.start();
-//        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     // tự động bôi đen title khi focus
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         jTextField1.selectAll(); // bôi đen toàn bộ văn bản
@@ -2067,6 +1959,7 @@ public class App extends javax.swing.JFrame {
         jLabel8.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
         jPanel22.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel21.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jLabel15.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
     }
 
     private void homeLight() {
@@ -2083,6 +1976,7 @@ public class App extends javax.swing.JFrame {
         jLabel8.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         jPanel22.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel21.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+        jLabel15.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
     }
 
     private void textDark() {
@@ -2567,6 +2461,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2617,7 +2512,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToolBar jToolBar1;
