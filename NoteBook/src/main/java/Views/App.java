@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -61,6 +62,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.time.LocalDate;
 import java.sql.Date;
+import javax.swing.UIManager;
 
 public class App extends javax.swing.JFrame {
 
@@ -681,7 +683,7 @@ public class App extends javax.swing.JFrame {
     // thiết lập của các item NoteType
     private void initItemNoteType(NoteTypeItem noteTypeItem) {
         noteTypeItem.setName("-1");
-       // sự kiện chuột
+        // sự kiện chuột
         noteTypeItem.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) { // click chuột
@@ -820,7 +822,6 @@ public class App extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
@@ -1002,7 +1003,7 @@ public class App extends javax.swing.JFrame {
         newtype.setBackground(new java.awt.Color(253, 253, 244));
         newtype.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         newtype.setText("NEW CATEGORY");
-        newtype.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(153, 153, 153)));
+        newtype.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
         newtype.setFocusPainted(false);
         newtype.setMargin(new java.awt.Insets(2, 8, 3, 8));
         newtype.addActionListener(new java.awt.event.ActionListener() {
@@ -1012,7 +1013,10 @@ public class App extends javax.swing.JFrame {
         });
         jPanel16.add(newtype, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 170, 40));
 
+        jButton5.setBackground(new java.awt.Color(253, 253, 244));
+        jButton5.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jButton5.setText("TODOLIST");
+        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
         jButton5.setFocusPainted(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1021,14 +1025,17 @@ public class App extends javax.swing.JFrame {
         });
         jPanel16.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 85, 170, 40));
 
+        jButton20.setBackground(new java.awt.Color(253, 253, 244));
+        jButton20.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jButton20.setText("ALL NOTES");
+        jButton20.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
         jButton20.setFocusPainted(false);
         jButton20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton20ActionPerformed(evt);
             }
         });
-        jPanel16.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, 50));
+        jPanel16.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, 40));
 
         jPanel12.add(jPanel16, java.awt.BorderLayout.PAGE_START);
 
@@ -1055,11 +1062,6 @@ public class App extends javax.swing.JFrame {
         jPanel14.setPreferredSize(new java.awt.Dimension(180, 485));
         jPanel14.setLayout(new java.awt.BorderLayout());
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("SETTING");
-        jPanel14.add(jLabel8, java.awt.BorderLayout.NORTH);
-
         jPanel21.setBackground(new java.awt.Color(253, 253, 244));
         jPanel21.setPreferredSize(new java.awt.Dimension(170, 300));
         jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1067,59 +1069,65 @@ public class App extends javax.swing.JFrame {
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel21.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
+        jButton11.setBackground(new java.awt.Color(254, 254, 254));
         jButton11.setText("Search for Date");
+        jButton11.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(220, 211, 203)));
+        jButton11.setFocusPainted(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel21.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 160, -1));
+        jPanel21.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 160, 30));
 
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateChooser1.setDateFormatString("dd-MM-yyy");
+        jDateChooser1.setPreferredSize(new java.awt.Dimension(97, 28));
         jPanel23.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 150, -1));
 
         jDateChooser2.setDateFormatString("dd-MM-yyy");
+        jDateChooser2.setPreferredSize(new java.awt.Dimension(97, 28));
         jPanel23.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 75, 150, -1));
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Date To");
-        jPanel23.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 55, 110, -1));
+        jPanel23.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, -1));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Date From");
         jPanel23.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, -1));
 
-        jPanel21.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, 120));
+        jPanel21.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 160, 120));
 
-        jToggleButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jToggleButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jToggleButton2.setBackground(new java.awt.Color(242, 242, 242));
+        jToggleButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jToggleButton2.setText("Date");
+        jToggleButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jToggleButton2.setFocusPainted(false);
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
             }
         });
-        jPanel21.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 70, -1));
+        jPanel21.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 160, 30));
 
-        jToggleButton3.setBackground(new java.awt.Color(204, 255, 255));
-        jToggleButton3.setForeground(new java.awt.Color(0, 0, 0));
+        jToggleButton3.setBackground(new java.awt.Color(242, 242, 242));
+        jToggleButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jToggleButton3.setText("A-Z");
+        jToggleButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jToggleButton3.setFocusPainted(false);
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
             }
         });
-        jPanel21.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 60, -1));
+        jPanel21.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 160, 30));
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Sort");
-        jPanel21.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 225, 140, 30));
+        jPanel21.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 40, 30));
 
         jPanel14.add(jPanel21, java.awt.BorderLayout.CENTER);
 
@@ -1128,17 +1136,19 @@ public class App extends javax.swing.JFrame {
         jPanel22.setPreferredSize(new java.awt.Dimension(131, 120));
         jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jCheckBox1.setBackground(new java.awt.Color(204, 0, 255));
+        jCheckBox1.setBackground(new java.awt.Color(220, 211, 203));
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jCheckBox1.setText("DARK MODE");
+        jCheckBox1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jCheckBox1.setFocusPainted(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        jPanel22.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 160, -1));
+        jPanel22.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 160, 30));
 
-        jPanel14.add(jPanel22, java.awt.BorderLayout.SOUTH);
+        jPanel14.add(jPanel22, java.awt.BorderLayout.PAGE_END);
 
         home.add(jPanel14, java.awt.BorderLayout.LINE_END);
 
@@ -1421,7 +1431,6 @@ public class App extends javax.swing.JFrame {
         jPanel11.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 7, 30, 30));
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("0/0");
         jPanel11.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 90, 20));
 
@@ -1584,7 +1593,6 @@ public class App extends javax.swing.JFrame {
         });
         jPanel28.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 80, 30));
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
@@ -1955,10 +1963,21 @@ public class App extends javax.swing.JFrame {
         jPanel14.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel16.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel19.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-        jLabel8.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
         jPanel22.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel21.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jLabel15.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
+        jToggleButton3.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
+        jToggleButton3.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jToggleButton2.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jButton11.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jPanel23.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+         jPanel23.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
+         jLabel15.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jLabel14.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jLabel13.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jLabel4.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
+         
+        
     }
 
     private void homeLight() {
@@ -1972,10 +1991,17 @@ public class App extends javax.swing.JFrame {
         jPanel14.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel16.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel19.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
-        jLabel8.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         jPanel22.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel21.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jLabel15.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jToggleButton3.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jButton11.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
+        jToggleButton3.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
+        jToggleButton2.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
+          jPanel23.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
+         
+         jLabel14.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+         jLabel13.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
     }
 
     private void textDark() {
@@ -2228,6 +2254,7 @@ public class App extends javax.swing.JFrame {
 
     // search theo ngày tháng
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
         Date date1 = null;
         Date date2 = null;
         final LocalDate localDate1;
@@ -2467,7 +2494,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
