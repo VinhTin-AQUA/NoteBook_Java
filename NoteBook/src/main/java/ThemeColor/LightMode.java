@@ -7,7 +7,8 @@ public enum LightMode {
     BODY_cOLOR("#FDFDF4"),
     SETTING_COLOR("#FDFDF4"),
     TEXT_COLOR("#333333"),
-    BUTTON("#F2F2F2");
+    BUTTON("#F2F2F2"),
+    SEARCH("#FFFEFE");
     
     private final String rgb;
     private LightMode(String rgb) {  

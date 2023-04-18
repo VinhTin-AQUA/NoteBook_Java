@@ -224,10 +224,10 @@ public class App extends javax.swing.JFrame {
 
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
         jButton10.setIcon(icon);
+        
+         
 
-        icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\add.png");
-        newnode.setIcon(icon);
-        newtype.setIcon(icon);
+      
 
         // chuyển xem hình ảnh 
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\pre.png");
@@ -1069,7 +1069,7 @@ public class App extends javax.swing.JFrame {
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel21.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
-        jButton11.setBackground(new java.awt.Color(254, 254, 254));
+        jButton11.setBackground(new java.awt.Color(255, 254, 254));
         jButton11.setText("Search for Date");
         jButton11.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 2, 2, 1, new java.awt.Color(220, 211, 203)));
         jButton11.setFocusPainted(false);
@@ -1105,6 +1105,7 @@ public class App extends javax.swing.JFrame {
         jToggleButton2.setText("Date");
         jToggleButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jToggleButton2.setFocusPainted(false);
+        jToggleButton2.setOpaque(true);
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
@@ -1117,6 +1118,7 @@ public class App extends javax.swing.JFrame {
         jToggleButton3.setText("A-Z");
         jToggleButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jToggleButton3.setFocusPainted(false);
+        jToggleButton3.setOpaque(true);
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
@@ -1567,8 +1569,10 @@ public class App extends javax.swing.JFrame {
         jPanel26.setLayout(new java.awt.BorderLayout());
 
         jTextField5.setBackground(new java.awt.Color(255, 255, 204));
+        jTextField5.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("Title");
+        jTextField5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(253, 253, 244)));
         jTextField5.setPreferredSize(new java.awt.Dimension(60, 50));
         jTextField5.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -1585,18 +1589,22 @@ public class App extends javax.swing.JFrame {
         jPanel28.setPreferredSize(new java.awt.Dimension(250, 435));
         jPanel28.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton19.setBackground(new java.awt.Color(255, 254, 254));
         jButton19.setText("Add Item");
+        jButton19.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 51)));
+        jButton19.setFocusPainted(false);
         jButton19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton19ActionPerformed(evt);
             }
         });
-        jPanel28.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 80, 30));
+        jPanel28.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 100, 30));
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("Enter TodoList Item");
+        jTextArea1.setBorder(new javax.swing.border.MatteBorder(null));
         jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextArea1FocusGained(evt);
@@ -1976,8 +1984,18 @@ public class App extends javax.swing.JFrame {
          jLabel14.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
          jLabel13.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
          jLabel4.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
-         
-        
+         newnode.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+         jButton5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+         newtype.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+         jButton20.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+       newnode.setBorder(BorderFactory.createMatteBorder(1, 2, 3, 1, Color.decode(DarkMode.BUTTON.getRGB())));
+        jButton5.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
+        newtype.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
+        jButton20.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
+        newnode.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jButton5.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        newtype.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jButton20.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
     }
 
     private void homeLight() {
@@ -1995,13 +2013,26 @@ public class App extends javax.swing.JFrame {
         jPanel21.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jLabel15.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         jToggleButton3.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
-        jButton11.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
         jToggleButton3.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
         jToggleButton2.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
           jPanel23.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
-         
+         jPanel23.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
          jLabel14.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
          jLabel13.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+         
+         newnode.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+         jButton5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+         newtype.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+         jButton20.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+       newnode.setBorder(BorderFactory.createMatteBorder(1, 2, 3, 1, Color.LIGHT_GRAY));
+        jButton5.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        newtype.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        jButton20.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        newnode.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jButton5.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        newtype.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jButton20.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jButton11.setBackground(Color.decode(LightMode.SEARCH.getRGB()));
     }
 
     private void textDark() {
@@ -2060,6 +2091,9 @@ public class App extends javax.swing.JFrame {
         jLabel12.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+        left1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+        jButton12.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+        jButton14.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
 
         // body
         jTextField5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
@@ -2067,6 +2101,7 @@ public class App extends javax.swing.JFrame {
         jPanel28.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel30.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel29.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jButton19.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
     }
 
     private void todoLight() {
@@ -2077,13 +2112,17 @@ public class App extends javax.swing.JFrame {
         jLabel12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-
+         left1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        jButton12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        jButton14.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        
         // body
         jTextField5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField5.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         jPanel28.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel30.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel29.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+        jButton19.setBackground(Color.decode(LightMode.SEARCH.getRGB()));
     }
 // =========================================================================================================
 
@@ -2328,12 +2367,15 @@ public class App extends javax.swing.JFrame {
     // value item sẽ thay đổi khi nhập giá trị mới
     private void changeItem(DocumentEvent evt, TodoList todo, TodoItem item) {
         todo.setItem(item.getTextArea().getText());
+       
     }
 
     // tick các item todolist
     private void changeItem(java.awt.event.ActionEvent evt, TodoList todo) {
         JCheckBox box = (JCheckBox) evt.getSource();
         todo.setCheck(box.isSelected());
+       
+        
     }
 
     // =========================================================================================================

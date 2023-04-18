@@ -4,6 +4,7 @@ import _utility.Ultility;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -19,6 +20,9 @@ public class TodoItem extends JPanel {
         init();
         this.text.setText(text);
         this.idTodo = id;
+        this.setBackground(Color.decode("#FFFEFE"));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        
     }
     
     private void init() {
