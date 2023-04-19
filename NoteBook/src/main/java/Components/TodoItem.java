@@ -20,8 +20,6 @@ public class TodoItem extends JPanel {
         init();
         this.text.setText(text);
         this.idTodo = id;
-        this.setBackground(Color.decode("#FFFEFE"));
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         
     }
     
@@ -29,7 +27,8 @@ public class TodoItem extends JPanel {
         
 
         Dimension pre = new Dimension(680,200);
-        this.setBackground(Color.yellow);
+        this.setBackground(Color.decode("#FFFEFE"));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         this.setMinimumSize(pre);
         this.setMaximumSize(pre);
         
@@ -43,6 +42,7 @@ public class TodoItem extends JPanel {
    
         
         box = new JCheckBox();
+        box.setFocusPainted(false);
         ImageIcon icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\un_check.png");
         box.setIcon(icon);
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\check.png");

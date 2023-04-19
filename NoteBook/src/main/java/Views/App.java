@@ -225,7 +225,9 @@ public class App extends javax.swing.JFrame {
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
         jButton10.setIcon(icon);
         
-         
+        icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\hightlight.png");
+        jButton13.setIcon(icon);
+        jButton15.setIcon(icon);
 
       
 
@@ -853,6 +855,7 @@ public class App extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
         combo = new javax.swing.JComboBox<>();
         majorpage = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -883,6 +886,7 @@ public class App extends javax.swing.JFrame {
         left1 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         combo1 = new javax.swing.JComboBox<>();
         jPanel26 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
@@ -1307,6 +1311,13 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton10);
 
+        jButton15.setBackground(new java.awt.Color(220, 211, 203));
+        jButton15.setBorder(null);
+        jButton15.setFocusable(false);
+        jButton15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton15);
+
         combo.setEditable(true);
         combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         combo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(220, 211, 203)));
@@ -1513,6 +1524,7 @@ public class App extends javax.swing.JFrame {
         jToolBar2.setPreferredSize(new java.awt.Dimension(1000, 65));
 
         left1.setBackground(task.getBackground());
+        left1.setBorder(null);
         left1.setFocusPainted(false);
         left1.setPreferredSize(new java.awt.Dimension(50, 23));
         left1.addActionListener(new java.awt.event.ActionListener() {
@@ -1523,6 +1535,7 @@ public class App extends javax.swing.JFrame {
         jToolBar2.add(left1);
 
         jButton12.setBackground(jToolBar1.getBackground());
+        jButton12.setBorder(null);
         jButton12.setFocusPainted(false);
         jButton12.setFocusable(false);
         jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1536,6 +1549,7 @@ public class App extends javax.swing.JFrame {
         jToolBar2.add(jButton12);
 
         jButton14.setBackground(jToolBar1.getBackground());
+        jButton14.setBorder(null);
         jButton14.setFocusPainted(false);
         jButton14.setFocusable(false);
         jButton14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1547,6 +1561,13 @@ public class App extends javax.swing.JFrame {
             }
         });
         jToolBar2.add(jButton14);
+
+        jButton13.setBackground(new java.awt.Color(220, 211, 203));
+        jButton13.setBorder(null);
+        jButton13.setFocusable(false);
+        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jButton13);
 
         combo1.setEditable(true);
         combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
@@ -1998,6 +2019,7 @@ public class App extends javax.swing.JFrame {
         jButton20.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
         jTextField1.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
         task.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+       
     }
 
     private void homeLight() {
@@ -2005,7 +2027,8 @@ public class App extends javax.swing.JFrame {
         taskbar.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel10.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jLabel4.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        
         // body - home
         
         jPanel3.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
@@ -2061,6 +2084,8 @@ public class App extends javax.swing.JFrame {
         jPanel5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jTextField1.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jTextField1.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+         jButton15.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jButton15.setBorder(BorderFactory.createEmptyBorder());
     }
 
     private void textLight() {
@@ -2087,6 +2112,8 @@ public class App extends javax.swing.JFrame {
         jTextField1.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
           task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
           jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+           jButton15.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        jButton15.setBorder(BorderFactory.createEmptyBorder());
     }
 
     private void todoDark() {
@@ -2112,28 +2139,34 @@ public class App extends javax.swing.JFrame {
         jPanel29.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jButton19.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
         jLabel9.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
+         jButton13.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jButton13.setBorder(BorderFactory.createEmptyBorder());
     }
 
     private void todoLight() {
 // header
         jPanel24.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jToolBar2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        task1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
          left1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton14.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jLabel9.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         // body
         jTextField5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField5.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jTextField5.setBorder(BorderFactory.createEmptyBorder());
+                
         jPanel28.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel30.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel29.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jButton19.setBackground(Color.decode(LightMode.SEARCH.getRGB()));
-        jPanel30.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.TEXT_COLOR.getRGB())));
+        jPanel30.setBorder(BorderFactory.createEmptyBorder());
+         jButton13.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        jButton13.setBorder(BorderFactory.createEmptyBorder());
     }
 // =========================================================================================================
 
@@ -2520,7 +2553,9 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton20;
