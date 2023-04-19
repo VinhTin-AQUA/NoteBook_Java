@@ -819,7 +819,7 @@
                           <Connection component="NOTEBOOK" name="background" type="property"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[150, 40]"/>
+                          <Dimension value="[150, 10]"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -1512,7 +1512,7 @@
                           <Connection component="NOTEBOOK" name="background" type="property"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[150, 40]"/>
+                          <Dimension value="[150, 10]"/>
                         </Property>
                       </Properties>
                       <Constraints>

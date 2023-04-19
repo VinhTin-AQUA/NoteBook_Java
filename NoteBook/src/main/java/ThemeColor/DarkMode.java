@@ -6,7 +6,7 @@ public enum DarkMode {
     SETTING_COLOR("#252525"), 
     TEXT_COLOR("#333333"),
     BUTTON("#CCFFFF"),
-    WHITE("#FFFAFA");
+    WHITE("#FFFEFE");
     private final String rgb;
 
     private DarkMode(String rgb) {

@@ -110,7 +110,7 @@ public class App extends javax.swing.JFrame {
         this.setIconImage(logo.getImage());
         jPanel3.setPreferredSize(new Dimension(400, 500));
         this.setMinimumSize(new Dimension(1090, 800)); // kích thước tối thiểu của ứng dụng
-        this.setSize(1330, 550);
+        this.setSize(1320, 400);
         this.setTitle("NOTEBOOK");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -1188,7 +1188,7 @@ public class App extends javax.swing.JFrame {
         NOTEBOOK.add(jLabel3, java.awt.BorderLayout.LINE_END);
 
         task.setBackground(NOTEBOOK.getBackground());
-        task.setPreferredSize(new java.awt.Dimension(150, 40));
+        task.setPreferredSize(new java.awt.Dimension(150, 10));
         task.setLayout(new java.awt.BorderLayout());
         NOTEBOOK.add(task, java.awt.BorderLayout.PAGE_END);
 
@@ -1494,7 +1494,7 @@ public class App extends javax.swing.JFrame {
         NOTEBOOK1.add(jLabel12, java.awt.BorderLayout.LINE_END);
 
         task1.setBackground(NOTEBOOK.getBackground());
-        task1.setPreferredSize(new java.awt.Dimension(150, 40));
+        task1.setPreferredSize(new java.awt.Dimension(150, 10));
         task1.setLayout(new java.awt.BorderLayout());
         NOTEBOOK1.add(task1, java.awt.BorderLayout.PAGE_END);
 
@@ -1996,6 +1996,8 @@ public class App extends javax.swing.JFrame {
         jButton5.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
         newtype.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
         jButton20.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jTextField1.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        task.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
     }
 
     private void homeLight() {
@@ -2003,8 +2005,9 @@ public class App extends javax.swing.JFrame {
         taskbar.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel10.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-
+        jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         // body - home
+        
         jPanel3.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel14.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel16.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
@@ -2038,7 +2041,7 @@ public class App extends javax.swing.JFrame {
     private void textDark() {
         // header - text
         NOTEBOOK.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
-        task.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+       task.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         left.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jLabel2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jPanel2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
@@ -2052,17 +2055,18 @@ public class App extends javax.swing.JFrame {
         jButton10.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
 
         // body - text
+        jLabel2.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
         jPanel4.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel6.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jTextField1.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-        jTextField1.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
+        jTextField1.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
     }
 
     private void textLight() {
         // header - text
         NOTEBOOK.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+       
         left.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
@@ -2081,13 +2085,15 @@ public class App extends javax.swing.JFrame {
         jPanel5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField1.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField1.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+          task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+          jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
     }
 
     private void todoDark() {
         // header
         jPanel24.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jToolBar2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
-        task1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+    
         jLabel12.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
@@ -2097,25 +2103,29 @@ public class App extends javax.swing.JFrame {
 
         // body
         jTextField5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-        jTextField5.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
+        jTextField5.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jTextField5.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode(DarkMode.BODY_cOLOR.getRGB())));
+        task1.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel28.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jPanel30.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jPanel30.setBorder(BorderFactory.createMatteBorder(2, 2, 0, 2, Color.decode(DarkMode.BUTTON.getRGB())));
         jPanel29.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jButton19.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jLabel9.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
     }
 
     private void todoLight() {
 // header
         jPanel24.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jToolBar2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        task1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
          left1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton14.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        
+        jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         // body
         jTextField5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField5.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
@@ -2123,6 +2133,7 @@ public class App extends javax.swing.JFrame {
         jPanel30.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel29.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jButton19.setBackground(Color.decode(LightMode.SEARCH.getRGB()));
+        jPanel30.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.TEXT_COLOR.getRGB())));
     }
 // =========================================================================================================
 
