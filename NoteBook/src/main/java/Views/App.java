@@ -10,17 +10,13 @@ import ThemeColor.*;
 import _utility.*;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -30,8 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -50,7 +44,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -62,7 +55,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.time.LocalDate;
 import java.sql.Date;
-import javax.swing.UIManager;
 
 public class App extends javax.swing.JFrame {
 
@@ -119,16 +111,7 @@ public class App extends javax.swing.JFrame {
         combo1.setBackground(Color.WHITE);
         combo1.setOpaque(true);
 
-        // đổi màu thanh trượt, đôi lúc phát sinh exceptions
-        jScrollPane3.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = Color.LIGHT_GRAY;
-            }
-        });
-
         initComponents2();
-
         icon();
         loadNoteTypeData(); // load notetypes
         loadNoteTypes(noteTypes);
@@ -226,11 +209,7 @@ public class App extends javax.swing.JFrame {
         jButton10.setIcon(icon);
         
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\hightlight.png");
-        jButton13.setIcon(icon);
         jButton15.setIcon(icon);
-
-      
-
         // chuyển xem hình ảnh 
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\pre.png");
         jButton3.setIcon(icon);
@@ -886,7 +865,6 @@ public class App extends javax.swing.JFrame {
         left1 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
         combo1 = new javax.swing.JComboBox<>();
         jPanel26 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
@@ -1109,7 +1087,6 @@ public class App extends javax.swing.JFrame {
         jToggleButton2.setText("Date");
         jToggleButton2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jToggleButton2.setFocusPainted(false);
-        jToggleButton2.setOpaque(true);
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
@@ -1122,7 +1099,6 @@ public class App extends javax.swing.JFrame {
         jToggleButton3.setText("A-Z");
         jToggleButton3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)));
         jToggleButton3.setFocusPainted(false);
-        jToggleButton3.setOpaque(true);
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
@@ -1316,6 +1292,11 @@ public class App extends javax.swing.JFrame {
         jButton15.setFocusable(false);
         jButton15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton15);
 
         combo.setEditable(true);
@@ -1390,7 +1371,7 @@ public class App extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGap(0, 1135, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1562,13 +1543,6 @@ public class App extends javax.swing.JFrame {
         });
         jToolBar2.add(jButton14);
 
-        jButton13.setBackground(new java.awt.Color(220, 211, 203));
-        jButton13.setBorder(null);
-        jButton13.setFocusable(false);
-        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton13);
-
         combo1.setEditable(true);
         combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         combo1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 1, 1, new java.awt.Color(220, 211, 203)));
@@ -1625,7 +1599,8 @@ public class App extends javax.swing.JFrame {
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("Enter TodoList Item");
-        jTextArea1.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextArea1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(255, 255, 255)));
+        jTextArea1.setCaretColor(new java.awt.Color(0, 0, 0));
         jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextArea1FocusGained(evt);
@@ -1679,7 +1654,7 @@ public class App extends javax.swing.JFrame {
             clearDetail();
             resetNote();
         } else {
-            int option = Dialog.YesNoCancel("Do you want to save changes", "Save Note");
+            int option = Dialog.YesNoCancel("Do you want to save changes ?", "Save Note");
             if (option == 0) {
                 jButton1ActionPerformed(null);
                 cardLayout.show(jPanel1, "home");
@@ -1735,7 +1710,7 @@ public class App extends javax.swing.JFrame {
 
     // lưu note văn bản
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        checkSave = true;
+//        checkSave = true;
         if ("".equals(jTextField1.getText())) {
             note.setTitle("NO TITLE");
         } else {
@@ -2139,8 +2114,6 @@ public class App extends javax.swing.JFrame {
         jPanel29.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jButton19.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
         jLabel9.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
-         jButton13.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-        jButton13.setBorder(BorderFactory.createEmptyBorder());
     }
 
     private void todoLight() {
@@ -2165,24 +2138,20 @@ public class App extends javax.swing.JFrame {
         jPanel29.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jButton19.setBackground(Color.decode(LightMode.SEARCH.getRGB()));
         jPanel30.setBorder(BorderFactory.createEmptyBorder());
-         jButton13.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-        jButton13.setBorder(BorderFactory.createEmptyBorder());
     }
 // =========================================================================================================
 
     // sắp xếp theo title
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         if (jToggleButton3.isSelected() == true) { // xếp tăng dần
-            Collections.sort(lastNotes, (n1, n2) -> {
+            Collections.sort(curNotes, (n1, n2) -> {
                 return n1.getTitle().compareToIgnoreCase(n2.getTitle());
             });
         } else { // xếp giảm dần
-            Collections.sort(lastNotes, (n1, n2) -> {
+            Collections.sort(curNotes, (n1, n2) -> {
                 return -n1.getTitle().compareToIgnoreCase(n2.getTitle());
             });
         }
-        curNotes.clear();
-        curNotes.addAll(lastNotes);
         loadNotes(curNotes);
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
@@ -2198,7 +2167,7 @@ public class App extends javax.swing.JFrame {
             clearDetail();
             resetNote();
         } else {
-            int option = Dialog.YesNoCancel("Do you want to save changes", "Save Note");
+            int option = Dialog.YesNoCancel("Do you want to save changes ?", "Save Note");
             if (option == 0) {
                 jButton12ActionPerformed(null);
                 cardLayout.show(jPanel1, "home");
@@ -2395,18 +2364,41 @@ public class App extends javax.swing.JFrame {
     // sắp xếp theo ngày tháng
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         if (jToggleButton2.isSelected() == true) { // xếp tăng dần
-            Collections.sort(lastNotes, (n1, n2) -> {
+            Collections.sort(curNotes, (n1, n2) -> {
                 return n1.getDateCreate().compareTo(n2.getDateCreate());
             });
         } else { // xếp giảm dần
-            Collections.sort(lastNotes, (n1, n2) -> {
+            Collections.sort(curNotes, (n1, n2) -> {
                 return -n1.getDateCreate().compareTo(n2.getDateCreate());
             });
         }
-        curNotes.clear();
-        curNotes.addAll(lastNotes);
         loadNotes(curNotes);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    // hight light văn bản
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        StyledDocument doc = jTextPane2.getStyledDocument();
+        int start = jTextPane2.getSelectionStart();  // vị trí index đầu tiên của chuỗi được chọn
+        int end = jTextPane2.getSelectionEnd();  // vị trí index cuối cùng của chuỗi được chọn
+        Style style = jTextPane2.addStyle("My Style", null);
+        boolean checkHightlight = false; // cờ hiệu kiểm tra văn bản được chọn có được gạch chân không
+        
+        // kiểm tra văn bản được chọn có ký tự được hightlight không
+        for (int i = start; i <= end; i++) {
+            AttributeSet attr = doc.getCharacterElement(i).getAttributes();
+            if (StyleConstants.getBackground(attr).equals(Color.YELLOW)) {
+                checkHightlight = true;
+                break;
+            }
+        }
+        if (checkHightlight == true) { // nếu chuỗi được chọn có hight thì un-hightlight
+            StyleConstants.setBackground(style, Color.WHITE);
+            doc.setCharacterAttributes(start, end - start, style, false);
+        } else { // ngược lại thì hightlight
+            StyleConstants.setBackground(style, Color.YELLOW);
+            doc.setCharacterAttributes(start, end - start, style, false);
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
 
     // value item sẽ thay đổi khi nhập giá trị mới
     private void changeItem(DocumentEvent evt, TodoList todo, TodoItem item) {
@@ -2423,29 +2415,6 @@ public class App extends javax.swing.JFrame {
     }
 
     // =========================================================================================================
-    // hight light
-    private void hightlight() {
-//        StyledDocument doc = textPane.getStyledDocument();
-//        int start = textPane.getSelectionStart();  // vị trí index đầu tiên của chuỗi được chọn
-//        int end = textPane.getSelectionEnd();  // vị trí index cuối cùng của chuỗi được chọn
-//        Style style = textPane.addStyle("My Style", null);
-//        boolean checkHightlight = false; // cờ hiệu kiểm tra văn bản được chọn có được gạch chân không
-//        // kiểm tra văn bản được chọn có ksy tự được hightlight không
-//        for (int i = start; i <= end; i++) {
-//            AttributeSet attr = doc.getCharacterElement(i).getAttributes();
-//            if (StyleConstants.getBackground(attr) == Color.YELLOW) {
-//                checkHightlight = true;
-//                break;
-//            }
-//        }
-//        if (checkHightlight == true) { // nếu chuỗi được chọn có hight thì un-hightlight
-//            StyleConstants.setBackground(style, Color.WHITE);
-//            doc.setCharacterAttributes(start, end - start, style, false);
-//        } else { // ngược lại thì hightlight
-//            StyleConstants.setBackground(style, Color.YELLOW);
-//            doc.setCharacterAttributes(start, end - start, style, false);
-//        }
-    }
 
     // đặt mật khẩu đối với ghi chú chưa có mật khẩu
     private String setPassword() {
@@ -2553,7 +2522,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton19;
