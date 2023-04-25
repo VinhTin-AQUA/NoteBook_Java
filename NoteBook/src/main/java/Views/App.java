@@ -207,7 +207,7 @@ public class App extends javax.swing.JFrame {
 
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\underline.png");
         jButton10.setIcon(icon);
-        
+
         icon = new ImageIcon(Ultility.path + "\\\\src\\\\main\\\\java\\\\icon\\\\hightlight.png");
         jButton15.setIcon(icon);
         // chuyển xem hình ảnh 
@@ -735,37 +735,22 @@ public class App extends javax.swing.JFrame {
 
     // load note
     private void loadNotes(LinkedList<Note> notes, String... searchTitle) {
-        // sort = true: sort A-Z
-        // sort = false: sort Z-A
         jPanel3.removeAll();
         if (notes.isEmpty() == false) {
-
-            LinkedList<Note> temp = null;
-            // danh sách notes được pin
+            
+            // danh sách notes pinned
             LinkedList<Note> pinnedNote = null;
-
             // danh sách notes chưa pin
             LinkedList<Note> unpinNote = null;
-
-            if (searchTitle.length > 0) {
-                temp = notes.stream().filter(note -> note.getTitle().toLowerCase().contains(searchTitle[0].toLowerCase()) == true)
-                        .collect(Collectors.toCollection(LinkedList::new));
-                pinnedNote = temp.stream().filter(note -> note.isPin() == true)
-                        .collect(Collectors.toCollection(LinkedList::new));
-                unpinNote = temp.stream().filter(note -> note.isPin() == false)
-                        .collect(Collectors.toCollection(LinkedList::new));
-            } else {
-                pinnedNote = notes.stream().filter(note -> note.isPin() == true)
-                        .collect(Collectors.toCollection(LinkedList::new));
-                unpinNote = notes.stream().filter(note -> note.isPin() == false)
-                        .collect(Collectors.toCollection(LinkedList::new));
-            }
-
+            
+            pinnedNote = notes.stream().filter(note -> note.isPin() == true)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            unpinNote = notes.stream().filter(note -> note.isPin() == false)
+                    .collect(Collectors.toCollection(LinkedList::new));
             // hiển thị các note được ghim trước
             for (Note _note : pinnedNote) {
                 noteItem(_note);
             }
-
             // hiển thị các note không được ghim sau
             for (Note _note : unpinNote) {
                 noteItem(_note);
@@ -946,11 +931,6 @@ public class App extends javax.swing.JFrame {
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
-            }
-        });
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField2KeyPressed(evt);
             }
         });
         jPanel9.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 330, 40));
@@ -1600,7 +1580,6 @@ public class App extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jTextArea1.setText("Enter TodoList Item");
         jTextArea1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(255, 255, 255)));
-        jTextArea1.setCaretColor(new java.awt.Color(0, 0, 0));
         jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextArea1FocusGained(evt);
@@ -1929,13 +1908,6 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    // ô tìm kiếm note theo title
-    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // enter
-//            loadNoteTypes(noteTypeNotes, sort, jTextField2.getText());
-        }
-    }//GEN-LAST:event_jTextField2KeyPressed
-
     // tự động bôi đen title khi focus
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         jTextField1.selectAll(); // bôi đen toàn bộ văn bản
@@ -1972,19 +1944,19 @@ public class App extends javax.swing.JFrame {
         jLabel15.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
         jToggleButton3.setForeground(Color.decode(DarkMode.TEXT_COLOR.getRGB()));
         jToggleButton3.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jToggleButton2.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jButton11.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jPanel23.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-         jPanel23.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
-         jLabel15.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jLabel14.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jLabel13.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jLabel4.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
-         newnode.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-         jButton5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-         newtype.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-         jButton20.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
-       newnode.setBorder(BorderFactory.createMatteBorder(1, 2, 3, 1, Color.decode(DarkMode.BUTTON.getRGB())));
+        jToggleButton2.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jButton11.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jPanel23.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jPanel23.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
+        jLabel15.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jLabel14.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jLabel13.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
+        jLabel4.setForeground(Color.decode(DarkMode.WHITE.getRGB()));
+        newnode.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jButton5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        newtype.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jButton20.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        newnode.setBorder(BorderFactory.createMatteBorder(1, 2, 3, 1, Color.decode(DarkMode.BUTTON.getRGB())));
         jButton5.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
         newtype.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
         jButton20.setBorder(BorderFactory.createLineBorder(Color.decode(DarkMode.BUTTON.getRGB())));
@@ -1994,7 +1966,7 @@ public class App extends javax.swing.JFrame {
         jButton20.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
         jTextField1.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
         task.setBackground(Color.decode(DarkMode.BUTTON.getRGB()));
-       
+
     }
 
     private void homeLight() {
@@ -2003,9 +1975,8 @@ public class App extends javax.swing.JFrame {
         jPanel10.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel4.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
-        
+
         // body - home
-        
         jPanel3.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel14.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel16.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
@@ -2016,16 +1987,16 @@ public class App extends javax.swing.JFrame {
         jToggleButton3.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         jToggleButton3.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
         jToggleButton2.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
-          jPanel23.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
-         jPanel23.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-         jLabel14.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
-         jLabel13.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
-         
-         newnode.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
-         jButton5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
-         newtype.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
-         jButton20.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
-       newnode.setBorder(BorderFactory.createMatteBorder(1, 2, 3, 1, Color.LIGHT_GRAY));
+        jPanel23.setBackground(Color.decode(LightMode.BUTTON.getRGB()));
+        jPanel23.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        jLabel14.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jLabel13.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+
+        newnode.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+        jButton5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+        newtype.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+        jButton20.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
+        newnode.setBorder(BorderFactory.createMatteBorder(1, 2, 3, 1, Color.LIGHT_GRAY));
         jButton5.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         newtype.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         jButton20.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -2039,7 +2010,7 @@ public class App extends javax.swing.JFrame {
     private void textDark() {
         // header - text
         NOTEBOOK.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
-       task.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
+        task.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         left.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jLabel2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jPanel2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
@@ -2059,14 +2030,14 @@ public class App extends javax.swing.JFrame {
         jPanel5.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jTextField1.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jTextField1.setForeground(Color.decode(DarkMode.BUTTON.getRGB()));
-         jButton15.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
+        jButton15.setBackground(Color.decode(DarkMode.BODY_cOLOR.getRGB()));
         jButton15.setBorder(BorderFactory.createEmptyBorder());
     }
 
     private void textLight() {
         // header - text
         NOTEBOOK.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-       
+
         left.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jPanel2.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
@@ -2085,9 +2056,9 @@ public class App extends javax.swing.JFrame {
         jPanel5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField1.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField1.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
-          task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-          jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
-           jButton15.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        task.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        jLabel2.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
+        jButton15.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton15.setBorder(BorderFactory.createEmptyBorder());
     }
 
@@ -2095,7 +2066,7 @@ public class App extends javax.swing.JFrame {
         // header
         jPanel24.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jToolBar2.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
-    
+
         jLabel12.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(DarkMode.HEADER_cOLOR.getRGB()));
@@ -2124,7 +2095,7 @@ public class App extends javax.swing.JFrame {
         jLabel12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel9.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         NOTEBOOK1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
-         left1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
+        left1.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton12.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jButton14.setBackground(Color.decode(LightMode.HEADER_cOLOR.getRGB()));
         jLabel9.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
@@ -2132,7 +2103,7 @@ public class App extends javax.swing.JFrame {
         jTextField5.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jTextField5.setForeground(Color.decode(LightMode.TEXT_COLOR.getRGB()));
         jTextField5.setBorder(BorderFactory.createEmptyBorder());
-                
+
         jPanel28.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel30.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
         jPanel29.setBackground(Color.decode(LightMode.BODY_cOLOR.getRGB()));
@@ -2294,7 +2265,18 @@ public class App extends javax.swing.JFrame {
     //  tìm kiếm theo title
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         String searchString = jTextField2.getText();
-        loadNotes(curNotes, searchString);
+        if (searchString.length() > 0) {
+            LinkedList<Note> temp = lastNotes.stream()
+                    .filter(note -> note.getTitle().toLowerCase().contains(searchString.toLowerCase()) == true)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            curNotes.clear();
+            curNotes.addAll(temp);
+            loadNotes(curNotes, searchString);
+        } else {
+            curNotes.clear();
+            curNotes.addAll(lastNotes);
+            loadNotes(curNotes);
+        }
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     // hiển thị all notes
@@ -2382,7 +2364,7 @@ public class App extends javax.swing.JFrame {
         int end = jTextPane2.getSelectionEnd();  // vị trí index cuối cùng của chuỗi được chọn
         Style style = jTextPane2.addStyle("My Style", null);
         boolean checkHightlight = false; // cờ hiệu kiểm tra văn bản được chọn có được gạch chân không
-        
+
         // kiểm tra văn bản được chọn có ký tự được hightlight không
         for (int i = start; i <= end; i++) {
             AttributeSet attr = doc.getCharacterElement(i).getAttributes();
@@ -2403,19 +2385,17 @@ public class App extends javax.swing.JFrame {
     // value item sẽ thay đổi khi nhập giá trị mới
     private void changeItem(DocumentEvent evt, TodoList todo, TodoItem item) {
         todo.setItem(item.getTextArea().getText());
-       
+
     }
 
     // tick các item todolist
     private void changeItem(java.awt.event.ActionEvent evt, TodoList todo) {
         JCheckBox box = (JCheckBox) evt.getSource();
         todo.setCheck(box.isSelected());
-       
-        
+
     }
 
     // =========================================================================================================
-
     // đặt mật khẩu đối với ghi chú chưa có mật khẩu
     private String setPassword() {
         JPasswordField newPassWord = new JPasswordField();
