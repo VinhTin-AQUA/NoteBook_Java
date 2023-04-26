@@ -3,7 +3,7 @@ package _utility;
 
 import javax.swing.text.*;
 
-public class WrapEditorKit extends StyledEditorKit{
+public class WrapEditorKit extends StyledEditorKit{ // văn bản tự động xuống dòng khi hết hàng khi nhập văn bản
     ViewFactory defaultFactory = new WrapColumnFactory();
 
     public ViewFactory getViewFactory() {

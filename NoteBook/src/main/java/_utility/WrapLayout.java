@@ -6,7 +6,7 @@ import java.awt.*;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-public class WrapLayout extends FlowLayout
+public class WrapLayout extends FlowLayout // layout tự động xuống hàng
 {
   private Dimension preferredLayoutSize;
 

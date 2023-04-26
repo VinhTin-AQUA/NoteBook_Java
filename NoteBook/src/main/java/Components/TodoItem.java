@@ -24,8 +24,6 @@ public class TodoItem extends JPanel {
     }
     
     private void init() {
-        
-
         Dimension pre = new Dimension(680,200);
         this.setBackground(Color.decode("#FFFEFE"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));

@@ -27,7 +27,7 @@ public class NoteItem extends JTextPane{
      }
      
      private void init(Note _note) {
-         // định dạng hiển thị ngày tháng
+        // định dạng hiển thị ngày tháng
         DateFormat dateF = new SimpleDateFormat("E, dd-MM-yyyy");
         Font font = new Font("Arial", Font.BOLD, 18);
         // đặt kích thước cố định
@@ -57,6 +57,7 @@ public class NoteItem extends JTextPane{
         StyledDocument doc = this.getStyledDocument();
         Style style = this.addStyle("mystyle", null);
 
+        
         try {
             // style title
             StyleConstants.setForeground(style, Color.BLACK);
